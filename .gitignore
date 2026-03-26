@@ -10,5 +10,6 @@ server.log
 node_modules/
 dist/
 .codex/
+.claude/
 releases/*.zip
 releases/*.sha256
