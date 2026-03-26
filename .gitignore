@@ -1,0 +1,14 @@
+target/
+.env
+.ace-tool/
+data/
+tailwindcss
+server.log
+.idea/
+.vscode/
+.DS_Store
+node_modules/
+dist/
+.codex/
+releases/*.zip
+releases/*.sha256

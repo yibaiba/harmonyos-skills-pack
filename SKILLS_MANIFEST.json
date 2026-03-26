@@ -1,0 +1,24 @@
+{
+  "name": "harmonyos-skills-pack",
+  "version": "0.1.0",
+  "description": "Reusable HarmonyOS and universal product quality skills pack",
+  "skills": [
+    {
+      "id": "harmonyos-ark",
+      "canonical": "skills/harmonyos-ark/SKILL.md",
+      "claudeEntry": ".claude/skills/harmonyos-ark/SKILL.md",
+      "copilotEntry": ".github/skills/harmonyos-ark/SKILL.md"
+    },
+    {
+      "id": "universal-product-quality",
+      "canonical": "skills/universal-product-quality/SKILL.md",
+      "claudeEntry": ".claude/skills/universal-product-quality/SKILL.md",
+      "copilotEntry": ".github/skills/universal-product-quality/SKILL.md"
+    }
+  ],
+  "scripts": {
+    "install": "scripts/install-skills.sh",
+    "uninstall": "scripts/uninstall-skills.sh",
+    "sync": "scripts/sync-skills.sh"
+  }
+}

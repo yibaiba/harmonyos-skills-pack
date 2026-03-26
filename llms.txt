@@ -1,0 +1,22 @@
+# HarmonyOS Skills Pack - Machine Readable Index
+
+This repository is a reusable skills pack installable via git clone.
+
+## Skills
+- harmonyos-ark
+  - canonical: skills/harmonyos-ark/SKILL.md
+  - claude-entry: .claude/skills/harmonyos-ark/SKILL.md
+  - copilot-entry: .github/skills/harmonyos-ark/SKILL.md
+
+- universal-product-quality
+  - canonical: skills/universal-product-quality/SKILL.md
+  - claude-entry: .claude/skills/universal-product-quality/SKILL.md
+  - copilot-entry: .github/skills/universal-product-quality/SKILL.md
+
+## Install
+- scripts/install-skills.sh
+- scripts/uninstall-skills.sh
+
+## Maintenance
+- canonical source is skills/
+- run scripts/sync-skills.sh after modifying skills/
