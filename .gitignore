@@ -11,5 +11,6 @@ node_modules/
 dist/
 .codex/
 .claude/
+.github/
 releases/*.zip
 releases/*.sha256
