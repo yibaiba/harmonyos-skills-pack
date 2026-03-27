@@ -19,7 +19,7 @@
 | P1 | `10605034` | 泛型推断受限（`Array.from({length...})`） | 改显式 `number[]` 构造，再 `ForEach` |
 | P1 | `10605038` / `10605040` | 未命名对象类型或对象字面量直接作为类型 | 抽离 `interface/type`，避免内联对象类型声明 |
 | P1 | `10605099` | spread 刷新状态（`{ ...state }`、`[...arr]`） | 改显式字段复制或 `slice()/concat()` |
-| P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称；或使用了系统中不存在的符号资源名（如 `trophy`、`target`、`doc_on_doc`） | 静态资源字面量；使用前在 DevEco 搜索确认符号名存在；不存在的改为已验证可用名或改用本地图片资源 |
+| P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称；或使用了系统中不存在的符号资源名（如 `trophy`、`target`、`doc_on_doc`、`book_closed`） | 静态资源字面量；使用前在 DevEco 搜索确认符号名存在；不存在的改为已验证可用名或改用本地图片资源 |
 | P2 | deprecated 告警漂移：`animateTo`、`replaceUrl`、`getContext`、`AlertDialog.show`、`pushUrl`、`showDialog`、`showToast` | SDK 升级导致旧 API 逐步废弃 | 每次升级后先跑 guard 扫描，再按当前 SDK 推荐 API 迁移 |
 | P1 | WARN：`Function may throw exceptions. Special handling is required.` | 调用可能抛异常的函数（如 Preferences 读写、文件 I/O、网络请求）未用 try-catch 包裹 | 所有可能抛异常的调用必须 try-catch 或 async/await + catch；不可忽略此告警，累积后会导致运行时崩溃 |
 
