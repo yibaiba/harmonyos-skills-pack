@@ -141,47 +141,74 @@ SymbolGlyph($r('sys.symbol.ohos_wifi'))
 
 ## 组件设计规范索引
 
-**入口页**: https://developer.huawei.com/consumer/cn/doc/design-guides/component_navigation-0000001929763488
+**控件概览**: https://developer.huawei.com/consumer/cn/doc/design-guides/general_overview-0000001929599380
 
-> 以下为华为官方「控件」设计规范的同级组件分类。各页面位于 design-guides 导航左侧栏「控件」节点下，可从入口页侧边栏逐个访问。
+> 以下链接来自官方设计指南侧边栏「控件」节点，每个链接均为独立组件的设计规范页面。
 
 ### 导航类
-- Navigation 导航（页面跳转、返回栈管理）
-- TabBar 底部标签栏（3-5 个主功能入口）
-- NavigationBar 标题栏（页面标题、返回、操作入口）
-- SubTab 子页签 / SegmentedBar 分段控制
+| 组件 | 官方链接 |
+|------|---------|
+| 底部页签 | https://developer.huawei.com/consumer/cn/doc/design-guides/bottomtab-0000001956787789 |
+| 子页签 | https://developer.huawei.com/consumer/cn/doc/design-guides/chipsgroup-0000001929788350 |
+| 标题栏 | https://developer.huawei.com/consumer/cn/doc/design-guides/titlebar-0000001929628982 |
+| 导航点 | https://developer.huawei.com/consumer/cn/doc/design-guides/swiper-0000001957947629 |
 
-### 操作与输入类
-- Button 按钮（主/次/图标/悬浮/加载状态）
-- TextInput 输入框（单行/多行/密码/数字）
-- SearchInput 搜索框（联想词/历史/语音）
-- Stepper 步进器
+### 展示类
+| 组件 | 官方链接 |
+|------|---------|
+| 文本 | https://developer.huawei.com/consumer/cn/doc/design-guides/text-0000001956975261 |
+| 分隔器 | https://developer.huawei.com/consumer/cn/doc/design-guides/divider-0000001956815469 |
+| 子标题 | https://developer.huawei.com/consumer/cn/doc/design-guides/subheader-0000001929816012 |
+| 进度条 | https://developer.huawei.com/consumer/cn/doc/design-guides/progress-0000001929656644 |
+| 索引条 | https://developer.huawei.com/consumer/cn/doc/design-guides/alphabetindexer-0000001956975265 |
+| 滚动条 | https://developer.huawei.com/consumer/cn/doc/design-guides/scrollbar-0000001956815473 |
+| 新事件标记 | https://developer.huawei.com/consumer/cn/doc/design-guides/badge-0000001929816016 |
+| 即时反馈 | https://developer.huawei.com/consumer/cn/doc/design-guides/toast-0000001929656648 |
+| 即时操作 | https://developer.huawei.com/consumer/cn/doc/design-guides/component_snackbar-0000002340726169 |
+| 气泡提示 | https://developer.huawei.com/consumer/cn/doc/design-guides/popup-0000001956975269 |
+| 数据可视化 | https://developer.huawei.com/consumer/cn/doc/design-guides/datapanel-0000001956815481 |
+| 二维码 | https://developer.huawei.com/consumer/cn/doc/design-guides/qrcode-0000001929816020 |
+| 文本时钟 | https://developer.huawei.com/consumer/cn/doc/design-guides/textclock-0000001929656652 |
+| 图片 | https://developer.huawei.com/consumer/cn/doc/design-guides/image-0000001956975273 |
+| 空白 | https://developer.huawei.com/consumer/cn/doc/design-guides/blank-0000001956815485 |
 
-### 弹窗与反馈类
-- Dialog 对话框（确认/选择/自定义内容）
-- Popup 气泡弹窗
-- Toast 轻量提示
-- ActionSheet 操作菜单
-- Notification 通知
+### 操作类
+| 组件 | 官方链接 |
+|------|---------|
+| 按钮 | https://developer.huawei.com/consumer/cn/doc/design-guides/button-0000001929683228 |
+| 下拉按钮 | https://developer.huawei.com/consumer/cn/doc/design-guides/select-0000001957001873 |
+| 状态按钮 | https://developer.huawei.com/consumer/cn/doc/design-guides/togglebutton-0000001956842045 |
+| 操作块 | https://developer.huawei.com/consumer/cn/doc/design-guides/chips-0000001929842624 |
+| 工具栏 | https://developer.huawei.com/consumer/cn/doc/design-guides/toolbar-0000001929683232 |
+| 核心操作栏 | https://developer.huawei.com/consumer/cn/doc/design-guides/component_actionbar-0000002306891560 |
+| 菜单 | https://developer.huawei.com/consumer/cn/doc/design-guides/menu-0000001957001877 |
+| 文本选择菜单 | https://developer.huawei.com/consumer/cn/doc/design-guides/textselection-0000001956842049 |
 
-### 列表与容器类
-- List 列表（分组/吸顶/懒加载/滑动操作）
-- Grid 网格
-- WaterFlow 瀑布流
-- Card 卡片
+### 输入类
+| 组件 | 官方链接 |
+|------|---------|
+| 文本框 | https://developer.huawei.com/consumer/cn/doc/design-guides/textinput-0000001957012557 |
+| 搜索框 | https://developer.huawei.com/consumer/cn/doc/design-guides/search-0000001956852741 |
+| 数字加减 | https://developer.huawei.com/consumer/cn/doc/design-guides/counter-0000001929853284 |
+| 图案锁 | https://developer.huawei.com/consumer/cn/doc/design-guides/patternlock-0000001929853902 |
 
-### 选择与切换类
-- Picker 选择器（日期/时间/单选/多选）
-- Select 下拉选择
-- Checkbox 勾选框
-- Radio 单选
-- Switch 开关
-- Rating 评分
+### 选择类
+| 组件 | 官方链接 |
+|------|---------|
+| 勾选 | https://developer.huawei.com/consumer/cn/doc/design-guides/checkbox-0000001957012561 |
+| 开关 | https://developer.huawei.com/consumer/cn/doc/design-guides/toggleswitch-0000001956852745 |
+| 单选框 | https://developer.huawei.com/consumer/cn/doc/design-guides/radio-0000001929853288 |
+| 评分条 | https://developer.huawei.com/consumer/cn/doc/design-guides/rating-0000001929853906 |
+| 滑动条 | https://developer.huawei.com/consumer/cn/doc/design-guides/slider-0000001957012565 |
+| 选择器 | https://developer.huawei.com/consumer/cn/doc/design-guides/picker-0000001956852749 |
+| 分段按钮 | https://developer.huawei.com/consumer/cn/doc/design-guides/segmentbutton-0000001929853292 |
 
-### 状态与进度类
-- Progress 进度条（线形/圆环）
-- Slider 滑块（音量/亮度等连续值）
-- LoadingIndicator 加载指示器
+### 容器类
+| 组件 | 官方链接 |
+|------|---------|
+| 列表 | https://developer.huawei.com/consumer/cn/doc/design-guides/list-0000001929853910 |
+| 弹出框 | https://developer.huawei.com/consumer/cn/doc/design-guides/dialog-0000001957012569 |
+| 半模态面板 | https://developer.huawei.com/consumer/cn/doc/design-guides/bindsheet-0000001956852753 |
 
 ### 设计通用规则
 - 栅格与间距：以 8dp 为基础单位（8/16/24）

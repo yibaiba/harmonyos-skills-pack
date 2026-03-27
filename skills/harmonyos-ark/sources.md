@@ -26,6 +26,12 @@
 - HarmonyOS 主题图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-icon/
 - HarmonyOS Symbol 图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-symbol/
 - HarmonyOS Symbol 设计规范: https://developer.huawei.com/consumer/cn/doc/design-guides/system-icons-0000001929854962
+- 控件设计规范概览: https://developer.huawei.com/consumer/cn/doc/design-guides/general_overview-0000001929599380
+- 色彩规范: https://developer.huawei.com/consumer/cn/doc/design-guides/color-0000001776857164
+- 字体排印: https://developer.huawei.com/consumer/cn/doc/design-guides/font-0000001828772001
+- 布局基础: https://developer.huawei.com/consumer/cn/doc/design-guides/design-layout-basics-0000001795579413
+- 动效概述: https://developer.huawei.com/consumer/cn/doc/design-guides/design-animation-overview-0000001750985338
+- 深色模式: https://developer.huawei.com/consumer/cn/doc/design-guides/dark-mode-0000001823255497
 
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）
