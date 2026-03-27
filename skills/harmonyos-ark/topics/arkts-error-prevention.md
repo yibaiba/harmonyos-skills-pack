@@ -15,10 +15,11 @@
 | P0 | `10905210`：`@Entry` 组件 `build` 仅允许一个容器根节点 | DSL 解析错位或 `build` 结构被局部声明干扰 | `build()` 内只保留 UI DSL；辅助变量/逻辑抽到私有方法 |
 | P1 | `10505001`：属性冲突/类型不匹配（如 `size`、`onClick`、`ResourceStr -> Resource`） | 组件字段与链式 API 冲突，或资源参数类型不匹配 | `size -> ringSize`、`onClick -> onTap`，`SymbolGlyph` 参数使用 `Resource` |
 | P1 | `10505001`：`Property 'Black' does not exist on type 'typeof FontWeight'` | ArkTS `FontWeight` 枚举无 `Black`，Web/CSS 值照搬不兼容；同类问题：枚举成员名与 Web 端不一致 | 使用 ArkTS 可用值：`Lighter`/`Normal`/`Regular`/`Medium`/`Bold`/`Bolder`；`Black` → `Bolder`；写前先查 IDE 补全或官方 API 参考确认枚举成员 |
+| P1 | `10505001`：`'LengthMetrics' only refers to a type, but is being used as a value here` | 将类型当构造函数调用（如 `LengthMetrics.vp(16)`），但 ArkTS 中该符号仅为类型别名，不可直接实例化 | 改用对应的数值字面量或工厂函数；如 `LengthMetrics.vp(16)` → 直接传 `16`（单位默认 vp），或使用 `{ value: 16, unit: LengthUnit.VP }` 构造 |
 | P1 | `10605034` | 泛型推断受限（`Array.from({length...})`） | 改显式 `number[]` 构造，再 `ForEach` |
 | P1 | `10605038` / `10605040` | 未命名对象类型或对象字面量直接作为类型 | 抽离 `interface/type`，避免内联对象类型声明 |
 | P1 | `10605099` | spread 刷新状态（`{ ...state }`、`[...arr]`） | 改显式字段复制或 `slice()/concat()` |
-| P2 | `10905332` / `10903329` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称 | 静态资源字面量；不兼容符号改为已验证可用名 |
+| P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称；或使用了系统中不存在的符号资源名（如 `trophy`、`target`、`doc_on_doc`） | 静态资源字面量；使用前在 DevEco 搜索确认符号名存在；不存在的改为已验证可用名或改用本地图片资源 |
 | P2 | deprecated 告警漂移：`animateTo`、`replaceUrl`、`getContext`、`AlertDialog.show`、`pushUrl`、`showDialog`、`showToast` | SDK 升级导致旧 API 逐步废弃 | 每次升级后先跑 guard 扫描，再按当前 SDK 推荐 API 迁移 |
 | P1 | WARN：`Function may throw exceptions. Special handling is required.` | 调用可能抛异常的函数（如 Preferences 读写、文件 I/O、网络请求）未用 try-catch 包裹 | 所有可能抛异常的调用必须 try-catch 或 async/await + catch；不可忽略此告警，累积后会导致运行时崩溃 |
 
@@ -69,6 +70,14 @@ hvigor :entry:default@CompileArkTS
 - 日志含 `Property 'Xxx' does not exist on type 'typeof EnumName'`
 - 先查：是否照搬了 Web/CSS 枚举值（如 `FontWeight.Black`）
 - 处理：查 IDE 补全或官方 API 参考确认 ArkTS 可用枚举成员；`FontWeight` 可用值为 `Lighter`/`Normal`/`Regular`/`Medium`/`Bold`/`Bolder`
+
+- 日志含 `only refers to a type, but is being used as a value here`
+- 先查：是否把类型别名当构造函数调用（如 `LengthMetrics.vp(16)`）
+- 处理：改用数值字面量（默认 vp）或 `{ value: 16, unit: LengthUnit.VP }` 结构
+
+- 日志含 `Unknown resource name`
+- 先查：`$r('sys.symbol.xxx')` 中的符号名是否在当前 SDK 中存在
+- 处理：在 DevEco 搜索确认符号名，不存在的改为已验证可用名或本地图片资源
 
 ## 关联资产
 - 守卫入口：`../../arkts-modernization-guard/SKILL.md`
