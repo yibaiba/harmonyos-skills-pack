@@ -10,30 +10,73 @@
 - 当前目录 `skills/harmonyos-ark/` 是内容源目录，负责维护实际主题文档、模板与清单
 
 ## 目录结构
+
+### 入口与元数据
 - SKILL.md: 总 skill 入口，负责路由与回答模式
 - DESIGN.md: 设计决策、验收标准与基线
 - sources.md: 官方来源清单与优先级规则
-- topics/: 主题子文档
+
+### 主题文档 (topics/)
+
+#### ArkTS 核心
+- topics/arkts.md: ArkTS 深入主题（类型系统/装饰器/工程硬规范/审核建议）
+- topics/arkts-error-prevention.md: ArkTS 历史报错防回归档案（P0-P2 分级）
+
+#### ArkTS 官方开发指南（27 篇离线参考）
+- topics/arkts-guide-specs.md: 索引文件
+- topics/arkts-lang-basics.md: 语言基础（简介/入门/TS迁移/编程规范）
+- topics/arkts-stdlib.md: 基础类库（Buffer/XML/JSON）
+- topics/arkts-concurrency.md: 并发编程（Promise/TaskPool/Worker/线程通信）
+- topics/arkts-cross-lang.md: 跨语言交互（Node-API）
+- topics/arkts-runtime.md: 运行时（模块化/FAQ）
+- topics/arkts-toolchain.md: 编译工具链（ArkGuard/字节码）
+
+#### ArkUI 核心
+- topics/arkui.md: ArkUI 深入主题（声明式 UI/组件/布局/状态装饰器）
+
+#### ArkUI 官方开发指南（37 篇离线参考）
+- topics/arkui-guide-specs.md: 索引文件
+- topics/arkui-core.md: 核心（简介/语法/状态管理/渲染控制/术语）
+- topics/arkui-components.md: 组件（导航路由/布局/列表/文本/弹窗）
+- topics/arkui-interaction.md: 交互与动画
+- topics/arkui-advanced.md: 高级（自定义/国际化/无障碍/主题/性能）
+- topics/ui-design-kit.md: UI Design Kit（HDS 组件套件/图标/导航/视效/多窗，13 篇）
+
+#### 控件设计规范（41 个组件离线参考）
+- topics/component-design-specs.md: 索引文件
+- topics/component-navigation.md: 导航类（4 个）
+- topics/component-display.md: 展示类（15 个）
+- topics/component-action.md: 操作类（8 个）
+- topics/component-input.md: 输入类（4 个）
+- topics/component-selection.md: 选择类（7 个）
+- topics/component-container.md: 容器类（3 个）
+
+#### 应用模型与系统能力
+- topics/stage-ability.md: Stage 模型、UIAbility 生命周期
+- topics/routing-lifecycle.md: 页面路由、页面切换、生命周期
+- topics/state-management.md: 全局状态、数据绑定、状态共享
+- topics/network-data.md: 网络请求、持久化、数据库
+- topics/media-device.md: 相机、文件、媒体播放、权限
+- topics/testing-release.md: 测试、签名、打包、上架发布
+
+#### UX 与审核
+- topics/ux-standards.md: UX 体验标准（必须条款 + ArkUI 落地对照 + Symbol 图标）
+- topics/incentive-review-2025.md: 创作激励、审核规则、上架卡审、合规材料
+
+### 学习地图
 - learning/language-spec-learning-map.md: 语言规范学习地图（空项目快速上手）
-- starter-kit/: 鸿蒙项目极速实现包（脚手架、模块模板、执行流水线）
+
+### 检查清单 (checklists/)
 - checklists/pre-submission-2025.md: 按应用类型的提审前检查清单
-- checklists/arkts-regression-prevention.md: ArkTS 防回归快速清单（CodeWrench）
+- checklists/arkts-regression-prevention.md: ArkTS 防回归快速清单
 - checklists/universal-product-design-suggestions.md: 通用设计建议（功能丰富度 + 深色 + 多端）
-- topics/arkts-error-prevention.md: ArkTS 历史错误防回归档案（CodeWrench）
-- topics/arkts-guide-specs.md: ArkTS 开发指南索引（27 篇离线参考，按主题拆分为 6 个子文件）
-- topics/arkts-lang-basics.md: ArkTS 语言基础（简介/入门/TS迁移/编程规范）
-- topics/arkts-stdlib.md: ArkTS 基础类库（Buffer/XML/JSON）
-- topics/arkts-concurrency.md: ArkTS 并发编程（Promise/TaskPool/Worker/线程通信）
-- topics/arkts-cross-lang.md: ArkTS 跨语言交互（Node-API）
-- topics/arkts-runtime.md: ArkTS 运行时（模块化/FAQ）
-- topics/arkts-toolchain.md: ArkTS 编译工具链（ArkGuard/字节码）
-- topics/component-design-specs.md: 41 个控件设计规范索引（按分类拆分为 6 个子文件）
-- topics/component-navigation.md: 导航类控件（4 个）
-- topics/component-display.md: 展示类控件（15 个）
-- topics/component-action.md: 操作类控件（8 个）
-- topics/component-input.md: 输入类控件（4 个）
-- topics/component-selection.md: 选择类控件（7 个）
-- topics/component-container.md: 容器类控件（3 个）
+
+### 极速实现包 (starter-kit/)
+- starter-kit/SKILL.md: 主入口 + 资产路由
+- starter-kit/scaffold/: 项目骨架（目录结构 + 四层架构）
+- starter-kit/modules/: 模块模板（登录/列表/详情/表单/TabBar/深色适配等）
+- starter-kit/pipeline/: 执行流水线（Day1 清单/10 天排期/任务拆分/App 类型清单）
+- starter-kit/snippets/: 代码片段（常用模式 + 状态管理）
 
 ## 使用方式
 1. 先阅读 SKILL.md 的路由规则
