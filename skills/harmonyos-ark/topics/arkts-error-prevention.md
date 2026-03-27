@@ -18,6 +18,7 @@
 | P1 | `10605099` | spread 刷新状态（`{ ...state }`、`[...arr]`） | 改显式字段复制或 `slice()/concat()` |
 | P2 | `10905332` / `10903329` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称 | 静态资源字面量；不兼容符号改为已验证可用名 |
 | P2 | deprecated 告警漂移：`animateTo`、`replaceUrl`、`getContext`、`AlertDialog.show`、`pushUrl`、`showDialog`、`showToast` | SDK 升级导致旧 API 逐步废弃 | 每次升级后先跑 guard 扫描，再按当前 SDK 推荐 API 迁移 |
+| P1 | WARN：`Function may throw exceptions. Special handling is required.` | 调用可能抛异常的函数（如 Preferences 读写、文件 I/O、网络请求）未用 try-catch 包裹 | 所有可能抛异常的调用必须 try-catch 或 async/await + catch；不可忽略此告警，累积后会导致运行时崩溃 |
 
 ## 固化防回归流程（必做）
 
@@ -54,6 +55,10 @@ hvigor :entry:default@CompileArkTS
 - 日志含 `In an '@Entry' decorated component, the 'build' method can have only one root node`
 - 先查：`build()` 内是否混入局部变量声明/非 DSL 语句
 - 处理：抽出辅助方法，保持单容器根节点
+
+- 告警含 `Function may throw exceptions`
+- 先查：该行调用的函数是否涉及 Preferences/文件/网络等 I/O 操作
+- 处理：用 `try { ... } catch (err) { ... }` 包裹；async 函数中用 `await + try-catch`
 
 ## 关联资产
 - 守卫入口：`../../arkts-modernization-guard/SKILL.md`
