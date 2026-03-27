@@ -20,7 +20,13 @@
 - checklists/arkts-regression-prevention.md: ArkTS 防回归快速清单（CodeWrench）
 - checklists/universal-product-design-suggestions.md: 通用设计建议（功能丰富度 + 深色 + 多端）
 - topics/arkts-error-prevention.md: ArkTS 历史错误防回归档案（CodeWrench）
-- topics/component-design-specs.md: 41 个控件设计规范离线参考（从官方 SPA 提取）
+- topics/component-design-specs.md: 41 个控件设计规范索引（按分类拆分为 6 个子文件）
+- topics/component-navigation.md: 导航类控件（4 个）
+- topics/component-display.md: 展示类控件（15 个）
+- topics/component-action.md: 操作类控件（8 个）
+- topics/component-input.md: 输入类控件（4 个）
+- topics/component-selection.md: 选择类控件（7 个）
+- topics/component-container.md: 容器类控件（3 个）
 
 ## 使用方式
 1. 先阅读 SKILL.md 的路由规则
