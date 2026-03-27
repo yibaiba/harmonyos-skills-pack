@@ -20,6 +20,7 @@
 - checklists/arkts-regression-prevention.md: ArkTS 防回归快速清单（CodeWrench）
 - checklists/universal-product-design-suggestions.md: 通用设计建议（功能丰富度 + 深色 + 多端）
 - topics/arkts-error-prevention.md: ArkTS 历史错误防回归档案（CodeWrench）
+- topics/component-design-specs.md: 41 个控件设计规范离线参考（从官方 SPA 提取）
 
 ## 使用方式
 1. 先阅读 SKILL.md 的路由规则
