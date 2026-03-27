@@ -62,7 +62,7 @@ Current Version: 0.1.0
 - 可安装：支持安装到 Claude 标准技能目录或 Copilot 工作区目录
 - 可同步：维护目录与标准入口目录可一键同步
 - 可发布：已提供 release 打包与校验脚本
-- 可审查：带有提审前检查表、类型专项和风险专项
+- 可审查：带有提审前检查表、ArkTS 工程规范、静态检查清单和风险专项
 - 可扩展：可以继续追加新的 skill、module、checklist 和模板
 
 ## 快速开始
@@ -119,15 +119,15 @@ cd harmonyos-skills-pack
 ## 项目结构说明
 
 - .claude/skills/
-	- Claude 标准技能入口目录
+  - Claude 标准技能入口目录
 - .github/skills/
-	- Copilot 标准技能入口目录
+  - Copilot 标准技能入口目录
 - skills/
-	- 内容维护目录，作为 canonical source
+  - 内容维护目录，作为 canonical source
 - scripts/
-	- 安装、卸载、同步、校验、发布脚本
+  - 安装、卸载、同步、校验、发布脚本
 - releases/
-	- 生成的 zip 发布包与校验文件
+  - 生成的 zip 发布包与校验文件
 
 ## 发布与维护
 
@@ -176,6 +176,10 @@ cd harmonyos-skills-pack
 ArkUI 状态管理、页面路由和生命周期要分别看哪些主题文档
 ```
 
+```text
+帮我按 ArkTS 规范检查命名、类型使用、装饰器边界、异步错误处理和依赖方向
+```
+
 ### 激励与提审
 
 ```text
@@ -221,6 +225,6 @@ ArkUI 状态管理、页面路由和生命周期要分别看哪些主题文档
 - 若你只需要鸿蒙相关能力，可以单独使用 harmonyos-ark。
 - 涉及 2025 激励规则和提审策略时，最终仍以华为官方当期页面和 AGC 审核要求为准。
 
-# 交流
+## 交流
 
-QQ 群: 1029748283 
+QQ 群: 1029748283
