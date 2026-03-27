@@ -20,6 +20,13 @@
 - checklists/arkts-regression-prevention.md: ArkTS 防回归快速清单（CodeWrench）
 - checklists/universal-product-design-suggestions.md: 通用设计建议（功能丰富度 + 深色 + 多端）
 - topics/arkts-error-prevention.md: ArkTS 历史错误防回归档案（CodeWrench）
+- topics/arkts-guide-specs.md: ArkTS 开发指南索引（27 篇离线参考，按主题拆分为 6 个子文件）
+- topics/arkts-lang-basics.md: ArkTS 语言基础（简介/入门/TS迁移/编程规范）
+- topics/arkts-stdlib.md: ArkTS 基础类库（Buffer/XML/JSON）
+- topics/arkts-concurrency.md: ArkTS 并发编程（Promise/TaskPool/Worker/线程通信）
+- topics/arkts-cross-lang.md: ArkTS 跨语言交互（Node-API）
+- topics/arkts-runtime.md: ArkTS 运行时（模块化/FAQ）
+- topics/arkts-toolchain.md: ArkTS 编译工具链（ArkGuard/字节码）
 - topics/component-design-specs.md: 41 个控件设计规范索引（按分类拆分为 6 个子文件）
 - topics/component-navigation.md: 导航类控件（4 个）
 - topics/component-display.md: 展示类控件（15 个）
