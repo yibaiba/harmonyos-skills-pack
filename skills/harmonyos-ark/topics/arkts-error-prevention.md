@@ -14,6 +14,7 @@
 | P0 | `10605999`：`Property 'get' does not exist on type 'never'` | `.then()` 闭包内赋值变量（`store = value`），ArkTS 不追踪闭包赋值，变量类型仍为初始 `null`；经 `if (!store) return` 收窄后变成 `never` | 提取 `getPrefsStore()` 方法通过 `return` 返回值，不用闭包赋值；调用方 `const store = await this.getPrefsStore()` 获得正确类型 |
 | P0 | `10905210`：`@Entry` 组件 `build` 仅允许一个容器根节点 | DSL 解析错位或 `build` 结构被局部声明干扰 | `build()` 内只保留 UI DSL；辅助变量/逻辑抽到私有方法 |
 | P1 | `10505001`：属性冲突/类型不匹配（如 `size`、`onClick`、`ResourceStr -> Resource`） | 组件字段与链式 API 冲突，或资源参数类型不匹配 | `size -> ringSize`、`onClick -> onTap`，`SymbolGlyph` 参数使用 `Resource` |
+| P1 | `10505001`：`Property 'Black' does not exist on type 'typeof FontWeight'` | ArkTS `FontWeight` 枚举无 `Black`，Web/CSS 值照搬不兼容；同类问题：枚举成员名与 Web 端不一致 | 使用 ArkTS 可用值：`Lighter`/`Normal`/`Regular`/`Medium`/`Bold`/`Bolder`；`Black` → `Bolder`；写前先查 IDE 补全或官方 API 参考确认枚举成员 |
 | P1 | `10605034` | 泛型推断受限（`Array.from({length...})`） | 改显式 `number[]` 构造，再 `ForEach` |
 | P1 | `10605038` / `10605040` | 未命名对象类型或对象字面量直接作为类型 | 抽离 `interface/type`，避免内联对象类型声明 |
 | P1 | `10605099` | spread 刷新状态（`{ ...state }`、`[...arr]`） | 改显式字段复制或 `slice()/concat()` |
@@ -64,6 +65,10 @@ hvigor :entry:default@CompileArkTS
 - 告警含 `Function may throw exceptions`
 - 先查：该行调用的函数是否涉及 Preferences/文件/网络等 I/O 操作
 - 处理：用 `try { ... } catch (err) { ... }` 包裹；async 函数中用 `await + try-catch`
+
+- 日志含 `Property 'Xxx' does not exist on type 'typeof EnumName'`
+- 先查：是否照搬了 Web/CSS 枚举值（如 `FontWeight.Black`）
+- 处理：查 IDE 补全或官方 API 参考确认 ArkTS 可用枚举成员；`FontWeight` 可用值为 `Lighter`/`Normal`/`Regular`/`Medium`/`Bold`/`Bolder`
 
 ## 关联资产
 - 守卫入口：`../../arkts-modernization-guard/SKILL.md`
