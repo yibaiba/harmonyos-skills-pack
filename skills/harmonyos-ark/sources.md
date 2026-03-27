@@ -33,6 +33,45 @@
 - 动效概述: https://developer.huawei.com/consumer/cn/doc/design-guides/design-animation-overview-0000001750985338
 - 深色模式: https://developer.huawei.com/consumer/cn/doc/design-guides/dark-mode-0000001823255497
 
+### Stage 模型与 Ability Kit
+- Stage 模型开发概述: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/stage-model-development-overview-V5
+- UIAbility 组件概述: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/uiability-overview-V5
+- UIAbility 生命周期: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/uiability-lifecycle-V5
+- 应用上下文 Context: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-context-stage-V5
+- 组件启动规则: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/component-startup-rules-V5
+
+### 导航与页面路由
+- 组件导航概述: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-navigation-introduction-V5
+- Navigation 组件导航（推荐）: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-navigation-navigation-V5
+- 页面路由 @ohos.router（不推荐）: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-routing-V5
+- Router 迁移 Navigation: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-router-to-navigation-V5
+
+### 状态管理
+- 状态管理概述: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-state-management-overview-V5
+- 状态管理最佳实践: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-state-management-best-practices-V5
+- 状态管理合理使用指导: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/properly-use-state-management-to-develope-V5
+
+### 数据持久化（ArkData）
+- 用户首选项: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/data-persistence-by-preferences-V5
+- 键值型数据库: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/data-persistence-by-kv-store-V5
+- 关系型数据库: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/data-persistence-by-rdb-store-V5
+
+### 网络请求（Network Kit）
+- HTTP 数据请求: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/http-request-V5
+- WebSocket 连接: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/websocket-connection-V5
+- Socket 连接: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/socket-connection-V5
+
+### 媒体与设备
+- Camera Kit 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/camera-overview-V5
+- Image Kit 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/image-overview-V5
+- Media Kit 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/media-kit-intro-V5
+
+### 测试、签名与发布（DevEco Studio）
+- 编译构建: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/ide-build-V5
+- 应用签名: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/ide-signing-V5
+- 测试框架: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/ide-test-V5
+- 应用发布: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/ide-publish-app-V5
+
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）
 - 官方 samples 与 codelabs（用于示例路径）
