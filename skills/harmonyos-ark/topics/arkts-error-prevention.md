@@ -11,6 +11,7 @@
 | --- | --- | --- | --- |
 | P0 | 运行时崩溃：`Illegal variable value error with decorated variable @Prop 'onTap'` | `@Prop` 修饰函数回调（如 `@Prop onTap: () => void`） | 函数回调改为普通成员（不加 `@Prop`），调用方继续传函数 |
 | P0 | `10605999`：`void & Promise<Preferences>`、`Property 'get/put/flush' does not exist` | 直接 `await preferences.getPreferences(...)` + `hostContext` 可空 | 统一封装 `getPrefsStore()`：先判空 `hostContext`，再 `.then(...)` 获取 `Preferences`，并在调用前判空 |
+| P0 | `10605999`：`Property 'get' does not exist on type 'never'` | `.then()` 闭包内赋值变量（`store = value`），ArkTS 不追踪闭包赋值，变量类型仍为初始 `null`；经 `if (!store) return` 收窄后变成 `never` | 提取 `getPrefsStore()` 方法通过 `return` 返回值，不用闭包赋值；调用方 `const store = await this.getPrefsStore()` 获得正确类型 |
 | P0 | `10905210`：`@Entry` 组件 `build` 仅允许一个容器根节点 | DSL 解析错位或 `build` 结构被局部声明干扰 | `build()` 内只保留 UI DSL；辅助变量/逻辑抽到私有方法 |
 | P1 | `10505001`：属性冲突/类型不匹配（如 `size`、`onClick`、`ResourceStr -> Resource`） | 组件字段与链式 API 冲突，或资源参数类型不匹配 | `size -> ringSize`、`onClick -> onTap`，`SymbolGlyph` 参数使用 `Resource` |
 | P1 | `10605034` | 泛型推断受限（`Array.from({length...})`） | 改显式 `number[]` 构造，再 `ForEach` |
@@ -51,6 +52,10 @@ hvigor :entry:default@CompileArkTS
 - 日志含 `void & Promise<Preferences>`
 - 先查：是否 `await preferences.getPreferences(...)`
 - 处理：替换为 `getPrefsStore()` 封装模式
+
+- 日志含 `does not exist on type 'never'`（Preferences 相关）
+- 先查：是否在 `.then()` 闭包内赋值后用 `if (!store) return` 收窄
+- 处理：提取 `getPrefsStore()` 方法，通过 return 返回值而非闭包赋值
 
 - 日志含 `In an '@Entry' decorated component, the 'build' method can have only one root node`
 - 先查：`build()` 内是否混入局部变量声明/非 DSL 语句
