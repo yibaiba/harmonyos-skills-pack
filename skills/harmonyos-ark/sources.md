@@ -20,7 +20,11 @@
 - 版本说明: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/overview-allversion
 - 多设备设计指南: https://developer.huawei.com/consumer/cn/doc/design-guides/phone-0000001776694632
 - 应用 UX 体验建议: https://developer.huawei.com/consumer/cn/doc/design-guides/ux-guidelines-overview-0000001760867048
+- 通用应用 UX 体验标准: https://developer.huawei.com/consumer/cn/doc/design-guides/ux-guidelines-general-0000001760708152
 - 设计规范总览: https://developer.huawei.com/consumer/cn/design/
+- 设计资源中心（字体/图标/组件库/模板）: https://developer.huawei.com/consumer/cn/design/resource/
+- HarmonyOS 主题图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-icon/
+- HarmonyOS Symbol 图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-symbol/
 
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）

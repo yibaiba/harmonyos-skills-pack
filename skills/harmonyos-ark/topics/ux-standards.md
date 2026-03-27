@@ -12,6 +12,15 @@
 - 电脑应用 UX 体验标准: https://developer.huawei.com/consumer/cn/doc/design-guides/ux-guidelines-2in1-0000001777895636
 - 设计理念: https://developer.huawei.com/consumer/cn/doc/design-guides/design-concepts-0000001795698445/
 
+## 设计资源下载
+- 设计资源中心（字体/图标/组件库/模板）: https://developer.huawei.com/consumer/cn/design/resource/
+- HarmonyOS Sans 字体: https://developer.huawei.com/consumer/cn/design/resource/#/font
+- HarmonyOS 主题图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-icon/
+- HarmonyOS Symbol 图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-symbol/
+- 设计规范与指南总览: https://developer.huawei.com/consumer/cn/design
+- JS Design HarmonyOS 组件库: https://js.design/community?category=detail&type=resource&id=60ba25d2fbc9478b602b237f
+- 支持格式：Sketch (.sketch)、Figma (.fig)、Adobe XD
+
 ## 必须条款速查（按审核维度）
 
 ### 1. 基础体验
