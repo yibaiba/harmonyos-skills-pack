@@ -96,6 +96,49 @@
 | 文字最小字号 | 正文字号设置 ≥ 12（fp 或 vp），不小于 8 |
 | 对比度 ≥ 4.5:1 | 避免浅灰色文字 + 白色背景组合；可用 DevEco Preview 检查 |
 
+## HarmonyOS Symbol 图标使用规范
+
+**官方指南**: https://developer.huawei.com/consumer/cn/doc/design-guides/system-icons-0000001929854962
+
+### 组件选择
+- `SymbolGlyph`：独立图标，支持事件交互
+- `SymbolSpan`：文本流内插入图标，不支持交互事件
+
+### 命名与引用
+- 统一前缀 `sys.symbol.`，如 `$r('sys.symbol.ohos_wifi')`
+- **使用前必须在官方图标库确认名称存在**（避免 `Unknown resource name` 编译错误）
+- 图标库查询: https://developer.huawei.com/consumer/cn/design/harmonyos-symbol/
+
+### 关键属性
+| 属性 | 说明 |
+|------|------|
+| `fontSize` | 图标大小（fp），仅影响图标尺寸 |
+| `fontWeight` | 线条粗细（100-900 或 Normal/Bold/Lighter） |
+| `fontColor` | 单色或多色数组，配合 renderingStrategy |
+| `renderingStrategy` | `SINGLE`（单色）/ `MULTIPLE_COLOR`（多色≤3）/ `MULTIPLE_OPACITY`（分层透明） |
+| `effectStrategy` | 动效：Appear/Disappear/Bounce/Scale/Replace/Pulse/Hierarchical |
+
+### 代码示例
+```typescript
+// 单色图标
+SymbolGlyph($r('sys.symbol.ohos_folder_badge_plus'))
+  .fontSize(48)
+  .fontColor([Color.Black])
+
+// 多色 + 动效
+SymbolGlyph($r('sys.symbol.ohos_wifi'))
+  .fontSize(24)
+  .fontWeight(FontWeight.Bold)
+  .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_COLOR)
+  .fontColor([Color.Black, Color.Green, Color.White])
+  .effectStrategy(SymbolEffectStrategy.SCALE)
+```
+
+### 注意事项
+- `SymbolGlyph` 参数类型为 `Resource`，不是 `string`
+- 并非所有图标都支持 fontWeight 调节
+- 自定义图标放 `resources/base/media/`，与系统资源分离管理
+
 ## 自检提示
 
 - 帮我按 HarmonyOS UX 体验标准检查这个页面的交互热区、对比度和动效

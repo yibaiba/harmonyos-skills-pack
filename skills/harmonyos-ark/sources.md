@@ -25,6 +25,7 @@
 - 设计资源中心（字体/图标/组件库/模板）: https://developer.huawei.com/consumer/cn/design/resource/
 - HarmonyOS 主题图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-icon/
 - HarmonyOS Symbol 图标库: https://developer.huawei.com/consumer/cn/design/harmonyos-symbol/
+- HarmonyOS Symbol 设计规范: https://developer.huawei.com/consumer/cn/doc/design-guides/system-icons-0000001929854962
 
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）
