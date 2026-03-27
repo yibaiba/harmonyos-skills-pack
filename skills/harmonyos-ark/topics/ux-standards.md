@@ -139,6 +139,56 @@ SymbolGlyph($r('sys.symbol.ohos_wifi'))
 - 并非所有图标都支持 fontWeight 调节
 - 自定义图标放 `resources/base/media/`，与系统资源分离管理
 
+## 组件设计规范索引
+
+**入口页**: https://developer.huawei.com/consumer/cn/doc/design-guides/component_navigation-0000001929763488
+
+> 以下为华为官方「控件」设计规范的同级组件分类。各页面位于 design-guides 导航左侧栏「控件」节点下，可从入口页侧边栏逐个访问。
+
+### 导航类
+- Navigation 导航（页面跳转、返回栈管理）
+- TabBar 底部标签栏（3-5 个主功能入口）
+- NavigationBar 标题栏（页面标题、返回、操作入口）
+- SubTab 子页签 / SegmentedBar 分段控制
+
+### 操作与输入类
+- Button 按钮（主/次/图标/悬浮/加载状态）
+- TextInput 输入框（单行/多行/密码/数字）
+- SearchInput 搜索框（联想词/历史/语音）
+- Stepper 步进器
+
+### 弹窗与反馈类
+- Dialog 对话框（确认/选择/自定义内容）
+- Popup 气泡弹窗
+- Toast 轻量提示
+- ActionSheet 操作菜单
+- Notification 通知
+
+### 列表与容器类
+- List 列表（分组/吸顶/懒加载/滑动操作）
+- Grid 网格
+- WaterFlow 瀑布流
+- Card 卡片
+
+### 选择与切换类
+- Picker 选择器（日期/时间/单选/多选）
+- Select 下拉选择
+- Checkbox 勾选框
+- Radio 单选
+- Switch 开关
+- Rating 评分
+
+### 状态与进度类
+- Progress 进度条（线形/圆环）
+- Slider 滑块（音量/亮度等连续值）
+- LoadingIndicator 加载指示器
+
+### 设计通用规则
+- 栅格与间距：以 8dp 为基础单位（8/16/24）
+- 组件状态：必须区分常规/按压/聚焦/禁用/错误状态
+- 动效时长：操作反馈 200-300ms，采用贝塞尔曲线
+- 响应式布局：手机单列、平板多列，组件条件渲染
+
 ## 自检提示
 
 - 帮我按 HarmonyOS UX 体验标准检查这个页面的交互热区、对比度和动效
