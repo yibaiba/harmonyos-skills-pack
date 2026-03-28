@@ -4,7 +4,7 @@
 # 退出码: 0=passed, 1=failed(P0/P1), 2=warning(仅P2)
 
 param(
-    [string]$ScanDir = "entry\src\main\ets"
+    [string]$ScanDir = (Join-Path "entry" "src" "main" "ets")
 )
 
 $ErrorActionPreference = "Stop"
