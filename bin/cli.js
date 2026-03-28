@@ -185,16 +185,6 @@ try {
     }
   }
 
-  // 复制 AGENTS.md 和 CLAUDE.md 到项目根目录（如果不存在）
-  for (const f of ['AGENTS.md', 'CLAUDE.md']) {
-    const src = path.join(sourceRoot, f);
-    const dst = path.join(targetDir, f);
-    if (fs.existsSync(src) && (!fs.existsSync(dst) || force)) {
-      fs.copyFileSync(src, dst);
-      console.log(`  ${color.green('✓')} ${f}`);
-    }
-  }
-
   // 完成
   console.log(`
 ${color.green(color.bold(`✅ 安装完成！${installed} 个 skill 目录已就位。`))}

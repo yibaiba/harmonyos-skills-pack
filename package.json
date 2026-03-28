@@ -1,6 +1,6 @@
 {
   "name": "harmonyos-skills-pack",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "一键安装鸿蒙 Ark 开发文档 + 通用产品质量 skills pack，适配 Claude/Copilot/Codex Agent",
   "keywords": [
     "harmonyos",
