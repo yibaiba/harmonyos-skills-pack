@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/harmonyos-skills-pack.svg)](https://www.npmjs.com/package/harmonyos-skills-pack)
 [![GitHub release](https://img.shields.io/github/v/release/yibaiba/harmonyos-skills-pack)](https://github.com/yibaiba/harmonyos-skills-pack/releases)
 
-Current Version: 0.1.1
+Current Version: 0.1.3
 
 这是一个面向 Claude、GitHub Copilot、Codex 等 Coding Agent 的可安装 Skills 项目。
 
@@ -20,7 +20,7 @@ Current Version: 0.1.1
 
 ## 包含内容
 
-当前版本包含两个核心技能：
+当前版本包含两个核心技能和一个子技能：
 
 ### 1. harmonyos-ark
 
@@ -30,16 +30,27 @@ Current Version: 0.1.1
 - 网络请求、本地存储、媒体与设备能力
 - 测试、签名、打包、上架发布
 - 2025 创作激励与审核避坑
-- Starter Kit 极速实现包
+- Starter Kit 极速实现包（16 模块）
 
-其中 starter-kit 已包含 15 个模块模板：
+其中 starter-kit 已包含 16 个模块模板：
 
 - 登录模块、单机离线/免登录、游客升级登录同步
-- 列表页、详情页、表单页、TabBar 导航
+- 列表页、详情页、表单页、TabBar 导航、抽屉导航
 - 深色模式与多端适配模板
+- 状态管理最佳实践
 - 本地数据持久化、后台任务、通知处理
 - WebSocket 实时通信、相机与媒体、支付与计费
 - Day-by-Day 执行顺序与提审前清单
+
+#### 1.1 arkts-modernization-guard（子技能）
+
+ArkTS 编译现代化守卫，自动扫描代码中的已知坑：
+
+- 9 条扫描规则（P0/P1/P2 分级）
+- 自动检测 `@Prop` 函数回调、`FontWeight.Black`、deprecated API 等
+- 15+ 错误码→修复方案映射表
+- 9 个 diff 格式代码替换模板
+- bash 扫描脚本，可集成 CI/CD
 
 ### 2. universal-product-quality
 
@@ -146,12 +157,17 @@ cd harmonyos-skills-pack
 
 ## 项目结构说明
 
-- .claude/skills/
-  - Claude 标准技能入口目录
-- .github/skills/
-  - Copilot 标准技能入口目录
 - skills/
   - 内容维护目录，作为 canonical source
+  - harmonyos-ark/ — 鸿蒙 Ark 开发技能（52 主题 + starter-kit + 清单）
+    - arkts-modernization-guard/ — ArkTS 编译现代化守卫（子技能）
+  - universal-product-quality/ — 通用产品质量检查技能
+- .claude/skills/
+  - Claude 标准技能入口目录（由 sync-skills.sh 生成）
+- .github/skills/
+  - Copilot 标准技能入口目录（由 sync-skills.sh 生成）
+- bin/
+  - npx CLI 安装器
 - scripts/
   - 安装、卸载、同步、校验、发布脚本
 - releases/
@@ -206,6 +222,20 @@ ArkUI 状态管理、页面路由和生命周期要分别看哪些主题文档
 
 ```text
 帮我按 ArkTS 规范检查命名、类型使用、装饰器边界、异步错误处理和依赖方向
+```
+
+### ArkTS 编译错误排查
+
+```text
+编译报错 10505001，帮我定位根因和修复方案
+```
+
+```text
+帮我扫描项目中的 deprecated API 和已知编译坑，给出替换建议
+```
+
+```text
+运行 arkts-modernization-guard 扫描，检查是否有 @Prop 回调、FontWeight.Black 等问题
 ```
 
 ### 激励与提审
