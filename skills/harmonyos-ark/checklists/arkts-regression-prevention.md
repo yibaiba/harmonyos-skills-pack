@@ -73,3 +73,11 @@
 ### 复盘记录
 - [ ] 记录失败原因、根因分析、修复方案
 - [ ] 若为高频模式（≥2 次出现），提议加入 guard 自动扫描规则
+
+---
+
+## See Also
+
+- [../topics/arkts-error-prevention.md](../topics/arkts-error-prevention.md) — ArkTS 历史报错防回归档案
+- [../topics/arkts.md](../topics/arkts.md) — ArkTS 深入主题
+- [../../arkts-modernization-guard/SKILL.md](../../arkts-modernization-guard/SKILL.md) — 编译现代化守卫
