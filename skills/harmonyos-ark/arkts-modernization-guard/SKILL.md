@@ -50,11 +50,21 @@ bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-mo
 查 error-to-fix-map.md → 修复 → 重新扫描
 ```
 
+**运行命令**：
+```bash
+# macOS / Linux
+bash scripts/scan-arkts-modernization.sh [扫描目录]
+
+# Windows PowerShell
+pwsh scripts/scan-arkts-modernization.ps1 [-ScanDir <目录>]
+```
+
 ## 相关资产
 
 | 文件 | 用途 |
 |------|------|
-| [scripts/scan-arkts-modernization.sh](scripts/scan-arkts-modernization.sh) | 自动扫描脚本 |
+| [scripts/scan-arkts-modernization.sh](scripts/scan-arkts-modernization.sh) | 自动扫描脚本（macOS/Linux） |
+| [scripts/scan-arkts-modernization.ps1](scripts/scan-arkts-modernization.ps1) | 自动扫描脚本（Windows PowerShell） |
 | [references/error-to-fix-map.md](references/error-to-fix-map.md) | 错误码→修复方案映射 |
 | [snippets/replacement-patterns.md](snippets/replacement-patterns.md) | 代码替换模板 |
 
