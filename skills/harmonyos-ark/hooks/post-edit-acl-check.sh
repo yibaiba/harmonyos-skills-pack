@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 # PostToolUse Hook: 编辑 module.json5 后检查是否新增了 ACL 受限权限
-# 适用于: Claude Code / Codex CLI
-# 输入: stdin JSON
+# 适用于: Claude Code / GitHub Copilot / Codex CLI
+# 输入: stdin JSON（Claude: tool_input.path / Copilot: toolArgs 含 path）
 # 输出: 告警信息（Agent 可见）
 
 set -euo pipefail
 
 INPUT=$(cat)
 
-# 提取文件路径
+# --- 提取文件路径（兼容三平台） ---
+FILE_PATH=""
+
+# 1) Claude: "file_path" 或 "path"
 FILE_PATH=$(echo "$INPUT" | grep -o '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "")
 if [ -z "$FILE_PATH" ]; then
   FILE_PATH=$(echo "$INPUT" | grep -o '"path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "")
+fi
+
+# 2) Copilot: toolArgs JSON 字符串中的 \"path\":\"xxx\"
+if [ -z "$FILE_PATH" ]; then
+  FILE_PATH=$(echo "$INPUT" | grep -o '\\"path\\"[[:space:]]*:[[:space:]]*\\"[^\\]*\\"' | head -1 | sed 's/.*\\"path\\"[[:space:]]*:[[:space:]]*\\"\([^\\]*\)\\".*/\1/' 2>/dev/null || echo "")
 fi
 
 # 仅对 module.json5 触发

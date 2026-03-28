@@ -1,22 +1,34 @@
 # PostToolUse Hook: 编辑 module.json5 后检查是否新增了 ACL 受限权限
 # 适用于: Claude Code / GitHub Copilot / Codex CLI (Windows)
-# 输入: stdin JSON
+# 输入: stdin JSON（Claude: tool_input.path / Copilot: toolArgs 含 path）
 # 输出: 告警信息（Agent 可见）
 
 $ErrorActionPreference = "SilentlyContinue"
 
-$Input = $null
+$RawInput = $null
 try {
-    $Input = [Console]::In.ReadToEnd() | ConvertFrom-Json
+    $RawInput = [Console]::In.ReadToEnd()
+    $ParsedInput = $RawInput | ConvertFrom-Json
 } catch {
-    $Input = $null
+    $ParsedInput = $null
 }
 
+# --- 提取文件路径（兼容三平台） ---
 $FilePath = ""
-if ($Input -and $Input.file_path) {
-    $FilePath = $Input.file_path
-} elseif ($Input -and $Input.tool_input -and $Input.tool_input.path) {
-    $FilePath = $Input.tool_input.path
+
+# 1) Claude 格式
+if ($ParsedInput -and $ParsedInput.file_path) {
+    $FilePath = $ParsedInput.file_path
+} elseif ($ParsedInput -and $ParsedInput.tool_input -and $ParsedInput.tool_input.path) {
+    $FilePath = $ParsedInput.tool_input.path
+}
+
+# 2) Copilot 格式: toolArgs 是 JSON 字符串
+if (-not $FilePath -and $ParsedInput -and $ParsedInput.toolArgs) {
+    try {
+        $ToolArgs = $ParsedInput.toolArgs | ConvertFrom-Json
+        if ($ToolArgs.path) { $FilePath = $ToolArgs.path }
+    } catch {}
 }
 
 # 仅对 module.json5 触发

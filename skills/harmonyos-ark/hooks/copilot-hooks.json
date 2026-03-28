@@ -1,18 +1,18 @@
 {
+  "version": 1,
   "hooks": {
-    "PostToolUse": [
+    "postToolUse": [
       {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".github/skills/harmonyos-ark/hooks/post-edit-arkts-scan.sh"
-          },
-          {
-            "type": "command",
-            "command": ".github/skills/harmonyos-ark/hooks/post-edit-acl-check.sh"
-          }
-        ]
+        "type": "command",
+        "bash": ".github/skills/harmonyos-ark/hooks/post-edit-arkts-scan.sh",
+        "powershell": ".github/skills/harmonyos-ark/hooks/post-edit-arkts-scan.ps1",
+        "timeoutSec": 30
+      },
+      {
+        "type": "command",
+        "bash": ".github/skills/harmonyos-ark/hooks/post-edit-acl-check.sh",
+        "powershell": ".github/skills/harmonyos-ark/hooks/post-edit-acl-check.ps1",
+        "timeoutSec": 15
       }
     ]
   }

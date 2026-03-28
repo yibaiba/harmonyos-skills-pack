@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # PostToolUse Hook: 编辑 .ets/.ts 文件后自动运行 ArkTS 现代化守卫扫描
-# 适用于: Claude Code / Codex CLI
-# 输入: stdin JSON（包含 tool_name, file_path 等）
+# 适用于: Claude Code / GitHub Copilot / Codex CLI
+# 输入: stdin JSON（Claude: tool_input.path / Copilot: toolArgs 含 path）
 # 输出: 扫描结果（Agent 可见）
 
 set -euo pipefail
@@ -9,13 +9,23 @@ set -euo pipefail
 # 从 stdin 读取 hook 输入（JSON）
 INPUT=$(cat)
 
-# 提取被编辑的文件路径
-FILE_PATH=$(echo "$INPUT" | grep -o '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "")
+# --- 提取文件路径（兼容 Claude / Copilot / Codex 三种 JSON 格式） ---
 
-# 如果无法解析文件路径，尝试从 tool_input 提取
+FILE_PATH=""
+
+# 1) Claude 格式: "file_path": "xxx" 或 tool_input.path
+FILE_PATH=$(echo "$INPUT" | grep -o '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "")
 if [ -z "$FILE_PATH" ]; then
   FILE_PATH=$(echo "$INPUT" | grep -o '"path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' 2>/dev/null || echo "")
 fi
+
+# 2) Copilot 格式: toolArgs 是 JSON 字符串，内含 \"path\":\"xxx\"
+if [ -z "$FILE_PATH" ]; then
+  FILE_PATH=$(echo "$INPUT" | grep -o '\\"path\\"[[:space:]]*:[[:space:]]*\\"[^\\]*\\"' | head -1 | sed 's/.*\\"path\\"[[:space:]]*:[[:space:]]*\\"\([^\\]*\)\\".*/\1/' 2>/dev/null || echo "")
+fi
+
+# 3) 兜底: Codex post_run 无文件信息，直接扫描默认目录
+# （FILE_PATH 为空时后续逻辑会扫描 entry/src/main/ets）
 
 # 仅对 .ets 和 .ts 文件触发扫描
 case "$FILE_PATH" in

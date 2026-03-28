@@ -1,24 +1,35 @@
 # PostToolUse Hook: 编辑 .ets/.ts 文件后自动运行 ArkTS 现代化守卫扫描
 # 适用于: Claude Code / GitHub Copilot / Codex CLI (Windows)
-# 输入: stdin JSON（包含 tool_name, file_path 等）
+# 输入: stdin JSON（Claude: tool_input.path / Copilot: toolArgs 含 path）
 # 输出: 扫描结果（Agent 可见）
 
 $ErrorActionPreference = "SilentlyContinue"
 
 # 从 stdin 读取 hook 输入
-$Input = $null
+$RawInput = $null
 try {
-    $Input = [Console]::In.ReadToEnd() | ConvertFrom-Json
+    $RawInput = [Console]::In.ReadToEnd()
+    $ParsedInput = $RawInput | ConvertFrom-Json
 } catch {
-    $Input = $null
+    $ParsedInput = $null
 }
 
-# 提取文件路径
+# --- 提取文件路径（兼容三平台） ---
 $FilePath = ""
-if ($Input -and $Input.file_path) {
-    $FilePath = $Input.file_path
-} elseif ($Input -and $Input.tool_input -and $Input.tool_input.path) {
-    $FilePath = $Input.tool_input.path
+
+# 1) Claude 格式: file_path 或 tool_input.path
+if ($ParsedInput -and $ParsedInput.file_path) {
+    $FilePath = $ParsedInput.file_path
+} elseif ($ParsedInput -and $ParsedInput.tool_input -and $ParsedInput.tool_input.path) {
+    $FilePath = $ParsedInput.tool_input.path
+}
+
+# 2) Copilot 格式: toolArgs 是 JSON 字符串
+if (-not $FilePath -and $ParsedInput -and $ParsedInput.toolArgs) {
+    try {
+        $ToolArgs = $ParsedInput.toolArgs | ConvertFrom-Json
+        if ($ToolArgs.path) { $FilePath = $ToolArgs.path }
+    } catch {}
 }
 
 # 仅对 .ets 和 .ts 文件触发
@@ -55,9 +66,11 @@ if (Test-Path $ScanDir -PathType Container) {
     Write-Host "[Hook] 🔍 ArkTS 守卫扫描中..."
     try { pwsh $ScanScript -ScanDir $ScanDir } catch {}
 } else {
-    $FileDir = Split-Path -Parent $FilePath
-    if ($FileDir -and (Test-Path $FileDir -PathType Container)) {
-        Write-Host "[Hook] 🔍 ArkTS 守卫扫描: $FileDir"
-        try { pwsh $ScanScript -ScanDir $FileDir } catch {}
+    if ($FilePath) {
+        $FileDir = Split-Path -Parent $FilePath
+        if ($FileDir -and (Test-Path $FileDir -PathType Container)) {
+            Write-Host "[Hook] 🔍 ArkTS 守卫扫描: $FileDir"
+            try { pwsh $ScanScript -ScanDir $FileDir } catch {}
+        }
     }
 }
