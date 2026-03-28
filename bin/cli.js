@@ -13,7 +13,7 @@
  *   npx harmonyos-skills-pack --claude-only  # 仅安装 .claude/skills
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -134,10 +134,16 @@ try {
     const label = url.includes('ghproxy') ? '国内镜像' : 'GitHub';
     console.log(`  📥 ${i > 0 ? '回退到 ' : ''}下载 (${label})`);
     try {
-      execSync(`curl -sL --connect-timeout 10 "${url}" | tar -xz -C "${tmpDir}"`, {
+      const archivePath = path.join(tmpDir, 'archive.tar.gz');
+      execFileSync('curl', ['-sL', '--connect-timeout', '10', '-o', archivePath, url], {
         stdio: ['pipe', 'pipe', 'pipe'],
         timeout: 60000,
       });
+      execFileSync('tar', ['-xzf', archivePath, '-C', tmpDir], {
+        stdio: ['pipe', 'pipe', 'pipe'],
+        timeout: 30000,
+      });
+      fs.unlinkSync(archivePath);
       downloaded = true;
       break;
     } catch (e) {

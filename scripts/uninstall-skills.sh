@@ -55,8 +55,8 @@ while [[ $# -gt 0 ]]; do
       ;;
     --all)
       UNINSTALL_CLAUDE=true
-      COPILOT_WORKSPACE="$(pwd)"
-      CODEX_WORKSPACE="$(pwd)"
+      [[ -z "$COPILOT_WORKSPACE" ]] && COPILOT_WORKSPACE="$(pwd)"
+      [[ -z "$CODEX_WORKSPACE" ]] && CODEX_WORKSPACE="$(pwd)"
       shift
       ;;
     -h|--help)

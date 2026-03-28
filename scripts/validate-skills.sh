@@ -20,8 +20,9 @@ PASSED=0
 FAILED=0
 
 check() {
+  local exit_code=$?
   TOTAL=$((TOTAL + 1))
-  if [[ $? -eq 0 ]]; then
+  if [[ $exit_code -eq 0 ]]; then
     PASSED=$((PASSED + 1))
     echo -e "${GREEN}✓ $1${NC}"
   else
