@@ -27,6 +27,16 @@ Modifier机制
 
 本文介绍如何实现应用程序UI界面的国际化，包含资源配置和镜像布局，关于应用适配国际化的详细参考，请参考Localization Kit（本地化开发服务）。
 
+### 关键实现路径
+
+| 需求 | 方案 | 参考 |
+|------|------|------|
+| 多语言文本 | 资源限定词目录（`zh_CN/`、`en_US/`、`ja_JP/`） | 资源分类与访问 |
+| 复数/性别规则 | LocalizationKit `getPluralStringValue()` | [Localization Kit 开发指南](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/localization-kit-guidelines) |
+| 日期/数字格式 | `Intl.DateTimeFormat` / `Intl.NumberFormat` | ArkTS 标准库 |
+| RTL 镜像 | `.direction(Direction.Auto)` + 镜像能力 | 见下文"使用镜像能力" |
+| 动态切换语言 | `@ohos.intl` + AppStorage 监听 | 需配合 Ability 重建 |
+
 利用资源限定词配置国际化资源
 
 在开发阶段，通过DevEco Studio，可以为应用在对应语言和地区的资源限定词目录下配置不同的资源，来实现UI国际化。详细介绍请参考资源分类与访问。

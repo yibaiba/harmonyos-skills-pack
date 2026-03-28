@@ -79,6 +79,27 @@ hvigor :entry:default@CompileArkTS
 - 先查：`$r('sys.symbol.xxx')` 中的符号名是否在当前 SDK 中存在
 - 处理：在 DevEco 搜索确认符号名，不存在的改为已验证可用名或本地图片资源
 
+## 快速诊断流程图
+
+遇到编译/运行时错误时，按以下路径快速定位：
+
+```
+编译错误
+├─ 含 "does not exist on type" ?
+│  ├─ 枚举成员 → 查 P1 FontWeight 等枚举范围
+│  └─ 属性/方法 → 检查 SDK API 版本是否匹配
+├─ 含 "not assignable to type 'never'" ?
+│  └─ 在 .then() 闭包内？ → P0 闭包类型收窄陷阱
+├─ 含 "used as a value" ?
+│  └─ 类型当构造器用 → P1 LengthMetrics 等纯类型
+├─ 含 "Unknown resource name" ?
+│  └─ sys.symbol 名不存在 → P2 查 DevEco 符号表
+├─ 含 "may throw exceptions" ?
+│  └─ 缺 try-catch → P1 异常函数必须捕获
+└─ 其他
+   └─ 复制完整错误码 → 查下方诊断矩阵或官方文档
+```
+
 ## 关联资产
 - 守卫入口：`../../arkts-modernization-guard/SKILL.md`
 - 错误映射：`../../arkts-modernization-guard/references/error-to-fix-map.md`

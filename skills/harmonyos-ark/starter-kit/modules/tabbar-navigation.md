@@ -206,6 +206,22 @@ interface TabItem {
 }
 ```
 
+## Tab 切换时的状态保留与丢失
+
+| 行为 | 默认表现 | 原因 |
+|------|----------|------|
+| 切换 Tab 后返回 | ✅ 页面状态保留 | Tabs 内 TabContent 不会被销毁 |
+| 切换 Tab 后列表滚动位置 | ✅ 保留 | 组件实例持续存在 |
+| Tab 内 Navigation 跳转子页后切回 | ⚠️ 子页可能被回收 | 取决于 NavDestination 缓存策略 |
+| 应用后台回前台 | ⚠️ 可能重建 | 系统内存回收时 TabContent 重建 |
+
+**避坑要点**：
+
+1. **不要在 `aboutToAppear` 里无条件请求数据** — Tab 切换时 `aboutToAppear` 不会重复调用（组件未销毁），但从后台恢复时会。用 `onPageShow()` 做刷新更可靠。
+2. **每个 Tab 的 Navigation 栈是独立的** — 使用 `NavPathStack` 时，每个 Tab 需要独立实例，不要共享同一个 stack。
+3. **LazyForEach 数据源跨 Tab 共享时注意线程安全** — 多个 Tab 监听同一数据源变更，需确保 `totalCount()` 和 `getData()` 一致性。
+4. **状态恢复**：关键数据（如草稿、筛选条件）应通过 `@StorageLink` 或 `Preferences` 持久化，不要仅依赖组件 `@State`。
+
 ## 在 module.json5 路由表中注册 MainPage
 
 ```json

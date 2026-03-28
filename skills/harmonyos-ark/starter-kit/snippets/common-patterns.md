@@ -209,7 +209,63 @@ promptAction.showDialog({
 
 ---
 
-## 六、@Builder 可复用 UI 片段
+## 六、CustomDialog 完整生命周期
+
+```typescript
+// 1. 定义弹窗组件
+@CustomDialog
+struct ConfirmDialog {
+  controller: CustomDialogController
+  title: string = ''
+  message: string = ''
+  onConfirm: () => void = () => {}
+
+  build() {
+    Column({ space: 16 }) {
+      Text(this.title).fontSize(18).fontWeight(FontWeight.Bold)
+      Text(this.message).fontSize(14).fontColor('#666')
+      Row({ space: 12 }) {
+        Button('取消').onClick(() => this.controller.close())
+          .backgroundColor('#F5F5F5').fontColor('#333')
+        Button('确认').onClick(() => {
+          this.onConfirm()
+          this.controller.close()
+        })
+      }.width('100%').justifyContent(FlexAlign.End)
+    }.padding(24)
+  }
+}
+
+// 2. 在页面中创建 controller 并调用
+@Entry
+@Component
+struct DemoPage {
+  private dialogController: CustomDialogController = new CustomDialogController({
+    builder: ConfirmDialog({
+      title: '删除确认',
+      message: '确定要删除这条记录吗？',
+      onConfirm: () => this.handleDelete()
+    }),
+    autoCancel: true,       // 点击蒙层关闭
+    alignment: DialogAlignment.Center,
+    customStyle: true       // 使用自定义样式
+  })
+
+  handleDelete(): void {
+    // 执行删除逻辑
+  }
+
+  build() {
+    Button('删除').onClick(() => this.dialogController.open())
+  }
+}
+```
+
+> **V2 替代方案**：API 12+ 推荐使用 `UIContext.getPromptAction().openCustomDialog()`，无需 controller，支持 Promise 返回结果。
+
+---
+
+## 七、@Builder 可复用 UI 片段
 
 ```typescript
 @Entry
@@ -237,7 +293,7 @@ struct SomePage {
 
 ---
 
-## 七、LazyForEach + IDataSource（大列表性能优化）
+## 八、LazyForEach + IDataSource（大列表性能优化）
 
 ```typescript
 // 实现 IDataSource
@@ -278,7 +334,7 @@ List() {
 
 ---
 
-## 八、权限申请模板
+## 九、权限申请模板
 
 ```typescript
 import { abilityAccessCtrl, Permissions } from '@kit.AbilityKit'
@@ -299,7 +355,7 @@ if (!granted) {
 
 ---
 
-## 九、HttpUtil 401 全局拦截 + 跳登录
+## 十、HttpUtil 401 全局拦截 + 跳登录
 
 > 统一在 `HttpUtil.handleResponse` 中处理 401，并通过 AppStorage 通知 EntryAbility 强制跳转。
 
