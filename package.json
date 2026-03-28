@@ -1,0 +1,33 @@
+{
+  "name": "harmonyos-skills-pack",
+  "version": "0.1.0",
+  "description": "一键安装鸿蒙 Ark 开发文档 + 通用产品质量 skills pack，适配 Claude/Copilot/Codex Agent",
+  "keywords": [
+    "harmonyos",
+    "arkts",
+    "arkui",
+    "skills",
+    "claude",
+    "copilot",
+    "codex",
+    "agent",
+    "ai"
+  ],
+  "author": "yibaiba",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yibaiba/harmonyos-skills-pack.git"
+  },
+  "bin": {
+    "harmonyos-skills-pack": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}
