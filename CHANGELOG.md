@@ -4,6 +4,23 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-03-28
+
+### Added
+
+- 新增 `topics/acl-permissions.md` — ACL 受限权限申请完整指南
+  - system_basic 级权限完整列表与分类（媒体/通讯/系统/网络）
+  - ACL 申请流程（AGC → Profile → module.json5 → 动态请求）
+  - 替代方案决策树（Picker / 安全控件优先标记 ✅ / ⚠️）
+  - module.json5 配置示例与 ArkTS 动态权限请求代码
+  - 审核避坑清单（10 条）
+  - Agent 行为规范：先询问 → 推荐替代 → 确认后再用 ACL
+
+### Changed
+
+- SKILL.md 路由表新增 ACL 权限条目与映射
+- media-device.md / testing-release.md 新增交叉引用
+
 ## [0.1.3] - 2026-03-28
 
 ### Added
