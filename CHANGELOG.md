@@ -4,6 +4,28 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-03-28
+
+### Added
+
+- 新增 `arkts-modernization-guard` 子 skill（ArkTS 编译现代化守卫）
+  - SKILL.md：9 条扫描规则（P0/P1/P2 分级）
+  - scripts/scan-arkts-modernization.sh：自动扫描 .ets/.ts 文件
+  - references/error-to-fix-map.md：15+ 错误码→修复映射
+  - snippets/replacement-patterns.md：9 个代码替换模板
+- CLI 新增 `--version` / `-v` 参数
+- package.json 补充 `homepage` + `bugs` 字段
+
+### Fixed
+
+- 修复 17 处对 `arkts-modernization-guard` 的死链引用
+- .gitignore 清理无关条目
+
+### Changed
+
+- `arkts-modernization-guard` 从顶层移入 `harmonyos-ark/` 子目录
+- 验证脚本检查数 31 → 36 → 31（随结构调整）
+
 ## [0.1.2] - 2026-03-28
 
 ### Added
