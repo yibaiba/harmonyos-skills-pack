@@ -1,6 +1,9 @@
 # HarmonyOS Skills Pack
 
-Current Version: 0.1.0
+[![npm version](https://img.shields.io/npm/v/harmonyos-skills-pack.svg)](https://www.npmjs.com/package/harmonyos-skills-pack)
+[![GitHub release](https://img.shields.io/github/v/release/yibaiba/harmonyos-skills-pack)](https://github.com/yibaiba/harmonyos-skills-pack/releases)
+
+Current Version: 0.1.1
 
 这是一个面向 Claude、GitHub Copilot、Codex 等 Coding Agent 的可安装 Skills 项目。
 
@@ -29,13 +32,13 @@ Current Version: 0.1.0
 - 2025 创作激励与审核避坑
 - Starter Kit 极速实现包
 
-其中 starter-kit 已包含：
+其中 starter-kit 已包含 15 个模块模板：
 
-- 登录模块模板
-- 单机离线 / 免登录模块
-- 游客升级登录同步模块
-- 列表页、详情页、表单页、TabBar 模板
+- 登录模块、单机离线/免登录、游客升级登录同步
+- 列表页、详情页、表单页、TabBar 导航
 - 深色模式与多端适配模板
+- 本地数据持久化、后台任务、通知处理
+- WebSocket 实时通信、相机与媒体、支付与计费
 - Day-by-Day 执行顺序与提审前清单
 
 ### 2. universal-product-quality
@@ -67,14 +70,39 @@ Current Version: 0.1.0
 
 ## 快速开始
 
-### 1. 克隆仓库
+### 方式 1：npx 一键安装（推荐）
 
 ```bash
-git clone <your-repo-url> harmonyos-skills-pack
+# 安装到当前项目（自动安装到 .claude/.github/.codex/skills）
+npx harmonyos-skills-pack
+
+# 国内用户加速
+npx harmonyos-skills-pack --mirror
+
+# 仅安装到 Claude
+npx harmonyos-skills-pack --claude-only
+
+# 仅安装到 Copilot
+npx harmonyos-skills-pack --copilot-only
+
+# 仅安装到 Codex
+npx harmonyos-skills-pack --codex-only
+
+# 强制覆盖已有文件
+npx harmonyos-skills-pack --force
+
+# 卸载
+npx harmonyos-skills-pack uninstall
+```
+
+### 方式 2：克隆仓库 + 脚本安装
+
+```bash
+git clone https://github.com/yibaiba/harmonyos-skills-pack.git
 cd harmonyos-skills-pack
 ```
 
-### 2. 安装到 Claude
+### 安装到 Claude
 
 ```bash
 ./scripts/install-skills.sh --claude
@@ -85,7 +113,7 @@ cd harmonyos-skills-pack
 - ~/.claude/skills/harmonyos-ark
 - ~/.claude/skills/universal-product-quality
 
-### 3. 安装到 Copilot 工作区
+### 安装到 Copilot 工作区
 
 ```bash
 ./scripts/install-skills.sh --copilot-workspace /path/to/your/workspace
@@ -96,14 +124,14 @@ cd harmonyos-skills-pack
 - /path/to/your/workspace/.github/skills/harmonyos-ark
 - /path/to/your/workspace/.github/skills/universal-product-quality
 
-### 4. 强制覆盖安装
+### 强制覆盖安装
 
 ```bash
 ./scripts/install-skills.sh --claude --force
 ./scripts/install-skills.sh --copilot-workspace /path/to/your/workspace --force
 ```
 
-### 5. 维护者同步标准目录
+### 维护者同步标准目录
 
 ```bash
 ./scripts/sync-skills.sh
