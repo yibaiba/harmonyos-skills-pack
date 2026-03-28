@@ -3,6 +3,10 @@
 > 本文件从 routing-lifecycle.md 拆分而来
 > 内容：@ohos.router API、Router→Navigation 迁移
 
+<!-- Agent 摘要：本文件 1198 行。旧版 Router API 用法 + Router→Navigation 迁移指南。
+     Navigation 组件/生命周期 → routing-lifecycle.md。
+     新项目建议直接用 Navigation，仅迁移旧项目时读本文件。 -->
+
 ## 页面路由@ohos.router
 
 > 来源: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-routing-V5

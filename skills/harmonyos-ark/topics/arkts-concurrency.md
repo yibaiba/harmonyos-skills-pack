@@ -2,6 +2,10 @@
 
 > 来源：华为 HarmonyOS 开发者文档
 
+<!-- Agent 摘要：本文件 1226 行。Promise/async-await/TaskPool/Worker 的完整并发编程指南。
+     语言基础 → arkts-lang-basics.md。
+     Sendable 跨线程共享 → arkts-concurrency.md 内搜索 "Sendable"。 -->
+
 ---
 
 ## 异步并发 (Promise和async/await)

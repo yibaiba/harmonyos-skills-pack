@@ -3,6 +3,10 @@
 > 本文件从 arkui-interaction.md 拆分而来
 > 内容：拖拽事件、焦点事件、属性动画、粒子动画、动画曲线
 
+<!-- Agent 摘要：本文件 1279 行。拖拽/焦点/属性动画/粒子动画/曲线的完整指南。
+     键鼠/手势交互 → arkui-interaction.md。
+     动画代码片段 → starter-kit/snippets/common-patterns.md § 动画。 -->
+
 ## 拖拽事件
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-common-events-drag-event-V5

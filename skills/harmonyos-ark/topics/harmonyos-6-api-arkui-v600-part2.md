@@ -3,6 +3,10 @@
 > 本文件从 harmonyos-6-api-arkui-v600.md 拆分而来
 > 内容：6.0.0 (API 20) ArkUI 后半部分变更
 
+<!-- Agent 摘要：本文件 1266 行，为 6.0.0 ArkUI 后半部分 API 变更明细。
+     前半部分 → harmonyos-6-api-arkui-v600.md。
+     按组件名或 d.ts 文件名搜索定位。 -->
+
 	
 
 类名：TextAreaAttribute；

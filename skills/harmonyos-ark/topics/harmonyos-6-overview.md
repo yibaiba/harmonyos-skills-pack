@@ -4,6 +4,11 @@
 > 版本范围：6.0.0(API 20) → 6.0.1(API 21) → 6.0.2(API 22)
 > 提取时间：2025-07
 
+<!-- Agent 摘要：本文件 1493 行，HarmonyOS 6.0 全版本新特性概览。
+     内容：各版本 Release Notes 摘要 + 新增能力 + breaking changes 汇总。
+     是 6.0 系列的总入口，建议先读本文件再按需查阅具体 API changelog。
+     API changelog → harmonyos-6-api-core.md / harmonyos-6-api-arkui.md 等。 -->
+
 ## 版本映射
 
 | 版本 | API Level | DevEco Studio | 发布时间 |

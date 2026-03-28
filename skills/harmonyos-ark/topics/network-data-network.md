@@ -3,6 +3,11 @@
 > 本文件从 network-data.md 拆分而来
 > 内容：Network Kit HTTP/WebSocket/Socket、图片加载与缓存
 
+<!-- Agent 摘要：本文件 1397 行。HTTP 请求/WebSocket/Socket/图片加载缓存策略的完整指南。
+     数据持久化/数据库 → network-data.md。
+     WebSocket 代码模板 → starter-kit/modules/websocket-realtime.md。
+     按关键词搜索：HTTP/WebSocket/Socket/图片加载。 -->
+
 ## Network Kit简介
 
 > 来源: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/net-mgmt-overview-V5

@@ -1,5 +1,9 @@
 # 页面路由与导航主题
 
+<!-- Agent 摘要：本文件 1176 行。Navigation 组件/页面切换/生命周期/转场动画的完整指南。
+     Router API / 迁移指南 → routing-lifecycle-router.md。
+     底部导航模板 → starter-kit/modules/tabbar-navigation.md。 -->
+
 
 ## 目录
 

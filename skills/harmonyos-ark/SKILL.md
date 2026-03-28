@@ -221,6 +221,11 @@ hvigor :entry:default@CompileArkTS
 - 底部导航模板（TabBar/侧边栏）: starter-kit/modules/tabbar-navigation.md
 - 侧边栏抽屉导航模板: starter-kit/modules/drawer-navigation.md
 - 深色模式 + 多端断点适配: starter-kit/modules/dark-multi.md
+- 数据持久化（Preferences/RDB/KV Store）: starter-kit/modules/data-persistence.md
+- 通知处理（权限/文本/进度/交互）: starter-kit/modules/notification-handling.md
+- 实时通信（WebSocket/重连/心跳）: starter-kit/modules/websocket-realtime.md
+- 相机与媒体（拍照/选图/压缩）: starter-kit/modules/media-camera.md
+- 应用内支付（IAP Kit 框架）: starter-kit/modules/payment-billing.md
 - Day 1 骨架清单: starter-kit/pipeline/day1-scaffold-checklist.md
 - Day-by-Day 执行顺序（10 天交付）: starter-kit/pipeline/execution-order.md
 - 阶段任务拆分 + 验收清单: starter-kit/pipeline/task-breakdown.md

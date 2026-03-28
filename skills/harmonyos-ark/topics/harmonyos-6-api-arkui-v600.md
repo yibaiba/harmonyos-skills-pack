@@ -4,6 +4,11 @@
 > 版本：6.0.0 (API 20)
 > 📎 6.0.2 变更见 [harmonyos-6-api-arkui.md](harmonyos-6-api-arkui.md)
 
+<!-- Agent 摘要：本文件 1270 行，为 6.0.0 ArkUI API 前半部分变更明细。
+     后半部分 → harmonyos-6-api-arkui-v600-part2.md。
+     6.0.2 版本变更 → harmonyos-6-api-arkui.md。
+     按组件名或 d.ts 文件名搜索定位。 -->
+
 ## 6.0.0 (API 20) ArkUI 变更
 
 操作

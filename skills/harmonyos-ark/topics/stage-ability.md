@@ -1,5 +1,9 @@
 # Stage 模型与 UIAbility 主题
 
+<!-- Agent 摘要：本文件 1377 行。Stage 模型架构、UIAbility 生命周期、启动模式、Context、应用配置的完整指南。
+     路由/页面跳转 → routing-lifecycle.md。
+     代码模板 → starter-kit/modules/auth-login.md（含 UIAbility 用法）。 -->
+
 ## Scope
 - Stage 模型架构、UIAbility 生命周期、启动模式、AbilityStage 容器、应用上下文 Context、组件启动规则、应用配置文件
 

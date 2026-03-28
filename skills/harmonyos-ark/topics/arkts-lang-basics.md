@@ -2,6 +2,11 @@
 
 > 来源：华为 HarmonyOS 开发者文档
 
+<!-- Agent 摘要：本文件 1238 行。ArkTS 语言入门/TS→ArkTS 迁移/编程规范/基本语法的完整指南。
+     并发编程 → arkts-concurrency.md。
+     跨语言交互 → arkts-cross-lang.md。
+     编译工具链 → arkts-toolchain.md。 -->
+
 ---
 
 ## ArkTS简介

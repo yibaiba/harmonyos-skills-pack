@@ -3,6 +3,11 @@
 > Network / Camera / Media / Image / Test / UI Design Kit 的 API 变更清单
 > 版本：6.0.2 (API 22)
 
+<!-- Agent 摘要：本文件 1443 行，覆盖 Network Kit/Camera Kit/Media Kit/Image Kit/Test Kit/UI Design Kit 的 6.0 API 变更。
+     若只需 ArkUI 变更 → harmonyos-6-api-arkui.md。
+     若只需 Ability/ArkTS 变更 → harmonyos-6-api-core.md。
+     按 Kit 名或 d.ts 文件名搜索定位。 -->
+
 ## Network Kit
 
 操作	旧版本	新版本	d.ts文件
