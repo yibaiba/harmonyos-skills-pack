@@ -4,6 +4,17 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-03-28
+
+### Added
+
+- 现代化守卫新增 AMG-010/AMG-011 检测规则
+  - AMG-010: `arkts-no-destruct-decls`（10605074）解构声明检测
+  - AMG-011: `arkts-no-any-unknown`（10605008）any/unknown 类型检测
+  - 扫描脚本新增 3 条检测规则
+  - 2 个新代码替换模板（replacement-patterns.md）
+  - 错误映射表与防回归档案同步更新
+
 ## [0.1.4] - 2026-03-28
 
 ### Added
