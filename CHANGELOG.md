@@ -4,6 +4,27 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-03-28
+
+### Added
+
+- Agent Hooks 模板（三平台 × 双系统）
+  - `post-edit-arkts-scan.sh/ps1`: 编辑 .ets/.ts 后自动触发 11 条 AMG 规则扫描
+  - `post-edit-acl-check.sh/ps1`: 编辑 module.json5 后检查 19 条 ACL 受限权限
+  - `claude-settings.json`: Claude Code PostToolUse 配置模板
+  - `copilot-hooks.json`: GitHub Copilot PostToolUse 配置模板（官方 v1 格式）
+  - `hooks/README.md`: 三平台安装指南 + JSON 格式差异对照表
+  - SKILL.md 路由表新增 hooks 入口
+
+### Fixed
+
+- Copilot hooks 配置修正为官方格式（version:1, camelCase, bash/powershell 分离键）
+- 4 个 hook 脚本新增 Copilot toolArgs JSON 字符串路径提取（兼容三平台）
+- PowerShell Split-Path 空路径错误修复
+- 代码审查修复：validate-skills.sh check() $? 捕获时序 bug
+- 安装脚本 --all 标志逻辑修复（保留用户指定路径）
+- CLI execSync → execFileSync 安全加固（防 shell 注入）
+
 ## [0.1.5] - 2026-03-28
 
 ### Added
