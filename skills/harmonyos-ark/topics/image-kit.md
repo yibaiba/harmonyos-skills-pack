@@ -51,6 +51,17 @@ import { fileIo as fs } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 ```
 
+### 图片加载方式选择
+
+| 来源 | 方式 | 适用场景 | 性能 |
+|------|------|---------|------|
+| 沙箱文件 | 路径 / fd | 本地拍照、下载后的文件 | ⭐⭐⭐ 最快 |
+| 资源文件 | ArrayBuffer | rawfile 中的固定图片资源 | ⭐⭐ 需拷贝内存 |
+| 资源文件 | RawFileDescriptor | rawfile 中的大图（避免内存拷贝） | ⭐⭐⭐ 零拷贝 |
+| 网络图片 | 先下载再 createImageSource | 远程 URL 图片处理 | ⭐ 取决于网络 |
+
+> 💡 **选择建议**：只需显示 → 用 `Image` 组件直接加载；需要裁剪/变换/编码 → 用 Image Kit 的 PixelMap 流程。
+
 ### 获取图片的四种方式
 
 **方式一：沙箱路径**
