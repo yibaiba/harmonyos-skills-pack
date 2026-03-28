@@ -1,6 +1,16 @@
 # HarmonyOS ACL 受限权限申请指南
 
-<!-- Agent 摘要：~250 行。ACL 权限完整列表、申请流程、module.json5 配置、替代方案建议、审核避坑。搜索: ACL permission restricted system_basic AGC 受限权限。 -->
+<!-- Agent 摘要：~280 行。ACL 权限完整列表、申请流程、module.json5 配置、替代方案建议、审核避坑。搜索: ACL permission restricted system_basic AGC 受限权限。 -->
+
+> **⚠️ Agent 行为规范（MUST READ）**
+>
+> 当用户需求涉及可能需要 ACL 权限的功能时，Agent **必须**遵循以下流程：
+>
+> 1. **先询问**：告知用户该功能需要 ACL 受限权限，说明申请成本（AGC 审批 1-2 天、审核风险）
+> 2. **推荐替代方案**：优先推荐 Picker / 安全控件等无需 ACL 的实现方式（见下方决策树）
+> 3. **确认后再用 ACL**：仅当用户明确表示替代方案不满足需求时，才采用 ACL 权限方案
+>
+> **禁止**：未经用户确认直接在代码中添加 system_basic 级权限声明。
 
 ## 什么是 ACL
 
@@ -209,23 +219,29 @@ if (granted) {
 
 ## 权限分级快速决策
 
+> **Agent 决策流程**：遇到下列场景时，先向用户推荐 ✅ 方案。仅当用户确认 ✅ 方案不满足需求后，才使用 ⚠️ ACL 方案。
+
 ```
 需要读取用户图片/视频?
-├─ 仅展示/选择 → PhotoViewPicker（无需任何权限声明）
-├─ 需要克隆/备份/批量同步 → 申请 ACL: READ_IMAGEVIDEO
-└─ 需要修改/保存到相册 → 申请 ACL: WRITE_IMAGEVIDEO
+├─ ✅ 仅展示/选择 → PhotoViewPicker（无需任何权限声明）
+├─ ⚠️ 需要克隆/备份/批量同步 → 申请 ACL: READ_IMAGEVIDEO
+└─ ⚠️ 需要修改/保存到相册 → 申请 ACL: WRITE_IMAGEVIDEO
 
 需要读取文件?
-├─ 选择文件 → DocumentViewPicker（无需权限）
-└─ 扫描/备份整个目录 → 申请 ACL: READ_DOCUMENT
+├─ ✅ 选择文件 → DocumentViewPicker（无需权限）
+└─ ⚠️ 扫描/备份整个目录 → 申请 ACL: READ_DOCUMENT
 
 需要读取剪贴板?
-├─ 粘贴按钮场景 → PasteButton 安全控件（无需权限）
-└─ 自动读取剪贴板 → 申请 ACL: READ_PASTEBOARD
+├─ ✅ 粘贴按钮场景 → PasteButton 安全控件（无需权限）
+└─ ⚠️ 自动读取剪贴板 → 申请 ACL: READ_PASTEBOARD
 
 需要定位?
-├─ 前台定位 → LOCATION / APPROXIMATELY_LOCATION（normal 级，无需 ACL）
-└─ 后台持续定位 → 申请 ACL: LOCATION_IN_BACKGROUND
+├─ ✅ 前台定位 → LOCATION / APPROXIMATELY_LOCATION（normal 级，无需 ACL）
+└─ ⚠️ 后台持续定位 → 申请 ACL: LOCATION_IN_BACKGROUND
+
+需要悬浮窗?
+├─ ✅ 画中画（PiP）→ 系统 PiP 组件（无需权限）
+└─ ⚠️ 自定义悬浮窗 → 申请 ACL: SYSTEM_FLOAT_WINDOW（审核极严）
 ```
 
 ## 官方参考链接
