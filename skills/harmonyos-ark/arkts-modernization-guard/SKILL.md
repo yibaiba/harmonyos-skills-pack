@@ -33,6 +33,8 @@ bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-mo
 | AMG-007 | P2 | 动态 `$r(variable)` | 编译器要求静态字面量 |
 | AMG-008 | P2 | deprecated API 调用 | animateTo/replaceUrl/pushUrl/showDialog 等 |
 | AMG-009 | P2 | 未验证的 sys.symbol.* 资源名 | Unknown resource name 风险 |
+| AMG-010 | P1 | `const { a, b } = obj` 解构声明 | ArkTS 不支持，需逐个赋值 |
+| AMG-011 | P1 | `: any` / `: unknown` 类型注解 | 必须使用具体类型或 interface |
 
 ## 推荐工作流
 

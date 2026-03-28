@@ -171,6 +171,53 @@ Text('Title')
 
 ---
 
+### AMG-010: 解构声明 → 逐个赋值
+
+**错误码**：`10605074` `arkts-no-destruct-decls`
+
+```diff
+- // ❌ ArkTS 不支持解构声明
+- const { name, age, email } = userInfo;
+- const [first, second] = items;
+
++ // ✅ 逐个赋值
++ const name = userInfo.name;
++ const age = userInfo.age;
++ const email = userInfo.email;
++ const first = items[0];
++ const second = items[1];
+```
+
+> 注：函数参数中的解构同样不支持，需改为接收整个对象后在函数体内取值。
+
+---
+
+### AMG-011: any/unknown → 具体类型
+
+**错误码**：`10605008` `arkts-no-any-unknown`
+
+```diff
+- // ❌ 使用 any / unknown
+- let data: any = fetchData();
+- function process(input: unknown): any {
+-   return input;
+- }
+
++ // ✅ 使用具体类型或泛型
++ interface UserData {
++   name: string;
++   age: number;
++ }
++ let data: UserData = fetchData();
++ function process<T>(input: T): T {
++   return input;
++ }
+```
+
+> 回调/事件场景如确实无法确定类型，可用 `Object` 替代 `any`，但仍建议定义具体接口。
+
+---
+
 ## See Also
 
 - [../references/error-to-fix-map.md](../references/error-to-fix-map.md) — 错误码速查

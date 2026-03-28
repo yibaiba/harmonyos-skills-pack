@@ -74,6 +74,22 @@ scan_file() {
       P2_COUNT=$((P2_COUNT + 1))
     fi
 
+    # AMG-010: 解构声明
+    if echo "$line" | grep -qE '(const|let|var)\s+\{[^}]+\}\s*='; then
+      VIOLATIONS+=("[AMG-010] P1  $file:$line_num  解构声明 → 逐个赋值")
+      P1_COUNT=$((P1_COUNT + 1))
+    fi
+    if echo "$line" | grep -qE '(const|let|var)\s+\[[^\]]+\]\s*='; then
+      VIOLATIONS+=("[AMG-010] P1  $file:$line_num  数组解构声明 → 逐个赋值")
+      P1_COUNT=$((P1_COUNT + 1))
+    fi
+
+    # AMG-011: any/unknown 类型
+    if echo "$line" | grep -qE ':\s*(any|unknown)\b'; then
+      VIOLATIONS+=("[AMG-011] P1  $file:$line_num  any/unknown → 使用具体类型或 interface")
+      P1_COUNT=$((P1_COUNT + 1))
+    fi
+
   done < "$file"
 }
 

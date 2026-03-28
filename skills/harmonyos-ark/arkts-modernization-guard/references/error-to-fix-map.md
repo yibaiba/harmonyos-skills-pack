@@ -26,6 +26,8 @@
 | `10505001`：`LengthMetrics` used as value | 类型别名不可实例化 | 直接传数值（默认 vp），或 `{ value: 16, unit: LengthUnit.VP }` |
 | `10605034`：泛型推断受限 | `Array.from({length...})` 推断失败 | 显式 `number[]` 构造 + `ForEach` |
 | `10605038`/`10605040`：未命名对象类型 | 内联对象字面量作为类型 | 抽离为 `interface` / `type` |
+| `10605074`：`arkts-no-destruct-decls` | `const { a, b } = obj` 解构声明 | 逐个赋值：`const a = obj.a; const b = obj.b;` |
+| `10605008`：`arkts-no-any-unknown` | 使用 `any` / `unknown` | 替换为具体类型 / `interface` / 泛型 `<T>` |
 | `10605099`：spread 触发全量重渲染 | `{ ...state }` / `[...arr]` 创建新引用 | 改用 `slice()` / `concat()` / 显式字段复制 |
 | WARN：`Function may throw exceptions` | 可抛异常函数缺 try-catch | 包裹 try-catch 或 async/await + catch |
 

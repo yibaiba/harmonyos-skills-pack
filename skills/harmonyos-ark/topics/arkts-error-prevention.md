@@ -18,6 +18,8 @@
 | P1 | `10505001`：`'LengthMetrics' only refers to a type, but is being used as a value here` | 将类型当构造函数调用（如 `LengthMetrics.vp(16)`），但 ArkTS 中该符号仅为类型别名，不可直接实例化 | 改用对应的数值字面量或工厂函数；如 `LengthMetrics.vp(16)` → 直接传 `16`（单位默认 vp），或使用 `{ value: 16, unit: LengthUnit.VP }` 构造 |
 | P1 | `10605034` | 泛型推断受限（`Array.from({length...})`） | 改显式 `number[]` 构造，再 `ForEach` |
 | P1 | `10605038` / `10605040` | 未命名对象类型或对象字面量直接作为类型 | 抽离 `interface/type`，避免内联对象类型声明 |
+| P1 | `10605074`：`arkts-no-destruct-decls` | 解构声明（`const { a, b } = obj`）ArkTS 不支持 | 改为逐个赋值：`const a = obj.a; const b = obj.b;` |
+| P1 | `10605008`：`arkts-no-any-unknown` | 使用了 `any` / `unknown` 类型 | 替换为具体类型或 `interface`；泛型场景用 `<T>` 约束 |
 | P1 | `10605099` | spread 刷新状态（`{ ...state }`、`[...arr]`） | 改显式字段复制或 `slice()/concat()` |
 | P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称；或使用了系统中不存在的符号资源名（如 `trophy`、`target`、`doc_on_doc`、`book_closed`） | 静态资源字面量；使用前在 DevEco 搜索确认符号名存在；不存在的改为已验证可用名或改用本地图片资源 |
 | P2 | deprecated 告警漂移：`animateTo`、`replaceUrl`、`getContext`、`AlertDialog.show`、`pushUrl`、`showDialog`、`showToast` | SDK 升级导致旧 API 逐步废弃 | 每次升级后先跑 guard 扫描，再按当前 SDK 推荐 API 迁移 |
