@@ -583,6 +583,432 @@ function showRetryDialog(message: string, onRetry: () => void): void {
 
 ---
 
+## 十四、图片加载与缓存管道
+
+```typescript
+// utils/ImageCacheUtil.ets
+import { image } from '@kit.ImageKit';
+import { fileIo as fs } from '@kit.CoreFileKit';
+import { http } from '@kit.NetworkKit';
+
+export class ImageCacheUtil {
+  private static cacheDir: string = '';
+
+  static init(context: Context): void {
+    ImageCacheUtil.cacheDir = context.cacheDir + '/img_cache';
+    if (!fs.accessSync(ImageCacheUtil.cacheDir)) {
+      fs.mkdirSync(ImageCacheUtil.cacheDir);
+    }
+  }
+
+  /** 带缓存的图片加载 → PixelMap */
+  static async load(url: string): Promise<image.PixelMap> {
+    const hash = ImageCacheUtil.hashCode(url);
+    const cachePath = `${ImageCacheUtil.cacheDir}/${hash}`;
+
+    // 命中缓存
+    if (fs.accessSync(cachePath)) {
+      const source = image.createImageSource(cachePath);
+      const pm = await source.createPixelMap({ editable: true });
+      source.release();
+      return pm;
+    }
+
+    // 网络下载
+    const req = http.createHttp();
+    const resp = await req.request(url, {
+      expectDataType: http.HttpDataType.ARRAY_BUFFER,
+    });
+    req.destroy();
+
+    const buffer = resp.result as ArrayBuffer;
+    const file = fs.openSync(cachePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE);
+    fs.writeSync(file.fd, buffer);
+    fs.closeSync(file);
+
+    const source = image.createImageSource(buffer);
+    const pm = await source.createPixelMap({ editable: true });
+    source.release();
+    return pm;
+  }
+
+  private static hashCode(str: string): string {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash).toString(16);
+  }
+}
+```
+
+---
+
+## 十五、本地文件存储 (FileIO + Preferences)
+
+```typescript
+// utils/StorageUtil.ets — Preferences 封装
+import { preferences } from '@kit.ArkData';
+
+const STORE_NAME = 'app_prefs';
+
+export class StorageUtil {
+  private static store: preferences.Preferences | null = null;
+
+  static async init(context: Context): Promise<void> {
+    StorageUtil.store = await preferences.getPreferences(context, STORE_NAME);
+  }
+
+  static async put<T>(key: string, value: T): Promise<void> {
+    await StorageUtil.store!.put(key, JSON.stringify(value));
+    await StorageUtil.store!.flush();
+  }
+
+  static async get<T>(key: string, defaultVal?: T): Promise<T | undefined> {
+    const raw = await StorageUtil.store!.get(key, '') as string;
+    return raw ? JSON.parse(raw) as T : defaultVal;
+  }
+
+  static async remove(key: string): Promise<void> {
+    await StorageUtil.store!.delete(key);
+    await StorageUtil.store!.flush();
+  }
+}
+```
+
+```typescript
+// utils/FileUtil.ets — 文件读写
+import { fileIo as fs } from '@kit.CoreFileKit';
+
+export class FileUtil {
+  static writeText(context: Context, name: string, content: string): void {
+    const path = context.filesDir + '/' + name;
+    const file = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE);
+    fs.writeSync(file.fd, content);
+    fs.closeSync(file);
+  }
+
+  static readText(context: Context, name: string): string {
+    const path = context.filesDir + '/' + name;
+    const file = fs.openSync(path, fs.OpenMode.READ_ONLY);
+    const stat = fs.statSync(path);
+    const buf = new ArrayBuffer(stat.size);
+    fs.readSync(file.fd, buf);
+    fs.closeSync(file);
+    const decoder = new util.TextDecoder();
+    return decoder.decodeSync(new Uint8Array(buf));
+  }
+}
+```
+
+---
+
+## 十六、多权限请求链
+
+```typescript
+import { abilityAccessCtrl, Permissions } from '@kit.AbilityKit';
+
+/** 批量检查并申请权限，返回全部已授权的权限列表 */
+async function requestPermissions(
+  context: Context,
+  permissions: Permissions[]
+): Promise<Permissions[]> {
+  const atManager = abilityAccessCtrl.createAtManager();
+  const granted: Permissions[] = [];
+
+  for (const perm of permissions) {
+    const status = await atManager.checkAccessToken(
+      (await bundleManager.getBundleInfoForSelf(0)).appInfo.accessTokenId,
+      perm
+    );
+    if (status === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
+      granted.push(perm);
+    }
+  }
+
+  const needRequest = permissions.filter(p => !granted.includes(p));
+  if (needRequest.length === 0) return granted;
+
+  const result = await atManager.requestPermissionsFromUser(context, needRequest);
+  result.permissions.forEach((perm, i) => {
+    if (result.authResults[i] === 0) granted.push(perm as Permissions);
+  });
+
+  return granted;
+}
+
+// 用法
+const perms = await requestPermissions(context, [
+  'ohos.permission.CAMERA',
+  'ohos.permission.MICROPHONE',
+  'ohos.permission.APPROXIMATELY_LOCATION',
+]);
+```
+
+---
+
+## 十七、Deep Link / URL Scheme 路由
+
+```typescript
+// EntryAbility.ets — 处理 Deep Link
+import { UIAbility, Want } from '@kit.AbilityKit';
+
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want): void {
+    this.handleDeepLink(want);
+  }
+
+  onNewWant(want: Want): void {
+    this.handleDeepLink(want);
+  }
+
+  private handleDeepLink(want: Want): void {
+    const uri = want.uri;  // e.g. "myapp://product/123"
+    if (!uri) return;
+
+    const url = new URL(uri);
+    switch (url.hostname) {
+      case 'product':
+        const id = url.pathname.replace('/', '');
+        // 跳转到商品详情
+        AppStorage.setOrCreate('deepLinkTarget', { page: 'ProductDetail', id });
+        break;
+      case 'settings':
+        AppStorage.setOrCreate('deepLinkTarget', { page: 'Settings' });
+        break;
+    }
+  }
+}
+
+// 页面中消费 Deep Link
+@StorageProp('deepLinkTarget') deepLink: Record<string, string> = {};
+
+aboutToAppear(): void {
+  if (this.deepLink?.page === 'ProductDetail') {
+    this.navStack.pushPath({ name: 'ProductDetail', param: this.deepLink.id });
+    AppStorage.setOrCreate('deepLinkTarget', {});
+  }
+}
+```
+
+---
+
+## 十八、应用生命周期管理
+
+```typescript
+// EntryAbility.ets — 完整生命周期
+import { UIAbility, AbilityConstant } from '@kit.AbilityKit';
+
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    // 初始化全局资源（数据库、网络、日志）
+    hilog.info(0x0, 'App', 'onCreate');
+  }
+
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // 加载首页
+    windowStage.loadContent('pages/Index');
+  }
+
+  onForeground(): void {
+    // 恢复定时器、刷新数据
+    hilog.info(0x0, 'App', 'onForeground');
+  }
+
+  onBackground(): void {
+    // 暂停定时器、保存状态
+    hilog.info(0x0, 'App', 'onBackground');
+  }
+
+  onWindowStageDestroy(): void {
+    // 释放窗口资源
+  }
+
+  onDestroy(): void {
+    // 释放全局资源
+    hilog.info(0x0, 'App', 'onDestroy');
+  }
+}
+```
+
+---
+
+## 十九、剪贴板操作
+
+```typescript
+import { pasteboard } from '@kit.BasicServicesKit';
+
+/** 复制文本到剪贴板 */
+function copyText(text: string): void {
+  const pasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
+  const board = pasteboard.getSystemPasteboard();
+  board.setData(pasteData);
+  promptAction.showToast({ message: '已复制' });
+}
+
+/** 从剪贴板读取文本 */
+async function pasteText(): Promise<string> {
+  const board = pasteboard.getSystemPasteboard();
+  const data = await board.getData();
+  if (data.hasType(pasteboard.MIMETYPE_TEXT_PLAIN)) {
+    return data.getPrimaryText();
+  }
+  return '';
+}
+```
+
+---
+
+## 二十、系统分享
+
+```typescript
+import { common } from '@kit.AbilityKit';
+
+/** 调用系统分享面板 */
+function shareText(context: common.UIAbilityContext, title: string, text: string): void {
+  const want: Want = {
+    action: 'ohos.want.action.select',
+    type: 'text/plain',
+    parameters: {
+      'ability.want.params.INTENT': {
+        action: 'ohos.want.action.sendData',
+        type: 'text/plain',
+        parameters: {
+          'shareTitle': title,
+          'ability.want.params.TEXT': text,
+        }
+      } as Want
+    }
+  };
+  context.startAbility(want);
+}
+```
+
+---
+
+## 二十一、版本检测与更新提示
+
+```typescript
+import { bundleManager } from '@kit.AbilityKit';
+
+interface VersionInfo {
+  latestVersion: string;
+  forceUpdate: boolean;
+  downloadUrl: string;
+}
+
+async function checkUpdate(): Promise<void> {
+  const bundleInfo = await bundleManager.getBundleInfoForSelf(0);
+  const currentVersion = bundleInfo.versionName;
+
+  // 调用后端获取最新版本
+  const info: VersionInfo = await HttpUtil.get('/api/app/version');
+
+  if (compareVersion(currentVersion, info.latestVersion) < 0) {
+    if (info.forceUpdate) {
+      // 强制更新弹窗（不可关闭）
+      showForceUpdateDialog(info);
+    } else {
+      // 可选更新弹窗
+      showOptionalUpdateDialog(info);
+    }
+  }
+}
+
+function compareVersion(v1: string, v2: string): number {
+  const a = v1.split('.').map(Number);
+  const b = v2.split('.').map(Number);
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    const diff = (a[i] || 0) - (b[i] || 0);
+    if (diff !== 0) return diff;
+  }
+  return 0;
+}
+```
+
+---
+
+## 二十二、全局错误边界
+
+```typescript
+// ErrorBoundary.ets — 全局错误捕获 + 降级 UI
+@Component
+struct ErrorBoundary {
+  @Prop childBuilder: () => void;
+  @State hasError: boolean = false;
+  @State errorMsg: string = '';
+
+  build() {
+    if (this.hasError) {
+      Column() {
+        Image($r('app.media.error_icon'))
+          .width(80).height(80).margin({ bottom: 16 })
+        Text('页面出现异常')
+          .fontSize(18).fontColor('#333')
+        Text(this.errorMsg)
+          .fontSize(12).fontColor('#999').margin({ top: 8 })
+        Button('重试')
+          .onClick(() => { this.hasError = false; })
+          .margin({ top: 24 })
+      }
+      .width('100%').height('100%')
+      .justifyContent(FlexAlign.Center)
+    } else {
+      this.childBuilder();
+    }
+  }
+}
+
+// 全局未捕获异常处理（EntryAbility）
+import { errorManager } from '@kit.AbilityKit';
+
+// 注册全局错误监听
+const observerId = errorManager.on('error', {
+  onUnhandledException(errMsg: string): void {
+    hilog.error(0x0, 'GlobalError', 'Unhandled: %{public}s', errMsg);
+    // 上报 + 降级
+  }
+});
+```
+
+---
+
+## 二十三、事件埋点 / 分析追踪
+
+```typescript
+// utils/Analytics.ets
+import { hiAppEvent } from '@kit.PerformanceAnalysisKit';
+
+export class Analytics {
+  /** 自定义事件埋点 */
+  static track(event: string, params: Record<string, string | number> = {}): void {
+    hiAppEvent.write({
+      domain: 'app_event',
+      name: event,
+      eventType: hiAppEvent.EventType.BEHAVIOR,
+      params: params,
+    });
+  }
+
+  /** 页面曝光 */
+  static pageView(pageName: string): void {
+    Analytics.track('page_view', { page: pageName, ts: Date.now() });
+  }
+
+  /** 点击事件 */
+  static click(element: string, extra?: Record<string, string>): void {
+    Analytics.track('click', { element, ...extra });
+  }
+}
+
+// 用法
+Analytics.pageView('ProductDetail');
+Analytics.click('buy_button', { productId: '123' });
+```
+
+---
+
 ## 官方参考
 - ArkTS 语言指南: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-get-started
 - ArkUI 组件参考: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-components-summary
