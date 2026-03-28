@@ -102,6 +102,17 @@ else
 fi
 TOTAL=$((TOTAL + 1))
 
+# 检查 package.json 版本与 VERSION 文件一致
+PKG_VERSION=$(grep '"version"' "$PROJECT_ROOT/package.json" | head -1 | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
+if [[ "$PKG_VERSION" == "$VERSION" ]]; then
+  PASSED=$((PASSED + 1))
+  echo -e "${GREEN}✓ package.json version ($PKG_VERSION) 与 VERSION 文件一致${NC}"
+else
+  FAILED=$((FAILED + 1))
+  echo -e "${RED}✗ package.json version ($PKG_VERSION) 与 VERSION ($VERSION) 不一致${NC}"
+fi
+TOTAL=$((TOTAL + 1))
+
 # 检查必要文档
 echo ""
 echo -e "${CYAN}6️⃣  文档检查${NC}"
@@ -110,6 +121,55 @@ DOCS=("README.md" "CHANGELOG.md" "INSTALL_VERIFICATION.md")
 for doc in "${DOCS[@]}"; do
   test -f "$PROJECT_ROOT/$doc"
   check "$doc 存在"
+done
+
+# 检查 bin/cli.js 存在且可执行
+echo ""
+echo -e "${CYAN}7️⃣  CLI 入口检查${NC}"
+
+if [[ -f "$PROJECT_ROOT/bin/cli.js" ]]; then
+  PASSED=$((PASSED + 1))
+  echo -e "${GREEN}✓ bin/cli.js 存在${NC}"
+else
+  FAILED=$((FAILED + 1))
+  echo -e "${RED}✗ bin/cli.js 不存在${NC}"
+fi
+TOTAL=$((TOTAL + 1))
+
+if [[ -x "$PROJECT_ROOT/bin/cli.js" ]]; then
+  PASSED=$((PASSED + 1))
+  echo -e "${GREEN}✓ bin/cli.js 可执行${NC}"
+else
+  FAILED=$((FAILED + 1))
+  echo -e "${RED}✗ bin/cli.js 不可执行${NC}"
+fi
+TOTAL=$((TOTAL + 1))
+
+# 检查 starter-kit 新模块
+echo ""
+echo -e "${CYAN}8️⃣  Starter-kit 模块检查${NC}"
+
+STARTER_KIT_MODULES=(
+  "data-persistence.md"
+  "background-tasks.md"
+  "notification-handling.md"
+  "websocket-realtime.md"
+  "media-camera.md"
+  "payment-billing.md"
+)
+
+for mod in "${STARTER_KIT_MODULES[@]}"; do
+  for platform in .claude .github; do
+    file="$PROJECT_ROOT/$platform/skills/harmonyos-ark/starter-kit/modules/$mod"
+    if [[ -f "$file" ]]; then
+      PASSED=$((PASSED + 1))
+      echo -e "${GREEN}✓ $platform starter-kit/$mod${NC}"
+    else
+      FAILED=$((FAILED + 1))
+      echo -e "${RED}✗ $platform starter-kit/$mod 缺失${NC}"
+    fi
+    TOTAL=$((TOTAL + 1))
+  done
 done
 
 # 最终报告
