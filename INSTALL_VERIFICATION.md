@@ -2,6 +2,21 @@
 
 完成安装后，按照下列步骤验证技能包是否正确配置。
 
+## 🚀 快速安装（推荐）
+
+```bash
+# 一键安装到当前项目
+npx harmonyos-skills-pack
+
+# 国内用户加速
+npx harmonyos-skills-pack --mirror
+
+# 验证安装
+test -d .claude/skills/harmonyos-ark && echo "✓ Claude skills 已安装"
+test -d .github/skills/harmonyos-ark && echo "✓ Copilot skills 已安装"
+test -d .codex/skills/harmonyos-ark && echo "✓ Codex skills 已安装"
+```
+
 ## 📋 目录清单
 
 ### Claude 安装路径验证
@@ -271,6 +286,6 @@ grep -E "^(name|description):" ~/.claude/skills/harmonyos-ark/SKILL.md
 
 ---
 
-**最后更新**：2026-03-26  
-**技能版本**：0.1.0  
+**最后更新**：2026-03-28  
+**技能版本**：0.1.2  
 **适用平台**：Claude, GitHub Copilot, Codex
