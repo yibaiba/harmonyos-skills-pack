@@ -667,3 +667,4 @@ Media Library Kit 简介
 
 - [网络请求与数据持久化](network-data.md)
 - [Notification Kit 通知服务](notification-kit.md)
+- [ACL 受限权限申请指南](acl-permissions.md) — READ_IMAGEVIDEO 等媒体权限申请
