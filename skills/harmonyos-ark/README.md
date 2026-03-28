@@ -38,7 +38,8 @@
 - topics/arkui-guide-specs.md: 索引文件
 - topics/arkui-core.md: 核心（简介/语法/状态管理/渲染控制/术语）
 - topics/arkui-components.md: 组件（导航路由/布局/列表/文本/弹窗）
-- topics/arkui-interaction.md: 交互与动画
+- topics/arkui-interaction.md: 交互（键鼠/手势）
+- topics/arkui-interaction-animation.md: 拖拽/焦点/动画
 - topics/arkui-advanced.md: 高级（自定义/国际化/无障碍/主题/性能）
 - topics/ui-design-kit.md: UI Design Kit（HDS 组件套件/图标/导航/视效/多窗，13 篇）
 
@@ -53,9 +54,12 @@
 
 #### 应用模型与系统能力
 - topics/stage-ability.md: Stage 模型、UIAbility 生命周期
-- topics/routing-lifecycle.md: 页面路由、页面切换、生命周期
-- topics/state-management.md: 全局状态、数据绑定、状态共享
-- topics/network-data.md: 网络请求、持久化、数据库
+- topics/routing-lifecycle.md: Navigation 组件导航、生命周期
+- topics/routing-lifecycle-router.md: Router API 与 Router→Navigation 迁移
+- topics/state-management.md: 状态管理基础（装饰器/组件级/应用级）
+- topics/state-management-advanced.md: 状态管理高级用法与反模式
+- topics/network-data.md: ArkData 数据持久化（Preferences/KV/RDB）
+- topics/network-data-network.md: 网络请求（HTTP/WebSocket/Socket/图片缓存）
 - topics/media-device.md: 相机、文件、媒体播放、权限
 - topics/notification-kit.md: 通知服务（授权/角标/渠道/文本通知/进度条/行为意图）
 - topics/background-tasks-kit.md: 后台任务（短时/长时/延迟任务 WorkScheduler）
@@ -70,9 +74,12 @@
 
 #### HarmonyOS 6.0 版本（API 20-22）
 - topics/harmonyos-6-overview.md: 6.0.0/6.0.1/6.0.2 版本概览与新增特性
-- topics/harmonyos-6-api-core.md: 核心框架 API 变更（Ability Kit/ArkTS/ArkData）
-- topics/harmonyos-6-api-arkui.md: ArkUI API 变更（6.0.2, API 22）
-- topics/harmonyos-6-api-arkui-v600.md: ArkUI API 变更（6.0.0, API 20）
+- topics/harmonyos-6-api-core.md: 核心框架 API 变更（Ability Kit）
+- topics/harmonyos-6-api-core-arkts.md: ArkTS / ArkData API 变更
+- topics/harmonyos-6-api-arkui.md: ArkUI API 变更（6.0.2 前半）
+- topics/harmonyos-6-api-arkui-part2.md: ArkUI API 变更（6.0.2 后半）
+- topics/harmonyos-6-api-arkui-v600.md: ArkUI API 变更（6.0.0 前半）
+- topics/harmonyos-6-api-arkui-v600-part2.md: ArkUI API 变更（6.0.0 后半）
 - topics/harmonyos-6-api-services.md: 服务类 Kit API 变更（Network/Camera/Media/Image/Test/UI Design）
 
 #### UX 与审核
