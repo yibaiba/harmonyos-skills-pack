@@ -1,18 +1,22 @@
-target/
-.env
-.ace-tool/
-data/
-tailwindcss
-server.log
+# 依赖与构建产物
+node_modules/
+dist/
+
+# IDE 与系统
 .idea/
 .vscode/
 .DS_Store
-node_modules/
-dist/
+
+# 环境与临时
+.env
+.ace-tool/
+
+# Agent 生成目录（由 sync-skills.sh 维护）
 .codex/
 .claude/
-.github/
-
+.github/skills/
 !.github/workflows/
+
+# 发布产物
 releases/*.zip
 releases/*.sha256

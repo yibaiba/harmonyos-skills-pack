@@ -188,3 +188,8 @@ fi
 
 echo ""
 echo -e "${GREEN}✨ 完成！${NC}"
+echo ""
+echo -e "${BLUE}💡 推荐使用 npx 分发（无需 zip）：${NC}"
+echo "  npm version patch && git push --tags"
+echo "  然后在 GitHub 创建 Release → 自动发布到 npm"
+echo "  用户安装: npx harmonyos-skills-pack"

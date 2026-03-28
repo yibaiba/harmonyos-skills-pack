@@ -38,6 +38,12 @@ const color = {
 // ── 参数解析 ──────────────────────────────────────────
 const args = process.argv.slice(2);
 
+if (args.includes('--version') || args.includes('-v')) {
+  const pkg = require('../package.json');
+  console.log(pkg.version);
+  process.exit(0);
+}
+
 if (args.includes('--help') || args.includes('-h')) {
   console.log(`
 ${color.bold('harmonyos-skills-pack')} — 鸿蒙 Ark AI Agent Skills 一键安装
@@ -45,6 +51,7 @@ ${color.bold('harmonyos-skills-pack')} — 鸿蒙 Ark AI Agent Skills 一键安�
 ${color.cyan('用法:')}
   npx harmonyos-skills-pack              安装到当前目录
   npx harmonyos-skills-pack --target .   指定目标目录
+  npx harmonyos-skills-pack --version    查看版本号
   npx harmonyos-skills-pack --force      强制覆盖已有文件
   npx harmonyos-skills-pack --mirror     使用国内镜像加速下载
   npx harmonyos-skills-pack --claude-only    仅 .claude/skills
