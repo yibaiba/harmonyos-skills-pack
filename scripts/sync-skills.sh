@@ -6,7 +6,7 @@ SOURCE_DIR="$REPO_ROOT/skills"
 CLAUDE_TARGET="$REPO_ROOT/.claude/skills"
 GITHUB_TARGET="$REPO_ROOT/.github/skills"
 
-SKILLS=("harmonyos-ark" "arkts-modernization-guard" "universal-product-quality")
+SKILLS=("harmonyos-ark" "universal-product-quality")
 
 copy_one() {
   local src="$1"

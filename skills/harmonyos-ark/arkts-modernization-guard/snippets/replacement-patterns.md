@@ -174,4 +174,4 @@ Text('Title')
 ## See Also
 
 - [../references/error-to-fix-map.md](../references/error-to-fix-map.md) — 错误码速查
-- [../../harmonyos-ark/topics/arkts-error-prevention.md](../../harmonyos-ark/topics/arkts-error-prevention.md) — 历史报错档案
+- [../../topics/arkts-error-prevention.md](../../topics/arkts-error-prevention.md) — 历史报错档案

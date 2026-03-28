@@ -127,12 +127,12 @@ find entry/src -name "*.ets" -exec awk 'END{if(NR>300)print FILENAME": "NR" line
 
 ## 编译现代化入口
 - 当出现 ArkTS 编译错误（如 `10605xxx` / `10505001` / `10903xxx`）或 deprecated 告警时，优先使用：
-- `../../arkts-modernization-guard/SKILL.md`
+- `../arkts-modernization-guard/SKILL.md`
 - 典型场景：`animateTo`/`replaceUrl`/`getContext`/`AlertDialog.show`、动态 `$r(...)`、spread 刷新、符号资源名兼容问题
 - 配套资产：
-- `../../arkts-modernization-guard/scripts/scan-arkts-modernization.sh`
-- `../../arkts-modernization-guard/references/error-to-fix-map.md`
-- `../../arkts-modernization-guard/snippets/replacement-patterns.md`
+- `../arkts-modernization-guard/scripts/scan-arkts-modernization.sh`
+- `../arkts-modernization-guard/references/error-to-fix-map.md`
+- `../arkts-modernization-guard/snippets/replacement-patterns.md`
 
 ## 历史错误防回归入口（CodeWrench）
 - 当出现“曾修复后再次复发”的问题时，优先查看：
@@ -150,12 +150,12 @@ find entry/src -name "*.ets" -exec awk 'END{if(NR>300)print FILENAME": "NR" line
 
 1. 写前先跑 guard 扫描：
 ```bash
-bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 ```
 
 2. 改完后再跑 guard + CompileArkTS：
 ```bash
-bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 hvigor :entry:default@CompileArkTS
 ```
 

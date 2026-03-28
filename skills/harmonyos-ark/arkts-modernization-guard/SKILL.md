@@ -14,10 +14,10 @@ description: ArkTS 编译现代化守卫 — 自动扫描已知坏模式（@Prop
 
 ```bash
 # 扫描当前项目
-bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 
 # 指定扫描目录
-bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh entry/src/main/ets
+bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh entry/src/main/ets
 ```
 
 ## 扫描规则
@@ -78,6 +78,6 @@ bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 
 ## See Also
 
-- [../harmonyos-ark/topics/arkts-error-prevention.md](../harmonyos-ark/topics/arkts-error-prevention.md) — 历史报错防回归档案
-- [../harmonyos-ark/checklists/arkts-regression-prevention.md](../harmonyos-ark/checklists/arkts-regression-prevention.md) — 防回归清单
-- [../harmonyos-ark/topics/arkts.md](../harmonyos-ark/topics/arkts.md) — ArkTS 深入主题
+- [../topics/arkts-error-prevention.md](../topics/arkts-error-prevention.md) — 历史报错防回归档案
+- [../checklists/arkts-regression-prevention.md](../checklists/arkts-regression-prevention.md) — 防回归清单
+- [../topics/arkts.md](../topics/arkts.md) — ArkTS 深入主题

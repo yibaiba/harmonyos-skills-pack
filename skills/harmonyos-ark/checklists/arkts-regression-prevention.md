@@ -68,7 +68,7 @@
 
 ### 新模式归档
 - [ ] 将新发现的编译错误模式补充到 `../topics/arkts-error-prevention.md`
-- [ ] 将修复方案补充到 `../../arkts-modernization-guard/references/error-to-fix-map.md`
+- [ ] 将修复方案补充到 `../arkts-modernization-guard/references/error-to-fix-map.md`
 
 ### 复盘记录
 - [ ] 记录失败原因、根因分析、修复方案
@@ -80,4 +80,4 @@
 
 - [../topics/arkts-error-prevention.md](../topics/arkts-error-prevention.md) — ArkTS 历史报错防回归档案
 - [../topics/arkts.md](../topics/arkts.md) — ArkTS 深入主题
-- [../../arkts-modernization-guard/SKILL.md](../../arkts-modernization-guard/SKILL.md) — 编译现代化守卫
+- [../arkts-modernization-guard/SKILL.md](../arkts-modernization-guard/SKILL.md) — 编译现代化守卫

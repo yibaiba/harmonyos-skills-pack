@@ -7,18 +7,14 @@ This repository is a reusable skills pack installable via git clone.
   - canonical: skills/harmonyos-ark/SKILL.md
   - claude-entry: .claude/skills/harmonyos-ark/SKILL.md
   - copilot-entry: .github/skills/harmonyos-ark/SKILL.md
-
-- arkts-modernization-guard
-  - canonical: skills/arkts-modernization-guard/SKILL.md
-  - claude-entry: .claude/skills/arkts-modernization-guard/SKILL.md
-  - copilot-entry: .github/skills/arkts-modernization-guard/SKILL.md
+  - sub-skill: arkts-modernization-guard
+    - canonical: skills/harmonyos-ark/arkts-modernization-guard/SKILL.md
 
 - universal-product-quality
   - canonical: skills/universal-product-quality/SKILL.md
   - claude-entry: .claude/skills/universal-product-quality/SKILL.md
   - copilot-entry: .github/skills/universal-product-quality/SKILL.md
   - codex-entry: .codex/skills/harmonyos-ark/SKILL.md
-  - codex-entry: .codex/skills/arkts-modernization-guard/SKILL.md
   - codex-entry: .codex/skills/universal-product-quality/SKILL.md
 
 ## Quick Install

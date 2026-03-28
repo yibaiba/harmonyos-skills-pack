@@ -27,12 +27,12 @@
 
 1. 改动前扫描：
 ```bash
-bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 ```
 
 2. 改动后扫描（必须 `passed`）：
 ```bash
-bash .codex/skills/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 ```
 
 3. 编译验收（DevEco Studio 或 CLI）：
@@ -101,10 +101,10 @@ hvigor :entry:default@CompileArkTS
 ```
 
 ## 关联资产
-- 守卫入口：`../../arkts-modernization-guard/SKILL.md`
-- 错误映射：`../../arkts-modernization-guard/references/error-to-fix-map.md`
-- 扫描脚本：`../../arkts-modernization-guard/scripts/scan-arkts-modernization.sh`
-- 替换模板：`../../arkts-modernization-guard/snippets/replacement-patterns.md`
+- 守卫入口：`../arkts-modernization-guard/SKILL.md`
+- 错误映射：`../arkts-modernization-guard/references/error-to-fix-map.md`
+- 扫描脚本：`../arkts-modernization-guard/scripts/scan-arkts-modernization.sh`
+- 替换模板：`../arkts-modernization-guard/snippets/replacement-patterns.md`
 
 
 ---

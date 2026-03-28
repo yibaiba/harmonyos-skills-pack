@@ -53,4 +53,4 @@
 ## See Also
 
 - [../snippets/replacement-patterns.md](../snippets/replacement-patterns.md) — 替换代码模板
-- [../../harmonyos-ark/topics/arkts-error-prevention.md](../../harmonyos-ark/topics/arkts-error-prevention.md) — 历史报错防回归档案
+- [../../topics/arkts-error-prevention.md](../../topics/arkts-error-prevention.md) — 历史报错防回归档案

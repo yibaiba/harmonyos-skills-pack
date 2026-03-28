@@ -14,7 +14,7 @@ dist/
 # Agent 生成目录（由 sync-skills.sh 维护）
 .codex/
 .claude/
-.github/skills/
+.github/
 !.github/workflows/
 
 # 发布产物
