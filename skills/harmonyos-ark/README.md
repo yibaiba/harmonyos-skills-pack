@@ -57,12 +57,17 @@
 - topics/state-management.md: 全局状态、数据绑定、状态共享
 - topics/network-data.md: 网络请求、持久化、数据库
 - topics/media-device.md: 相机、文件、媒体播放、权限
+- topics/notification-kit.md: 通知服务（授权/角标/渠道/文本通知/进度条/行为意图）
+- topics/background-tasks-kit.md: 后台任务（短时/长时/延迟任务 WorkScheduler）
+- topics/location-kit.md: 位置服务（定位/地理编码/地理围栏）
+- topics/accessibility.md: 无障碍服务（屏幕朗读适配）
 - topics/testing-release.md: 测试、签名、打包、上架发布
 
 #### HarmonyOS 6.0 版本（API 20-22）
 - topics/harmonyos-6-overview.md: 6.0.0/6.0.1/6.0.2 版本概览与新增特性
 - topics/harmonyos-6-api-core.md: 核心框架 API 变更（Ability Kit/ArkTS/ArkData）
-- topics/harmonyos-6-api-arkui.md: ArkUI API 变更（6.0.0 + 6.0.2）
+- topics/harmonyos-6-api-arkui.md: ArkUI API 变更（6.0.2, API 22）
+- topics/harmonyos-6-api-arkui-v600.md: ArkUI API 变更（6.0.0, API 20）
 - topics/harmonyos-6-api-services.md: 服务类 Kit API 变更（Network/Camera/Media/Image/Test/UI Design）
 
 #### UX 与审核

@@ -357,3 +357,10 @@ let result = JSON.stringify(floatNumber2, (key: string, value: Object): Object =
 });
 console.info(result); // "10.00"
 
+
+---
+
+## See Also
+
+- [ArkTS 语言基础](arkts-lang-basics.md)
+- [ArkTS 并发](arkts-concurrency.md)

@@ -1228,3 +1228,11 @@ let y: Array<string> = ['a', 'b', 'c'];
 let x: number[] = [1, 2, 3];
 let y: string[] = ['a', 'b', 'c'];
 
+
+---
+
+## See Also
+
+- [ArkTS 主题](arkts.md)
+- [ArkTS 基础类库](arkts-stdlib.md)
+- [ArkTS 并发](arkts-concurrency.md)

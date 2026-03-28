@@ -2,6 +2,7 @@
 
 > 适用于 HarmonyOS 应用提审前的产品质量自检。
 > 配合 checklists/pre-submission-2025.md 和 topics/ux-standards.md 使用。
+> 📎 更完整的通用质量体系见 `skills/universal-product-quality/` skill（含风险分级、评审打分表、发布清单）。
 
 ## 1. 功能点丰富度
 

@@ -1432,3 +1432,12 @@ API声明：export declare const HdsVisualComponent: HdsVisualComponentInterface
 差异内容：form
 
 	api/@hms.hds.HdsVisualComponent.d.ets
+
+
+---
+
+## See Also
+
+- [HarmonyOS 6.0 版本概览与新特性](harmonyos-6-overview.md)
+- [网络请求与数据持久化](network-data.md)
+- [媒体与设备能力](media-device.md)

@@ -1482,3 +1482,12 @@ bm工具安装命令的-p参数支持指定待安装的APP路径。（指南）
 发布最新编译的应用到应用市场
 
 问题反馈渠道
+
+
+---
+
+## See Also
+
+- [HarmonyOS 6.0 核心框架 API 变更](harmonyos-6-api-core.md)
+- [HarmonyOS 6.0 ArkUI API 变更](harmonyos-6-api-arkui.md)
+- [HarmonyOS 6.0 服务类 Kit API 变更](harmonyos-6-api-services.md)

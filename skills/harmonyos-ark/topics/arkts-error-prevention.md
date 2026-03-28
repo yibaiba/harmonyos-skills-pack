@@ -84,3 +84,11 @@ hvigor :entry:default@CompileArkTS
 - 错误映射：`../../arkts-modernization-guard/references/error-to-fix-map.md`
 - 扫描脚本：`../../arkts-modernization-guard/scripts/scan-arkts-modernization.sh`
 - 替换模板：`../../arkts-modernization-guard/snippets/replacement-patterns.md`
+
+
+---
+
+## See Also
+
+- [ArkTS 主题](arkts.md)
+- [测试、签名与发布](testing-release.md)

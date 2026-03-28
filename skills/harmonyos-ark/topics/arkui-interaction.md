@@ -3,6 +3,20 @@
 > 来源：华为 HarmonyOS 开发者文档（V5/API 12）
 > 提取页数：8 篇
 
+
+## 目录
+
+- [键鼠事件](#键鼠事件)
+- [单一手势](#单一手势)
+- [组合手势](#组合手势)
+- [拖拽事件](#拖拽事件)
+- [焦点事件](#焦点事件)
+- [属性动画](#属性动画)
+- [粒子动画](#粒子动画)
+- [动画曲线](#动画曲线)
+
+---
+
 ## 键鼠事件
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-common-events-device-input-event-V5
@@ -2180,3 +2194,9 @@ struct SpringMotionDemo {
 }
 
 ---
+
+
+## See Also
+
+- [ArkUI 主题](arkui.md)
+- [HarmonyOS 控件设计规范索引](component-design-specs.md)

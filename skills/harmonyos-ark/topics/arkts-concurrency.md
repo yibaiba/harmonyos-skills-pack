@@ -1217,3 +1217,10 @@ ArkTS线程间通信概述
 线程间通信场景
 
 
+---
+
+## See Also
+
+- [ArkTS 语言基础](arkts-lang-basics.md)
+- [ArkTS 基础类库](arkts-stdlib.md)
+- [Background Tasks Kit 后台任务](background-tasks-kit.md)

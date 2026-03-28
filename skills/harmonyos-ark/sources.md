@@ -85,6 +85,31 @@
 - ArkUI 6.0.2 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-arkui-6021
 - Network Kit 6.0.2 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-networkkit-6021
 
+### Notification Kit（通知服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/notification-overview-V5
+- 请求授权: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/notification-enable-V5
+- 角标管理: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/notification-badge-V5
+- 渠道管理: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/notification-slot-V5
+- 发布通知: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/text-notification-V5
+- 取消通知: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/notification-cancel-V5
+
+### Background Tasks Kit（后台任务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/background-task-overview-V5
+- 短时任务: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/transient-task-V5
+- 长时任务: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/continuous-task-V5
+- 延迟任务: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/work-scheduler-V5
+
+### Location Kit（位置服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/location-kit-intro-V5
+- 权限申请: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/location-permission-guidelines-V5
+- 设备定位: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/location-guidelines-V5
+- 地理编码: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/geocode-guidelines-V5
+- 地理围栏: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/geofence-guidelines-V5
+
+### Accessibility Kit（无障碍服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/accessibilitykit-overview-V5
+- 屏幕朗读适配: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/screen-reading-adapt-guide-V5
+
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）
 - 官方 samples 与 codelabs（用于示例路径）

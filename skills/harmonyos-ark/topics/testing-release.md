@@ -947,3 +947,11 @@ uninstall bundle successfully.
 
 示例代码
 多HAP
+
+
+---
+
+## See Also
+
+- [ArkTS 历史错误防回归档案](arkts-error-prevention.md)
+- [2025 创作激励与审核避坑](incentive-review-2025.md)
