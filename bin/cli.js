@@ -23,6 +23,8 @@ const REPO = 'yibaiba/harmonyos-skills-pack';
 const BRANCH = 'main';
 const SKILLS = ['harmonyos-ark', 'universal-product-quality'];
 const ARCHIVE_URL = `https://github.com/${REPO}/archive/refs/heads/${BRANCH}.tar.gz`;
+// 国内镜像（ghproxy.net 加速 GitHub 下载）
+const MIRROR_URL = `https://ghproxy.net/https://github.com/${REPO}/archive/refs/heads/${BRANCH}.tar.gz`;
 
 // ── 颜色输出 ──────────────────────────────────────────
 const color = {
@@ -44,6 +46,7 @@ ${color.cyan('用法:')}
   npx harmonyos-skills-pack              安装到当前目录
   npx harmonyos-skills-pack --target .   指定目标目录
   npx harmonyos-skills-pack --force      强制覆盖已有文件
+  npx harmonyos-skills-pack --mirror     使用国内镜像加速下载
   npx harmonyos-skills-pack --claude-only    仅 .claude/skills
   npx harmonyos-skills-pack --copilot-only   仅 .github/skills
   npx harmonyos-skills-pack --codex-only     仅 .codex/skills
@@ -70,6 +73,7 @@ const force = args.includes('--force');
 const claudeOnly = args.includes('--claude-only');
 const copilotOnly = args.includes('--copilot-only');
 const codexOnly = args.includes('--codex-only');
+const useMirror = args.includes('--mirror') || args.includes('--cn');
 const isUninstall = args.includes('uninstall');
 
 // 默认全部安装
@@ -107,22 +111,36 @@ if (isUninstall) {
 // ── 安装 ─────────────────────────────────────────────
 console.log(`
 ${color.bold('🚀 harmonyos-skills-pack')}
-${color.cyan('从 GitHub 下载最新 skills...')}
+${color.cyan(useMirror ? '从国内镜像下载最新 skills...' : '从 GitHub 下载最新 skills...')}
 `);
 
 // 创建临时目录
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hm-skills-'));
 
 try {
-  // 下载并解压
-  console.log(`  📥 下载 ${ARCHIVE_URL}`);
+  // 下载并解压（镜像优先，失败自动回退 GitHub）
+  const urls = useMirror ? [MIRROR_URL, ARCHIVE_URL] : [ARCHIVE_URL, MIRROR_URL];
 
-  try {
-    execSync(`curl -sL "${ARCHIVE_URL}" | tar -xz -C "${tmpDir}"`, {
-      stdio: ['pipe', 'pipe', 'pipe'],
-      timeout: 60000,
-    });
-  } catch (e) {
+  let downloaded = false;
+  for (let i = 0; i < urls.length; i++) {
+    const url = urls[i];
+    const label = url.includes('ghproxy') ? '国内镜像' : 'GitHub';
+    console.log(`  📥 ${i > 0 ? '回退到 ' : ''}下载 (${label})`);
+    try {
+      execSync(`curl -sL --connect-timeout 10 "${url}" | tar -xz -C "${tmpDir}"`, {
+        stdio: ['pipe', 'pipe', 'pipe'],
+        timeout: 60000,
+      });
+      downloaded = true;
+      break;
+    } catch (e) {
+      if (i < urls.length - 1) {
+        console.log(`  ${color.yellow('⚠')} ${label} 下载失败，尝试备用源...`);
+      }
+    }
+  }
+
+  if (!downloaded) {
     console.error(color.red('\n❌ 下载失败。请检查网络连接。'));
     console.error(color.yellow('   可尝试: git clone https://github.com/' + REPO + '.git'));
     process.exit(1);
