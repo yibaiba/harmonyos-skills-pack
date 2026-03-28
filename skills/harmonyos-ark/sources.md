@@ -110,6 +110,44 @@
 - 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/accessibilitykit-overview-V5
 - 屏幕朗读适配: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/screen-reading-adapt-guide-V5
 
+### Image Kit（图片处理服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/image-overview-V5
+- 图片解码: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/image-decoding-V5
+- 图像变换: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/image-transformation-V5
+- 图片编码: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/image-encoding-V5
+- EXIF 信息: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/image-tool-V5
+
+### ArkWeb（方舟 Web）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-component-overview-V5
+- JS Bridge (App→JS): https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-in-app-frontend-page-function-invoking-V5
+- JS Bridge (JS→App): https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-in-page-app-function-invoking-V5
+- 数据通道: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-app-page-data-channel-V5
+- Cookie 管理: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-cookie-and-data-storage-mgmt-V5
+- 深色模式: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-set-dark-mode-V5
+- 同层渲染: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-same-layer-V5
+- 离线 Web: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-offline-mode-V5
+- DevTools: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/web-debugging-with-devtools-V5
+
+### Form Kit（卡片开发服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/formkit-overview-V5
+- 运行机制: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-ui-widget-working-principles-V5
+- 创建卡片: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-ui-widget-creation-V5
+- 配置文件: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-ui-widget-configuration-V5
+- 生命周期: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-ui-widget-lifecycle-V5
+
+### Scan Kit（统一扫码服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/scan-introduction-V13
+- 默认界面扫码: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/scan-scanbarcode-V13
+- 自定义界面扫码: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/scan-customscan-V13
+- 图像识码: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/scan-detectbarcode-V13
+- 码图生成: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V13/scan-barcodegenerate-V13
+
+### User Authentication Kit（用户认证服务）
+- 简介: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/user-authentication-overview-V5
+- 查询认证能力: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/obtain-supported-authentication-capabilities-V5
+- 发起认证: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/start-authentication-V5
+- 认证控件: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/user-auth-icon-V5
+
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）
 - 官方 samples 与 codelabs（用于示例路径）

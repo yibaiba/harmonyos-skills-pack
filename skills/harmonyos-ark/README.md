@@ -61,6 +61,11 @@
 - topics/background-tasks-kit.md: 后台任务（短时/长时/延迟任务 WorkScheduler）
 - topics/location-kit.md: 位置服务（定位/地理编码/地理围栏）
 - topics/accessibility.md: 无障碍服务（屏幕朗读适配）
+- topics/image-kit.md: Image Kit（图片解码/编码/变换/EXIF）
+- topics/arkweb.md: ArkWeb（WebView/H5 混合/JS Bridge/同层渲染）
+- topics/form-kit.md: Form Kit（桌面卡片/服务卡片/生命周期/数据更新）
+- topics/scan-kit.md: Scan Kit（扫码/图像识码/码图生成）
+- topics/user-auth-kit.md: User Auth Kit（指纹/人脸/口令认证）
 - topics/testing-release.md: 测试、签名、打包、上架发布
 
 #### HarmonyOS 6.0 版本（API 20-22）
