@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".github/skills/harmonyos-ark/hooks/post-edit-arkts-scan.sh"
+          },
+          {
+            "type": "command",
+            "command": ".github/skills/harmonyos-ark/hooks/post-edit-acl-check.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
