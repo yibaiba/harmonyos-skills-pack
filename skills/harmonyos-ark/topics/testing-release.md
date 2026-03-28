@@ -951,6 +951,54 @@ uninstall bundle successfully.
 
 ---
 
+## 应用内更新与 QuickFix 热修复
+
+### 常规版本更新
+
+HarmonyOS 应用更新通过 AppGallery Connect 分发，应用内检测更新流程：
+
+```typescript
+// 1. 调用 Update Kit 检查新版本
+import { updateManager } from '@kit.UpdateKit';
+
+async function checkUpdate(): Promise<void> {
+  try {
+    const info = await updateManager.checkAppUpdate();
+    if (info.isUpdateAvailable) {
+      // 展示更新弹窗，引导用户到应用市场
+      updateManager.showUpdateDialog();
+    }
+  } catch (err) {
+    // 静默失败，不阻断用户正常使用
+  }
+}
+```
+
+### QuickFix 热修复（API 12+）
+
+QuickFix 允许在不重新安装应用的情况下修复 bug，适用于紧急线上问题：
+
+| 项目 | 说明 |
+|------|------|
+| 适用范围 | 仅修复 ArkTS/JS 代码逻辑，不能修改 native 代码或资源 |
+| 生效时机 | 下次应用冷启动时生效 |
+| 包大小限制 | 差量补丁，通常 < 1MB |
+| 分发方式 | 通过 AGC 后台上传，由系统静默下发 |
+| 回滚机制 | AGC 支持停止分发，用户下次更新时覆盖 |
+
+> ⚠️ QuickFix 不替代正式版本发布。仅用于紧急修复，修复后应尽快发布正式更新。
+
+### 选择建议
+
+| 场景 | 推荐方案 |
+|------|---------|
+| 常规功能迭代 | 正式版本更新（AGC 发布） |
+| 紧急线上 bug | QuickFix 热修复 + 同步准备正式版 |
+| UI/资源变更 | 必须走正式版本更新 |
+| native 崩溃 | 必须走正式版本更新 |
+
+---
+
 ## See Also
 
 - [ArkTS 历史错误防回归档案](arkts-error-prevention.md)

@@ -403,6 +403,186 @@ struct MainPage {
 
 ---
 
+## 十一、表单验证模式
+
+```typescript
+// 通用验证规则接口
+interface ValidationRule {
+  validate: (value: string) => boolean
+  message: string
+}
+
+// 常用正则验证器
+const Validators = {
+  required: (msg = '此项为必填'): ValidationRule => ({
+    validate: (v: string) => v.trim().length > 0,
+    message: msg
+  }),
+  phone: (): ValidationRule => ({
+    validate: (v: string) => /^1[3-9]\d{9}$/.test(v),
+    message: '请输入有效的手机号'
+  }),
+  email: (): ValidationRule => ({
+    validate: (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+    message: '请输入有效的邮箱地址'
+  }),
+  minLength: (n: number): ValidationRule => ({
+    validate: (v: string) => v.length >= n,
+    message: `长度不能少于 ${n} 个字符`
+  }),
+  match: (other: string, label: string): ValidationRule => ({
+    validate: (v: string) => v === other,
+    message: `与${label}不一致`
+  })
+}
+
+// 执行验证
+function runValidation(value: string, rules: ValidationRule[]): string {
+  for (const rule of rules) {
+    if (!rule.validate(value)) {
+      return rule.message
+    }
+  }
+  return ''
+}
+
+// 在组件中使用
+@Entry
+@Component
+struct FormExample {
+  @State phone: string = ''
+  @State phoneError: string = ''
+
+  build() {
+    Column({ space: 12 }) {
+      TextInput({ placeholder: '手机号', text: this.phone })
+        .onChange((value: string) => {
+          this.phone = value
+          this.phoneError = runValidation(value, [
+            Validators.required(),
+            Validators.phone()
+          ])
+        })
+      if (this.phoneError) {
+        Text(this.phoneError).fontSize(12).fontColor('#FF4444')
+      }
+    }
+  }
+}
+```
+
+---
+
+## 十二、常用动画片段
+
+```typescript
+// 1. 淡入动画 — 页面/组件出现
+@Entry
+@Component
+struct FadeInDemo {
+  @State opacity: number = 0
+
+  aboutToAppear(): void {
+    animateTo({ duration: 300, curve: Curve.EaseOut }, () => {
+      this.opacity = 1
+    })
+  }
+
+  build() {
+    Column() {
+      Text('淡入内容').opacity(this.opacity)
+    }
+  }
+}
+
+// 2. 缩放 + 弹性 — 按钮点击反馈
+Button('点击我')
+  .scale({ x: this.pressed ? 0.95 : 1, y: this.pressed ? 0.95 : 1 })
+  .animation({ duration: 150, curve: Curve.FastOutSlowIn })
+  .onTouch((event: TouchEvent) => {
+    this.pressed = event.type === TouchType.Down
+  })
+
+// 3. 列表项滑入 — staggered animation
+ForEach(this.items, (item: string, index: number) => {
+  Text(item)
+    .translate({ x: this.loaded ? 0 : 100 })
+    .opacity(this.loaded ? 1 : 0)
+    .animation({
+      duration: 300,
+      delay: index * 50,
+      curve: Curve.EaseOut
+    })
+})
+
+// 4. 转场动画 — 页面进出
+// 在 NavDestination 中使用
+.transition(TransitionEffect.SLIDE_RIGHT
+  .combine(TransitionEffect.OPACITY)
+  .animation({ duration: 350, curve: Curve.FastOutSlowIn }))
+```
+
+---
+
+## 十三、错误处理与重试
+
+```typescript
+// 1. 统一错误处理包装
+async function safeFetch<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn()
+  } catch (err) {
+    const msg = (err as Error)?.message ?? '未知错误'
+    console.error(`[safeFetch] ${msg}`)
+    return fallback
+  }
+}
+
+// 使用
+const data = await safeFetch(() => HttpUtil.get<UserInfo>('/api/user'), defaultUser)
+
+// 2. 带重试的请求（指数退避）
+const MAX_RETRIES = 3
+
+async function fetchWithRetry<T>(fn: () => Promise<T>): Promise<T> {
+  let lastErr: Error | undefined
+  for (let i = 0; i < MAX_RETRIES; i++) {
+    try {
+      return await fn()
+    } catch (err) {
+      lastErr = err as Error
+      const delay = Math.pow(2, i) * 500
+      await new Promise<void>((resolve) => setTimeout(resolve, delay))
+    }
+  }
+  throw lastErr
+}
+
+// 3. 用户提示封装
+import { promptAction } from '@kit.ArkUI'
+
+function showError(message: string): void {
+  promptAction.showToast({ message, duration: 2000 })
+}
+
+function showRetryDialog(message: string, onRetry: () => void): void {
+  promptAction.showDialog({
+    title: '操作失败',
+    message: message,
+    buttons: [
+      { text: '取消', color: '#999' },
+      { text: '重试', color: '#007AFF' }
+    ]
+  }).then((result) => {
+    if (result.index === 1) {
+      onRetry()
+    }
+  })
+}
+```
+
+---
+
 ## 官方参考
 - ArkTS 语言指南: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-get-started
 - ArkUI 组件参考: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-components-summary

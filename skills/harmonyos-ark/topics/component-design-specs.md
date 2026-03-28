@@ -7,6 +7,17 @@
 
 本目录下按分类拆分了 41 个控件的离线设计规范，供 AI Agent 按需加载。
 
+## 快速选择指南
+
+| 我想要… | 加载文件 |
+|---------|---------|
+| 用户怎么在应用内移动（Tab/标题栏/返回） | component-navigation.md |
+| 展示文本、数字、进度、提示 | component-display.md |
+| 按钮、菜单、操作反馈 | component-action.md |
+| 用户输入文本、搜索 | component-input.md |
+| 勾选、开关、滑动条、日期选择 | component-selection.md |
+| 弹窗、列表、半模态面板 | component-container.md |
+
 ## 分类文件
 
 | 分类 | 文件 | 组件数 |
@@ -23,3 +34,11 @@
 - 根据用户问题涉及的组件类型，加载对应分类文件
 - 每个文件包含：组件规则、视觉规则、布局规则、开发文档引用
 - 无需一次性加载全部，按需查阅即可节省上下文
+
+---
+
+## See Also
+
+- [ArkUI 组件参考](arkui-components.md)
+- [UX 体验标准](ux-standards.md)
+- [UI Design Kit](ui-design-kit.md)

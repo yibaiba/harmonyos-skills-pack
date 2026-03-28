@@ -2208,6 +2208,67 @@ tlsServer.off('connect');
 
 ---
 
+## 图片加载与缓存策略
+
+### Image 组件基础
+
+```typescript
+// 网络图片（自动缓存）
+Image('https://example.com/photo.jpg')
+  .width(200).height(200)
+  .objectFit(ImageFit.Cover)
+  .alt($r('app.media.placeholder'))  // 占位图
+
+// 本地资源图片
+Image($r('app.media.icon'))
+
+// Base64 图片
+Image(`data:image/png;base64,${base64Str}`)
+```
+
+### 缓存策略选择
+
+| 场景 | 方案 | 说明 |
+|------|------|------|
+| 普通网络图片 | Image 组件直接加载 | 系统自动管理内存缓存 + 磁盘缓存 |
+| 需要手动控制缓存 | `http.request()` + 文件写入 | 自行管理缓存目录和过期策略 |
+| 大量图片列表 | LazyForEach + Image | 配合 `cachedCount` 控制缓存数量 |
+| 头像等固定图 | `ImageKnife`（三方库） | 圆形裁剪、渐变占位、缓存策略 |
+
+### 手动缓存示例
+
+```typescript
+import { http } from '@kit.NetworkKit'
+import { fileIo } from '@kit.CoreFileKit'
+
+const CACHE_DIR = getContext().cacheDir + '/images/'
+
+async function getCachedImage(url: string): Promise<string> {
+  const fileName = CACHE_DIR + url.split('/').pop()
+  // 命中缓存直接返回
+  if (fileIo.accessSync(fileName)) {
+    return fileName
+  }
+  // 下载并缓存
+  const resp = await http.createHttp().request(url, {
+    expectDataType: http.HttpDataType.ARRAY_BUFFER
+  })
+  const file = fileIo.openSync(fileName, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY)
+  fileIo.writeSync(file.fd, resp.result as ArrayBuffer)
+  fileIo.closeSync(file.fd)
+  return fileName
+}
+```
+
+### 性能要点
+
+1. **列表场景必须用 LazyForEach**：避免一次性创建所有 Image 组件
+2. **设置合理的 `cachedCount`**：默认缓存当前屏 ± 1 屏，大图可减少
+3. **使用 `alt` 占位图**：避免加载期间布局跳动
+4. **禁用不必要的动画**：大量图片加载时关闭 `transition` 减少 GPU 压力
+
+---
+
 ## See Also
 
 - [状态管理](state-management.md)

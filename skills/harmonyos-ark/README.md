@@ -85,7 +85,7 @@
 ### 极速实现包 (starter-kit/)
 - starter-kit/SKILL.md: 主入口 + 资产路由
 - starter-kit/scaffold/: 项目骨架（目录结构 + 四层架构）
-- starter-kit/modules/: 模块模板（登录/列表/详情/表单/TabBar/深色适配等）
+- starter-kit/modules/: 模块模板（登录/列表/详情/表单/TabBar/抽屉导航/深色适配等）
 - starter-kit/pipeline/: 执行流水线（Day1 清单/10 天排期/任务拆分/App 类型清单）
 - starter-kit/snippets/: 代码片段（常用模式 + 状态管理）
 

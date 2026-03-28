@@ -670,4 +670,13 @@ struct MultiWindowEntryInAPPTest {
 
 怎么获取layeredDrawableDescriptor对象信息？
 
+---
+
+## See Also
+
+- [UX 体验标准](ux-standards.md)
+- [控件设计规范索引](component-design-specs.md)
+- [ArkUI 高级主题](arkui-advanced.md)
+- [深色模式 + 多端适配](../starter-kit/modules/dark-multi.md)
+
 
