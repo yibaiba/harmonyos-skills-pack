@@ -214,3 +214,11 @@ display.on('foldStatusChange', (foldStatus: display.FoldStatus) => {
 - 自适应布局: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-multi-device
 - 折叠屏适配: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-foldable-screen-adaptation
 - 多设备设计指南: https://developer.huawei.com/consumer/cn/doc/design-guides/phone-0000001776694632
+
+---
+
+## See Also
+
+- [UX 体验标准（必须条款）](../../topics/ux-standards.md)
+- [ArkUI 主题规范](../../topics/arkui.md)
+- [多端深色模式检查清单](../../checklists/universal-product-design-suggestions.md)
