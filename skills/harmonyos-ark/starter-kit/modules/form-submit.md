@@ -265,3 +265,11 @@ export class FormRepository {
 - TextInput / TextArea: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-basic-components-textinput
 - PhotoViewPicker: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/photoviewpicker
 - 文件上传: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/upload-and-download-guidelines
+
+---
+
+## See Also
+
+- [../../topics/network-data.md](../../topics/network-data.md) — 网络请求与数据持久化
+- [./media-camera.md](./media-camera.md) — 相机与媒体（图片上传）
+- [../snippets/common-patterns.md](../snippets/common-patterns.md) — 表单校验模式

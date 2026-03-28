@@ -249,3 +249,11 @@ async function logout(): Promise<void> {
 ## 官方参考
 - Preferences: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/preferences-guidelines
 - UIAbility 生命周期: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/uiability-lifecycle
+
+---
+
+## See Also
+
+- [../../topics/stage-ability.md](../../topics/stage-ability.md) — Stage 模型与 UIAbility
+- [../../topics/routing-lifecycle.md](../../topics/routing-lifecycle.md) — 路由与生命周期
+- [./data-persistence.md](./data-persistence.md) — 数据持久化

@@ -2,6 +2,9 @@
 
 > 来源：华为 HarmonyOS 开发者文档
 
+<!-- Agent 摘要：916 行。Node-API (NAPI) 跨 C/C++ 交互、类型映射、生命周期、线程安全。
+     ArkTS 语言基础 → arkts-lang-basics.md。并发 → arkts-concurrency.md。 -->
+
 ---
 
 ## Node-API简介

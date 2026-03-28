@@ -3,6 +3,9 @@
 > 来源：华为 HarmonyOS 开发者文档（V5/API 12）
 > 提取页数：8 篇
 
+<!-- Agent 摘要：940 行。键鼠交互/触屏手势（Pan/Pinch/Rotate/Swipe）指南。
+     拖拽/焦点/动画 → arkui-interaction-animation.md。 -->
+
 
 ## 目录
 

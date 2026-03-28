@@ -1,5 +1,9 @@
 # 状态管理主题
 
+<!-- Agent 摘要：782 行。@State/@Prop/@Link/@Provide 等装饰器 + 基础用法指南。
+     反模式/高级用法 → state-management-advanced.md。
+     代码模板 → starter-kit/snippets/state-management.md。 -->
+
 
 ## 目录
 

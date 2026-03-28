@@ -3,6 +3,9 @@
 > 来源：华为 HarmonyOS 开发者文档（V5/API 12）
 > 覆盖：后台任务简介、短时任务、长时任务、延迟任务（WorkScheduler）
 
+<!-- Agent 摘要：618 行。三种后台任务的完整 API 说明与用法。
+     代码模板 → starter-kit/modules/background-tasks.md。 -->
+
 
 ## 目录
 

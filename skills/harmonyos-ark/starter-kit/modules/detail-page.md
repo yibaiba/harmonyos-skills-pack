@@ -218,3 +218,11 @@ buildTabbedContent() {
 - router 传参: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-router
 - Scroll 组件: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-scroll
 - 系统分享: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/share-overview
+
+---
+
+## See Also
+
+- [../../topics/routing-lifecycle.md](../../topics/routing-lifecycle.md) — 路由与页面跳转
+- [./list-page.md](./list-page.md) — 列表页模板
+- [../snippets/common-patterns.md](../snippets/common-patterns.md) — 常用代码模式

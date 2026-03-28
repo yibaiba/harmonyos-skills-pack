@@ -2,6 +2,8 @@
 
 > 来源：华为 HarmonyOS 设计指南官方文档
 
+<!-- Agent 摘要：719 行。列表/弹出框/半模态面板/Sheet 的设计规范。 -->
+
 ### 列表
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/design-guides/list-0000001929853910

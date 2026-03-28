@@ -110,3 +110,11 @@ export class MigrationService {
 - 前置：modules/offline-no-login.md
 - 账号能力：modules/auth-login.md
 - 数据层：snippets/state-management.md
+
+---
+
+## See Also
+
+- [./auth-login.md](./auth-login.md) — 登录模块
+- [./offline-no-login.md](./offline-no-login.md) — 单机离线模式
+- [./data-persistence.md](./data-persistence.md) — 数据迁移与持久化

@@ -275,3 +275,11 @@ export class ContentRepository {
 - List 组件: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-list
 - Refresh 组件: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-refresh
 - ForEach 键值规则: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-foreach
+
+---
+
+## See Also
+
+- [../../topics/state-management.md](../../topics/state-management.md) — 状态管理
+- [./detail-page.md](./detail-page.md) — 详情页模板
+- [../snippets/common-patterns.md](../snippets/common-patterns.md) — HTTP 请求模式

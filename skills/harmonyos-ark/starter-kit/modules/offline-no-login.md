@@ -140,3 +140,11 @@ export class NoteRepository {
 - 替代：`modules/auth-login.md`（在单机场景）
 - 搭配：`modules/tabbar-navigation.md`、`modules/dark-multi.md`
 - 参考：`pipeline/app-type-checklist.md` 类型 A 分支
+
+---
+
+## See Also
+
+- [./data-persistence.md](./data-persistence.md) — 数据持久化（本地存储）
+- [./tabbar-navigation.md](./tabbar-navigation.md) — 底部导航
+- [./optional-login-upgrade.md](./optional-login-upgrade.md) — 游客升级登录

@@ -240,3 +240,11 @@ interface TabItem {
 - Tabs 组件: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-tabs
 - Badge 组件: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-badge
 - Navigation 导航: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/navigation-overview
+
+---
+
+## See Also
+
+- [../../topics/routing-lifecycle.md](../../topics/routing-lifecycle.md) — 路由与导航
+- [./drawer-navigation.md](./drawer-navigation.md) — 侧边栏抽屉导航
+- [./dark-multi.md](./dark-multi.md) — 深色模式与多端适配

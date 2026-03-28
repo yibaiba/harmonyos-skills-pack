@@ -1,5 +1,8 @@
 # 媒体与设备能力主题
 
+<!-- Agent 摘要：666 行。Camera/Image/Media/MediaLibrary Kit + 文件操作 + 权限管理。
+     代码模板 → starter-kit/modules/media-camera.md。 -->
+
 ## Scope
 - Camera Kit（相机服务）、Image Kit（图片处理）、Media Kit（音视频播放/录制）、Media Library Kit（媒体文件管理）
 

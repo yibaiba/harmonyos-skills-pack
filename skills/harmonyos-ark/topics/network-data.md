@@ -1,5 +1,9 @@
 # 网络请求与数据持久化主题
 
+<!-- Agent 摘要：895 行。ArkData（Preferences/RDB/KV Store）+ 文件管理。
+     HTTP/WebSocket/图片缓存 → network-data-network.md。
+     代码模板 → starter-kit/modules/data-persistence.md。 -->
+
 
 ## 目录
 

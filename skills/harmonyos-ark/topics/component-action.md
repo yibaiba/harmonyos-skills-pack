@@ -2,6 +2,8 @@
 
 > 来源：华为 HarmonyOS 设计指南官方文档
 
+<!-- Agent 摘要：531 行。8 个操作组件规范：按钮/菜单/工具栏/滑块/Swipe 等。 -->
+
 ### 按钮
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/design-guides/button-0000001929683228

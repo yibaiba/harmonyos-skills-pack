@@ -2,6 +2,8 @@
 
 > 来源：华为 HarmonyOS 设计指南官方文档
 
+<!-- Agent 摘要：516 行。7 个选择组件规范：勾选/开关/滑动条/选择器/Picker 等。 -->
+
 ### 勾选
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/design-guides/checkbox-0000001957012561

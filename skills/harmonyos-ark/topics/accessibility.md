@@ -3,6 +3,8 @@
 > 来源：华为 HarmonyOS 开发者文档（V5/API 12）
 > 覆盖：无障碍简介、屏幕朗读适配指导
 
+<!-- Agent 摘要：856 行。屏幕朗读适配、无障碍属性、组件语义标注指南。 -->
+
 ## Accessibility Kit简介
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/accessibilitykit-overview-V5

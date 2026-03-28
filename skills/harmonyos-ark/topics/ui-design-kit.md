@@ -2,6 +2,8 @@
 
 > 来源：华为 HarmonyOS 开发者文档
 
+<!-- Agent 摘要：682 行。HDS 设计套件概述/安装/Symbol 图标体系/布局规范。 -->
+
 ---
 
 ## UI Design Kit简介

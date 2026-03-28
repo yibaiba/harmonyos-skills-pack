@@ -3,6 +3,9 @@
 > 来源：华为 HarmonyOS 开发者文档（V5/API 12）
 > 覆盖：通知简介、授权请求、角标管理、渠道管理、文本/进度条通知发布、行为意图、取消通知
 
+<!-- Agent 摘要：632 行。通知权限/文本/进度条/按钮交互通知完整指南。
+     代码模板 → starter-kit/modules/notification-handling.md。 -->
+
 
 ## 目录
 
