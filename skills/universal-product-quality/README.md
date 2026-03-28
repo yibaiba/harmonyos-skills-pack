@@ -18,11 +18,15 @@
 
 ## 文件结构
 - SKILL.md
+- ONE_PAGE_USAGE.md
 - topics/feature-richness.md
+- topics/backend-quality-baseline.md
 - checklists/pre-release-universal.md
 - checklists/multi-platform-dark-mode.md
 - templates/project-onboarding-template.md
 - templates/team-review-scorecard.md
+- templates/ci-cd-integration-example.md
+- templates/quality-metrics-tracker.md
 - rules/risk-auto-classification.md
 
 ## 使用方式
@@ -32,3 +36,6 @@
 4. 新项目可直接复制 templates/project-onboarding-template.md 填写并执行
 5. 团队评审使用 templates/team-review-scorecard.md 量化打分
 6. 风险分级冲突时按 rules/risk-auto-classification.md 自动判定
+7. 后端/API 项目参考 topics/backend-quality-baseline.md
+8. CI/CD 流水线集成参考 templates/ci-cd-integration-example.md
+9. 跨版本质量趋势追踪使用 templates/quality-metrics-tracker.md
