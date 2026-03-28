@@ -59,6 +59,12 @@
 - topics/media-device.md: 相机、文件、媒体播放、权限
 - topics/testing-release.md: 测试、签名、打包、上架发布
 
+#### HarmonyOS 6.0 版本（API 20-22）
+- topics/harmonyos-6-overview.md: 6.0.0/6.0.1/6.0.2 版本概览与新增特性
+- topics/harmonyos-6-api-core.md: 核心框架 API 变更（Ability Kit/ArkTS/ArkData）
+- topics/harmonyos-6-api-arkui.md: ArkUI API 变更（6.0.0 + 6.0.2）
+- topics/harmonyos-6-api-services.md: 服务类 Kit API 变更（Network/Camera/Media/Image/Test/UI Design）
+
 #### UX 与审核
 - topics/ux-standards.md: UX 体验标准（必须条款 + ArkUI 落地对照 + Symbol 图标）
 - topics/incentive-review-2025.md: 创作激励、审核规则、上架卡审、合规材料

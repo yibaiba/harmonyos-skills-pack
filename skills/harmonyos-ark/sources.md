@@ -72,6 +72,19 @@
 - 测试框架: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/ide-test-V5
 - 应用发布: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/ide-publish-app-V5
 
+### HarmonyOS 6.0 版本说明（API 20-22）
+- 6.0.0 版本概览: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/overview-600
+- 6.0.1 版本概览: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/overview-601
+- 6.0.2 版本概览: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/overview-602
+- 6.0.2 新增和增强特性: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/os-new-feature-602
+- 6.0.2 API 变更清单总览: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/apidiff-602
+- 应用升级适配指导（→6.0.0）: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/upgrade-adaptation
+- Ability Kit 6.0.0 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-abilitykit-6001
+- ArkTS 6.0.0 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-arkts-6001
+- ArkUI 6.0.0 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-arkui-6001
+- ArkUI 6.0.2 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-arkui-6021
+- Network Kit 6.0.2 API diff: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/js-apidiff-networkkit-6021
+
 ## 补充来源
 - OpenHarmony 官方开发文档（用于概念解释或通用能力背景）
 - 官方 samples 与 codelabs（用于示例路径）
