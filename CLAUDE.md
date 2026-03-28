@@ -4,11 +4,13 @@
 
 ## Start Here
 - .claude/skills/harmonyos-ark/SKILL.md
+- .claude/skills/arkts-modernization-guard/SKILL.md
 - .claude/skills/universal-product-quality/SKILL.md
 
 ## Canonical Sources
 - .claude/skills/harmonyos-ark/SKILL.md
 - .claude/skills/harmonyos-ark/starter-kit/SKILL.md
+- .claude/skills/arkts-modernization-guard/SKILL.md
 - .claude/skills/universal-product-quality/SKILL.md
 
 ## Usage Rule

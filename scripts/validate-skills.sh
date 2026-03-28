@@ -47,7 +47,7 @@ check ".github/skills 存在"
 echo ""
 echo -e "${CYAN}2️⃣  核心技能检查${NC}"
 
-CORE_SKILLS=("harmonyos-ark" "universal-product-quality")
+CORE_SKILLS=("harmonyos-ark" "arkts-modernization-guard" "universal-product-quality")
 
 for skill in "${CORE_SKILLS[@]}"; do
   test -d "$PROJECT_ROOT/.claude/skills/$skill"

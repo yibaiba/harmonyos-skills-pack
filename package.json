@@ -15,6 +15,10 @@
   ],
   "author": "yibaiba",
   "license": "MIT",
+  "homepage": "https://github.com/yibaiba/harmonyos-skills-pack#readme",
+  "bugs": {
+    "url": "https://github.com/yibaiba/harmonyos-skills-pack/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/yibaiba/harmonyos-skills-pack.git"

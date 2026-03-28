@@ -10,6 +10,12 @@
       "copilotEntry": ".github/skills/harmonyos-ark/SKILL.md"
     },
     {
+      "id": "arkts-modernization-guard",
+      "canonical": "skills/arkts-modernization-guard/SKILL.md",
+      "claudeEntry": ".claude/skills/arkts-modernization-guard/SKILL.md",
+      "copilotEntry": ".github/skills/arkts-modernization-guard/SKILL.md"
+    },
+    {
       "id": "universal-product-quality",
       "canonical": "skills/universal-product-quality/SKILL.md",
       "claudeEntry": ".claude/skills/universal-product-quality/SKILL.md",
