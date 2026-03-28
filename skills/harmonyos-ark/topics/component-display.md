@@ -2,6 +2,11 @@
 
 > 来源：华为 HarmonyOS 设计指南官方文档
 
+<!-- Agent 摘要：本文件 1556 行，覆盖 15 个展示类组件的设计规范。
+     组件：文本/进度条/数据可视化/Toast/状态提示/气泡/徽标/搜索/下拉刷新/信息流/计数器/滚动条/分割线/字母索引/侧边栏。
+     按组件名搜索（如 "### Toast"）可快速定位。
+     若需导航/操作/输入类 → 见 component-navigation.md / component-action.md / component-input.md。 -->
+
 ### 文本
 
 **来源**: https://developer.huawei.com/consumer/cn/doc/design-guides/text-0000001956975261

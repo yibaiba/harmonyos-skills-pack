@@ -4,6 +4,11 @@
 > 版本：6.0.2 (API 22)
 > 注意：6.0.0 变更见 harmonyos-6-api-arkui-v600.md
 
+<!-- Agent 摘要：本文件 1809 行，为 6.0.2 ArkUI 前半部分 API 变更明细表。
+     后半部分 → harmonyos-6-api-arkui-part2.md。
+     6.0.0 ArkUI 变更 → harmonyos-6-api-arkui-v600.md。
+     不需要通读全文，按组件名或 d.ts 文件名搜索定位。 -->
+
 ## ⚡ 快速导航（按模块分类）
 
 > 本文件含 3348 行 API 变更明细。按以下分类快速定位：

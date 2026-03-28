@@ -3,6 +3,11 @@
 > 本文件从 harmonyos-6-api-core.md 拆分而来
 > 内容：ArkTS 语言变更 + ArkData 数据管理 API 变更
 
+<!-- Agent 摘要：本文件 1724 行，为 ArkTS 语言 + ArkData 存储的 6.0 API 变更明细。
+     关键模块：ArkTS 编译器/TypedArray/Sendable/Preferences/RDB/UDMF。
+     若需 Ability Kit 变更 → 读 harmonyos-6-api-core.md。
+     不需要通读全文，按 d.ts 文件名搜索定位。 -->
+
 ## ArkTS
 
 ### 6.0.0 变更

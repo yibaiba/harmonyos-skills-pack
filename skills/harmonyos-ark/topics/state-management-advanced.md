@@ -3,6 +3,11 @@
 > 本文件从 state-management.md 拆分而来
 > 内容：状态管理反模式、性能优化、高级用法
 
+<!-- Agent 摘要：本文件 1506 行，是状态管理高级用法的完整指南。
+     主要内容：5 大反模式 + 正确用法、跨组件状态共享、持久化联动、V1→V2 迁移。
+     基础入门 → 读 state-management.md。
+     代码模板 → 读 starter-kit/snippets/state-management.md。 -->
+
 ## 状态管理合理使用开发指导
 
 > 来源: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/properly-use-state-management-to-develope-V5

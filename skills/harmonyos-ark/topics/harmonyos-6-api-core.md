@@ -3,6 +3,12 @@
 > Ability Kit / ArkTS / ArkData 的 API 新增、变更、废弃清单
 > 版本范围：6.0.0(API 20) → 6.0.2(API 22)
 
+<!-- Agent 摘要：本文件 2008 行，主要内容为 Ability Kit API 变更明细表。
+     关键模块：UIAbility/UIExtensionAbility/Want/Context/Configuration。
+     若只需 ArkTS/ArkData 变更 → 读 harmonyos-6-api-core-arkts.md。
+     若只需概览 → 读 harmonyos-6-overview.md。
+     不需要通读全文，按 d.ts 文件名搜索即可定位。 -->
+
 ## Ability Kit
 
 ### 6.0.0 变更
