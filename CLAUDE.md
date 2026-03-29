@@ -22,3 +22,7 @@
 在开始任务前可先执行以下约束：
 
 "先读取 .claude/skills 的对应 SKILL.md，并在 .claude/skills 目录内按路由执行任务。"
+
+## 🚨 ArkTS 全局编码约束
+编写 .ets/.ts 代码时，SKILL.md 中「🚨 全局编码约束」区块为硬约束。
+完整规则: .claude/skills/harmonyos-ark/topics/arkts-coding-rules.md
