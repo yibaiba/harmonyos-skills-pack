@@ -4,6 +4,18 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-03-28
+
+### Added
+
+- **UX 设计验收指南** (`topics/ux-design-specs.md`)
+  - 8 大验收维度：视觉风格 / 布局 / 动效 / 系统特性 / 多设备适配 / 人机交互
+  - 50+ 检查项，P0/P1/P2 严重度分级
+  - 快速决策树（4 项 P0 必查优先）
+  - 20 个华为官方来源 URL + ArkUI 代码提示
+  - 覆盖：色彩、字体、图标、基础布局、响应式架构、转场/手势/离手减速动效、导航条、状态栏、深色模式、启动页、折叠屏、2in1/平板、横竖屏、多窗口/画中画、光标/焦点/键盘交互
+- SKILL.md 新增 UX 设计验收路由
+
 ## [0.1.6] - 2026-03-28
 
 ### Added
