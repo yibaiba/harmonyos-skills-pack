@@ -4,6 +4,22 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-03-29
+
+### Added
+
+- **ArkTS 全局编码约束** (`topics/arkts-coding-rules.md`)
+  - 60+ 条 ArkTS 语法禁止项（7 组表格：类型/变量/函数/类/模块/运算符/枚举）
+  - HarmonyOS API 使用规范（10 条）
+  - ArkUI 动画规范（4 条，禁止布局属性动画）
+  - 快速检查清单（10 项）
+
+### Changed
+
+- **SKILL.md 全局约束内联** — Top 15 禁止项 + API 规范 + 动画规范直接嵌入 SKILL.md，Agent 无需额外文件读取
+- **SKILL.md frontmatter 新增 `globs`** — 匹配 .ets/.ts/module.json5 文件，提升 Agent 自动激活率
+- **四层约束注入** — AGENTS.md / CLAUDE.md / copilot-instructions.md / SKILL.md 多平台同步，确保 Copilot、Claude、Codex 三平台 Agent 自动遵守编码约束
+
 ## [0.1.7] - 2026-03-28
 
 ### Added
