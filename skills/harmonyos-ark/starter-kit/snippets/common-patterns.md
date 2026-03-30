@@ -2,8 +2,9 @@
 
 > 随取随用。复制粘贴，按注释替换业务字段。
 
-<!-- Agent 摘要：1017 行，23 个代码模式。按编号搜索（如 "## 一"/"## 十四"）定位。
-     模式覆盖：HTTP/JSON/路由/弹窗/权限/图片缓存/文件存储/Deep Link/生命周期/错误边界/埋点。 -->
+<!-- Agent 摘要：约 1400 行，33 个代码模式。按编号搜索（如 "## 一"/"## 十四"）定位。
+     模式覆盖：HTTP/JSON/路由/弹窗/权限/图片缓存/文件存储/Deep Link/生命周期/错误边界/埋点/
+     下拉刷新/搜索防抖/RDB/通知/Worker/定时器/主题切换/国际化/生物认证/WebSocket。 -->
 
 ---
 
@@ -1009,6 +1010,730 @@ export class Analytics {
 Analytics.pageView('ProductDetail');
 Analytics.click('buy_button', { productId: '123' });
 ```
+
+---
+
+## 二十四、下拉刷新 + 上拉加载
+
+```typescript
+// pages/RefreshListPage.ets
+import { http } from '@kit.NetworkKit'
+
+interface ListItem {
+  id: number
+  title: string
+}
+
+interface PageResponse {
+  list: ListItem[]
+  hasMore: boolean
+}
+
+@Entry
+@Component
+struct RefreshListPage {
+  @State isRefreshing: boolean = false
+  @State isLoadingMore: boolean = false
+  @State currentPage: number = 1
+  @State dataList: ListItem[] = []
+  @State hasMore: boolean = true
+
+  aboutToAppear(): void {
+    this.loadData(1, false)
+  }
+
+  loadData(page: number, append: boolean): void {
+    let req = http.createHttp()
+    req.request(`https://api.example.com/items?page=${page}`, {
+      method: http.RequestMethod.GET,
+    }).then((resp: http.HttpResponse) => {
+      let body: PageResponse = JSON.parse(resp.result as string) as PageResponse
+      if (append) {
+        this.dataList = this.dataList.concat(body.list)
+      } else {
+        this.dataList = body.list
+      }
+      this.currentPage = page
+      this.hasMore = body.hasMore
+      this.isRefreshing = false
+      this.isLoadingMore = false
+      req.destroy()
+    }).catch(() => {
+      this.isRefreshing = false
+      this.isLoadingMore = false
+      req.destroy()
+    })
+  }
+
+  build() {
+    Refresh({ refreshing: $$this.isRefreshing }) {
+      List({ space: 12 }) {
+        ForEach(this.dataList, (item: ListItem) => {
+          ListItem() {
+            Text(item.title)
+              .fontSize(16)
+              .padding(16)
+          }
+        }, (item: ListItem) => item.id.toString())
+      }
+      .onReachEnd(() => {
+        if (!this.isLoadingMore && this.hasMore) {
+          this.isLoadingMore = true
+          this.loadData(this.currentPage + 1, true)
+        }
+      })
+    }
+    .onRefreshing(() => {
+      this.loadData(1, false)
+    })
+  }
+}
+```
+
+> 💡 **Tips**: `Refresh` 组件自动处理下拉手势；`onReachEnd` 在列表滚到底时触发上拉加载。务必用 `isLoadingMore` 标志位防止重复请求。
+
+---
+
+## 二十五、搜索防抖
+
+```typescript
+// pages/SearchPage.ets
+
+interface SearchResult {
+  id: string
+  name: string
+}
+
+@Entry
+@Component
+struct SearchPage {
+  @State searchText: string = ''
+  @State searchResults: SearchResult[] = []
+  private debounceTimer: number = -1
+  private readonly DEBOUNCE_MS: number = 300
+
+  doSearch(keyword: string): void {
+    if (keyword.length === 0) {
+      this.searchResults = []
+      return
+    }
+    // 替换为真实 API 调用
+    console.info(`Searching: ${keyword}`)
+    let mockResults: SearchResult[] = [
+      { id: '1', name: `Result for ${keyword}` },
+    ]
+    this.searchResults = mockResults
+  }
+
+  onInputChange(value: string): void {
+    this.searchText = value
+    if (this.debounceTimer !== -1) {
+      clearTimeout(this.debounceTimer)
+    }
+    this.debounceTimer = setTimeout(() => {
+      this.doSearch(value)
+      this.debounceTimer = -1
+    }, this.DEBOUNCE_MS)
+  }
+
+  build() {
+    Column({ space: 12 }) {
+      TextInput({ placeholder: '请输入搜索关键词', text: this.searchText })
+        .onChange((value: string) => {
+          this.onInputChange(value)
+        })
+        .width('100%')
+
+      List({ space: 8 }) {
+        ForEach(this.searchResults, (item: SearchResult) => {
+          ListItem() {
+            Text(item.name).fontSize(14).padding(12)
+          }
+        }, (item: SearchResult) => item.id)
+      }
+    }
+    .padding(16)
+  }
+}
+```
+
+> 💡 **Tips**: 防抖核心是 `clearTimeout` + `setTimeout`，避免每次按键都发起请求。300ms 是常见阈值；对即时性要求高的场景可缩短至 150ms。
+
+---
+
+## 二十六、RDB 关系型数据库
+
+```typescript
+// utils/DbHelper.ets
+import { relationalStore } from '@kit.ArkData'
+import { common } from '@kit.AbilityKit'
+
+const DB_NAME = 'app.db'
+const TABLE_USER = 'user'
+
+interface UserRow {
+  id: number
+  name: string
+  age: number
+}
+
+const STORE_CONFIG: relationalStore.StoreConfig = {
+  name: DB_NAME,
+  securityLevel: relationalStore.SecurityLevel.S1,
+}
+
+const CREATE_TABLE_SQL: string =
+  `CREATE TABLE IF NOT EXISTS ${TABLE_USER} (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INTEGER NOT NULL)`
+
+export class DbHelper {
+  private static store: relationalStore.RdbStore | null = null
+
+  static async init(context: common.UIAbilityContext): Promise<void> {
+    DbHelper.store = await relationalStore.getRdbStore(context, STORE_CONFIG)
+    await DbHelper.store.executeSql(CREATE_TABLE_SQL)
+  }
+
+  static async insert(name: string, age: number): Promise<number> {
+    let bucket: relationalStore.ValuesBucket = { name: name, age: age }
+    let rowId: number = await DbHelper.store!.insert(TABLE_USER, bucket)
+    return rowId
+  }
+
+  static async queryAll(): Promise<UserRow[]> {
+    let predicates = new relationalStore.RdbPredicates(TABLE_USER)
+    let resultSet = await DbHelper.store!.query(predicates, ['id', 'name', 'age'])
+    let list: UserRow[] = []
+    while (resultSet.goToNextRow()) {
+      let row: UserRow = {
+        id: resultSet.getLong(resultSet.getColumnIndex('id')),
+        name: resultSet.getString(resultSet.getColumnIndex('name')),
+        age: resultSet.getLong(resultSet.getColumnIndex('age')) as number,
+      }
+      list.push(row)
+    }
+    resultSet.close()
+    return list
+  }
+
+  static async update(id: number, name: string, age: number): Promise<number> {
+    let bucket: relationalStore.ValuesBucket = { name: name, age: age }
+    let predicates = new relationalStore.RdbPredicates(TABLE_USER)
+    predicates.equalTo('id', id)
+    let affected: number = await DbHelper.store!.update(bucket, predicates)
+    return affected
+  }
+
+  static async deleteById(id: number): Promise<number> {
+    let predicates = new relationalStore.RdbPredicates(TABLE_USER)
+    predicates.equalTo('id', id)
+    let affected: number = await DbHelper.store!.delete(predicates)
+    return affected
+  }
+}
+```
+
+> 💡 **Tips**: `relationalStore` 是 HarmonyOS 的轻量关系型数据库，适合结构化本地数据。务必在 `EntryAbility.onCreate` 中调用 `DbHelper.init(context)` 完成初始化。
+
+---
+
+## 二十七、本地通知
+
+```typescript
+// utils/NotifyUtil.ets
+import { notificationManager } from '@kit.NotificationKit'
+
+export class NotifyUtil {
+  /** 请求通知授权 */
+  static async requestPermission(): Promise<void> {
+    await notificationManager.requestEnableNotification()
+  }
+
+  /** 发布基础文本通知 */
+  static async publishText(title: string, body: string): Promise<void> {
+    let request: notificationManager.NotificationRequest = {
+      id: Date.now() % 100000,
+      content: {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+        normal: {
+          title: title,
+          text: body,
+          additionalText: '',
+        },
+      },
+    }
+    await notificationManager.publish(request)
+  }
+
+  /** 发布进度通知 */
+  static async publishProgress(title: string, percent: number): Promise<void> {
+    let template: notificationManager.NotificationTemplate = {
+      name: 'downloadTemplate',
+      data: { title: title, fileName: title, progressValue: percent },
+    }
+    let request: notificationManager.NotificationRequest = {
+      id: 9999,
+      content: {
+        notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
+        normal: {
+          title: title,
+          text: `${percent}%`,
+          additionalText: '',
+        },
+      },
+      template: template,
+    }
+    await notificationManager.publish(request)
+  }
+}
+
+// 用法
+// await NotifyUtil.requestPermission()
+// await NotifyUtil.publishText('下载完成', '文件已保存到本地')
+// await NotifyUtil.publishProgress('正在下载...', 45)
+```
+
+> 💡 **Tips**: 首次发送通知前必须调用 `requestEnableNotification()` 获取授权。通知 ID 相同时会覆盖旧通知，适合进度更新场景。
+
+---
+
+## 二十八、Worker 线程
+
+```typescript
+// pages/WorkerDemo.ets — 主线程侧
+import { worker } from '@kit.ArkTS'
+
+interface WorkerResult {
+  sum: number
+}
+
+@Entry
+@Component
+struct WorkerDemo {
+  @State result: string = '等待计算...'
+  private myWorker: worker.ThreadWorker | null = null
+
+  aboutToAppear(): void {
+    this.myWorker = new worker.ThreadWorker('entry/ets/workers/CalcWorker.ets')
+    this.myWorker.onmessage = (event: MessageEvents) => {
+      let data: WorkerResult = event.data as WorkerResult
+      this.result = `计算结果: ${data.sum}`
+    }
+    this.myWorker.onerror = (err: ErrorEvent) => {
+      this.result = `Worker 错误: ${err.message}`
+    }
+  }
+
+  aboutToDisappear(): void {
+    if (this.myWorker !== null) {
+      this.myWorker.terminate()
+      this.myWorker = null
+    }
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text(this.result).fontSize(18)
+      Button('开始计算')
+        .onClick(() => {
+          this.myWorker?.postMessage({ start: 1, end: 1000000 })
+        })
+    }
+    .padding(24)
+  }
+}
+```
+
+```typescript
+// workers/CalcWorker.ets — Worker 侧
+import { worker, MessageEvents } from '@kit.ArkTS'
+
+const workerPort = worker.workerPort
+
+interface CalcTask {
+  start: number
+  end: number
+}
+
+workerPort.onmessage = (event: MessageEvents) => {
+  let task: CalcTask = event.data as CalcTask
+  let sum: number = 0
+  for (let i: number = task.start; i <= task.end; i++) {
+    sum += i
+  }
+  workerPort.postMessage({ sum: sum })
+}
+```
+
+> 💡 **Tips**: Worker 运行在独立线程，适合 CPU 密集计算（大数组排序、加密等）。记得在页面销毁时 `terminate()`，否则线程泄漏。Worker 文件路径需在 `build-profile.json5` 中注册。
+
+---
+
+## 二十九、倒计时 / 定时器
+
+```typescript
+// pages/CountdownPage.ets
+
+@Entry
+@Component
+struct CountdownPage {
+  @State countdown: number = 120 // 总秒数
+  private timerId: number = -1
+
+  aboutToAppear(): void {
+    this.startTimer()
+  }
+
+  aboutToDisappear(): void {
+    this.stopTimer()
+  }
+
+  startTimer(): void {
+    this.timerId = setInterval(() => {
+      if (this.countdown <= 0) {
+        this.stopTimer()
+        return
+      }
+      this.countdown--
+    }, 1000)
+  }
+
+  stopTimer(): void {
+    if (this.timerId !== -1) {
+      clearInterval(this.timerId)
+      this.timerId = -1
+    }
+  }
+
+  formatTime(totalSeconds: number): string {
+    let minutes: number = Math.floor(totalSeconds / 60)
+    let seconds: number = totalSeconds % 60
+    let mm: string = minutes < 10 ? `0${minutes}` : `${minutes}`
+    let ss: string = seconds < 10 ? `0${seconds}` : `${seconds}`
+    return `${mm}:${ss}`
+  }
+
+  build() {
+    Column({ space: 24 }) {
+      Text(this.formatTime(this.countdown))
+        .fontSize(48)
+        .fontWeight(FontWeight.Bold)
+
+      Row({ space: 16 }) {
+        Button('重置')
+          .onClick(() => {
+            this.stopTimer()
+            this.countdown = 120
+          })
+        Button('开始')
+          .onClick(() => {
+            this.stopTimer()
+            this.startTimer()
+          })
+      }
+    }
+    .padding(24)
+    .width('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+> 💡 **Tips**: 必须在 `aboutToDisappear` 中清理定时器，否则页面销毁后回调仍会执行导致异常。`setInterval` 返回值用于后续 `clearInterval`。
+
+---
+
+## 三十、主题切换（深色 / 浅色）
+
+```typescript
+// pages/ThemeSwitchPage.ets
+
+const THEME_KEY: string = 'currentTheme'
+
+type ThemeMode = 'light' | 'dark'
+
+@Entry
+@Component
+struct ThemeSwitchPage {
+  @StorageProp(THEME_KEY) currentTheme: ThemeMode = 'light'
+
+  aboutToAppear(): void {
+    let saved: ThemeMode | undefined = AppStorage.get<ThemeMode>(THEME_KEY)
+    if (saved === undefined) {
+      AppStorage.setOrCreate<ThemeMode>(THEME_KEY, 'light')
+    }
+  }
+
+  toggleTheme(): void {
+    let next: ThemeMode = this.currentTheme === 'light' ? 'dark' : 'light'
+    AppStorage.setOrCreate<ThemeMode>(THEME_KEY, next)
+  }
+
+  build() {
+    Column({ space: 20 }) {
+      Text('主题切换示例')
+        .fontSize(22)
+        .fontColor(this.currentTheme === 'dark' ? Color.White : Color.Black)
+
+      Button(this.currentTheme === 'dark' ? '切换到浅色' : '切换到深色')
+        .onClick(() => {
+          this.toggleTheme()
+        })
+
+      Text('当前主题: ' + this.currentTheme)
+        .fontSize(14)
+        .fontColor(Color.Gray)
+    }
+    .width('100%')
+    .height('100%')
+    .padding(24)
+    .justifyContent(FlexAlign.Center)
+    .backgroundColor(this.currentTheme === 'dark' ? '#1a1a1a' : '#ffffff')
+  }
+}
+
+// 在子组件中获取主题
+@Component
+struct ThemedCard {
+  @StorageProp(THEME_KEY) currentTheme: ThemeMode = 'light'
+
+  build() {
+    Column() {
+      Text('卡片内容')
+        .fontColor(this.currentTheme === 'dark' ? '#e0e0e0' : '#333333')
+    }
+    .padding(16)
+    .borderRadius(8)
+    .backgroundColor(this.currentTheme === 'dark' ? '#2c2c2c' : '#f5f5f5')
+  }
+}
+```
+
+> 💡 **Tips**: `@StorageProp` 实现全局主题响应——任意组件修改 `AppStorage` 值后，所有绑定该 key 的组件自动刷新。系统颜色可用 `$r('sys.color.ohos_id_color_background')` 获取。
+
+---
+
+## 三十一、多语言 / 国际化
+
+```typescript
+// pages/I18nPage.ets
+import { common } from '@kit.AbilityKit'
+import { resourceManager } from '@kit.LocalizationKit'
+
+@Entry
+@Component
+struct I18nPage {
+  @State greeting: string = ''
+  @State itemCount: string = ''
+
+  aboutToAppear(): void {
+    this.loadStrings()
+  }
+
+  loadStrings(): void {
+    let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext
+    let resMgr: resourceManager.ResourceManager = context.resourceManager
+    // 同步获取字符串资源
+    this.greeting = resMgr.getStringSync($r('app.string.hello_message').id)
+    // 带参数的字符串（资源定义: "共 %d 件商品"）
+    this.itemCount = resMgr.getStringSync($r('app.string.item_count').id, 5)
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      // 方式一：直接使用 $r 引用（推荐，自动跟随系统语言）
+      Text($r('app.string.app_name'))
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+
+      // 方式二：动态获取后赋值
+      Text(this.greeting)
+        .fontSize(18)
+
+      Text(this.itemCount)
+        .fontSize(14)
+        .fontColor(Color.Gray)
+
+      // 图片国际化：按 qualifier 目录自动加载
+      Image($r('app.media.banner'))
+        .width('100%')
+        .height(120)
+        .objectFit(ImageFit.Cover)
+    }
+    .padding(24)
+  }
+}
+
+// resources/base/element/string.json   — 默认（中文）
+// { "string": [{ "name": "hello_message", "value": "你好，欢迎使用" }] }
+//
+// resources/en_US/element/string.json  — 英文
+// { "string": [{ "name": "hello_message", "value": "Hello, welcome" }] }
+```
+
+> 💡 **Tips**: 优先用 `$r('app.string.xxx')` 静态引用，框架自动按系统语言匹配资源。仅在需要动态拼接时使用 `getStringSync()`。多语言资源按 `resources/<locale>/element/` 目录组织。
+
+---
+
+## 三十二、生物认证
+
+```typescript
+// utils/BiometricAuth.ets
+import { userAuth } from '@kit.UserAuthenticationKit'
+
+interface AuthResult {
+  success: boolean
+  message: string
+}
+
+export class BiometricAuth {
+  /** 检查设备是否支持指纹/面部认证 */
+  static checkAvailability(): boolean {
+    try {
+      let mgr = userAuth.getUserAuthInstance({
+        authType: [userAuth.UserAuthType.FINGERPRINT],
+        authTrustLevel: userAuth.AuthTrustLevel.ATL3,
+      })
+      return mgr !== null
+    } catch (e) {
+      console.error(`BiometricAuth check failed: ${(e as Error).message}`)
+      return false
+    }
+  }
+
+  /** 发起认证 */
+  static authenticate(): Promise<AuthResult> {
+    return new Promise<AuthResult>((resolve) => {
+      let authParam: userAuth.AuthParam = {
+        challenge: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8]),
+        authType: [userAuth.UserAuthType.FINGERPRINT],
+        authTrustLevel: userAuth.AuthTrustLevel.ATL3,
+      }
+      let widgetParam: userAuth.WidgetParam = {
+        title: '请验证身份',
+      }
+
+      try {
+        let auth = userAuth.getUserAuthInstance(authParam, widgetParam)
+
+        auth.on('result', (result: userAuth.UserAuthResult) => {
+          if (result.result === userAuth.UserAuthResultCode.SUCCESS) {
+            resolve({ success: true, message: '认证成功' })
+          } else {
+            resolve({ success: false, message: `认证失败: ${result.result}` })
+          }
+        })
+
+        auth.start()
+      } catch (e) {
+        resolve({ success: false, message: `认证异常: ${(e as Error).message}` })
+      }
+    })
+  }
+}
+
+// 用法
+// let available: boolean = BiometricAuth.checkAvailability()
+// if (available) {
+//   let result: AuthResult = await BiometricAuth.authenticate()
+//   console.info(result.message)
+// }
+```
+
+> 💡 **Tips**: 生物认证需要在 `module.json5` 声明 `ohos.permission.ACCESS_BIOMETRIC`。`AuthTrustLevel` 从 ATL1 到 ATL4，级别越高安全要求越严（ATL3 适合支付场景）。
+
+---
+
+## 三十三、WebSocket 实时通信
+
+```typescript
+// utils/WsClient.ets
+import { webSocket } from '@kit.NetworkKit'
+
+interface WsMessage {
+  type: string
+  data: string
+}
+
+export class WsClient {
+  private ws: webSocket.WebSocket | null = null
+  private url: string = ''
+  private retryCount: number = 0
+  private readonly MAX_RETRIES: number = 5
+  private readonly RETRY_DELAY_MS: number = 3000
+  onMessage: (msg: WsMessage) => void = () => {}
+  onStatusChange: (connected: boolean) => void = () => {}
+
+  connect(url: string): void {
+    this.url = url
+    this.retryCount = 0
+    this.doConnect()
+  }
+
+  private doConnect(): void {
+    this.ws = webSocket.createWebSocket()
+
+    this.ws.on('open', () => {
+      console.info('WebSocket connected')
+      this.retryCount = 0
+      this.onStatusChange(true)
+    })
+
+    this.ws.on('message', (err: Error, value: string | ArrayBuffer) => {
+      if (typeof value === 'string') {
+        let msg: WsMessage = JSON.parse(value) as WsMessage
+        this.onMessage(msg)
+      }
+    })
+
+    this.ws.on('close', () => {
+      console.info('WebSocket closed')
+      this.onStatusChange(false)
+      this.tryReconnect()
+    })
+
+    this.ws.on('error', (err: Error) => {
+      console.error(`WebSocket error: ${err.message}`)
+      this.onStatusChange(false)
+    })
+
+    this.ws.connect(this.url)
+  }
+
+  send(msg: WsMessage): void {
+    if (this.ws !== null) {
+      this.ws.send(JSON.stringify(msg))
+    }
+  }
+
+  private tryReconnect(): void {
+    if (this.retryCount >= this.MAX_RETRIES) {
+      console.error('WebSocket max retries reached')
+      return
+    }
+    this.retryCount++
+    console.info(`WebSocket reconnecting (${this.retryCount}/${this.MAX_RETRIES})...`)
+    setTimeout(() => {
+      this.doConnect()
+    }, this.RETRY_DELAY_MS)
+  }
+
+  close(): void {
+    if (this.ws !== null) {
+      this.ws.off('close')
+      this.ws.close()
+      this.ws = null
+    }
+  }
+}
+
+// 用法
+// let client = new WsClient()
+// client.onMessage = (msg: WsMessage) => { console.info(msg.data) }
+// client.connect('ws://your-server.example.com/ws')
+// client.send({ type: 'chat', data: 'Hello!' })
+```
+
+> 💡 **Tips**: 断线重连是 WebSocket 必备——使用递增计数 + 最大重试次数防止无限重连。`close()` 前先 `off('close')` 避免关闭时触发重连逻辑。记得在页面 `aboutToDisappear` 中调用 `client.close()`。
 
 ---
 
