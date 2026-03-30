@@ -121,6 +121,8 @@ export class HttpUtil {
 
 ## 三、Router 常用操作
 
+> ⚠️ Router API 已逐步废弃，新项目推荐使用 **Navigation** 组件（见模式三十四）。以下仅供旧项目维护参考。
+
 ```typescript
 import { router } from '@kit.ArkUI'
 
@@ -197,18 +199,17 @@ import { promptAction } from '@kit.ArkUI'
 promptAction.showToast({ message: '操作成功', duration: 2000 })
 
 // 确认 Dialog
-promptAction.showDialog({
+const res = await promptAction.showDialog({
   title: '确认',
   message: '确定要删除吗？',
   buttons: [
     { text: '取消', color: '#999' },
     { text: '删除', color: '#FF3B30' }
   ]
-}).then(res => {
-  if (res.index === 1) {
-    // 用户点了"删除"
-  }
 })
+if (res.index === 1) {
+  // 用户点了"删除"
+}
 ```
 
 ---
@@ -569,19 +570,18 @@ function showError(message: string): void {
   promptAction.showToast({ message, duration: 2000 })
 }
 
-function showRetryDialog(message: string, onRetry: () => void): void {
-  promptAction.showDialog({
+async function showRetryDialog(message: string, onRetry: () => void): Promise<void> {
+  const result = await promptAction.showDialog({
     title: '操作失败',
     message: message,
     buttons: [
       { text: '取消', color: '#999' },
       { text: '重试', color: '#007AFF' }
     ]
-  }).then((result) => {
-    if (result.index === 1) {
-      onRetry()
-    }
   })
+  if (result.index === 1) {
+    onRetry()
+  }
 }
 ```
 
@@ -1042,11 +1042,12 @@ struct RefreshListPage {
     this.loadData(1, false)
   }
 
-  loadData(page: number, append: boolean): void {
+  async loadData(page: number, append: boolean): Promise<void> {
     let req = http.createHttp()
-    req.request(`https://api.example.com/items?page=${page}`, {
-      method: http.RequestMethod.GET,
-    }).then((resp: http.HttpResponse) => {
+    try {
+      const resp: http.HttpResponse = await req.request(`https://api.example.com/items?page=${page}`, {
+        method: http.RequestMethod.GET,
+      })
       let body: PageResponse = JSON.parse(resp.result as string) as PageResponse
       if (append) {
         this.dataList = this.dataList.concat(body.list)
@@ -1055,14 +1056,13 @@ struct RefreshListPage {
       }
       this.currentPage = page
       this.hasMore = body.hasMore
+    } catch (e) {
+      // 请求失败静默处理
+    } finally {
       this.isRefreshing = false
       this.isLoadingMore = false
       req.destroy()
-    }).catch(() => {
-      this.isRefreshing = false
-      this.isLoadingMore = false
-      req.destroy()
-    })
+    }
   }
 
   build() {
@@ -1734,6 +1734,69 @@ export class WsClient {
 ```
 
 > 💡 **Tips**: 断线重连是 WebSocket 必备——使用递增计数 + 最大重试次数防止无限重连。`close()` 前先 `off('close')` 避免关闭时触发重连逻辑。记得在页面 `aboutToDisappear` 中调用 `client.close()`。
+
+---
+
+## 三十四、Navigation 页面路由（推荐替代 Router）
+
+> ⚠️ HarmonyOS 推荐使用 Navigation 组件替代 router API。Navigation 支持标题栏、工具栏、路由管理一体化。
+
+```typescript
+// 1. 入口页：使用 Navigation 作为根容器
+@Entry
+@Component
+struct Index {
+  private navStack: NavPathStack = new NavPathStack()
+
+  build() {
+    Navigation(this.navStack) {
+      Column() {
+        Button('去详情')
+          .onClick(() => {
+            this.navStack.pushPath({ name: 'DetailPage', param: { id: '123' } as Record<string, string> })
+          })
+        Button('去设置')
+          .onClick(() => {
+            this.navStack.pushPath({ name: 'SettingsPage' })
+          })
+      }
+    }
+    .navDestination(this.pageBuilder)
+    .title('首页')
+  }
+
+  @Builder
+  pageBuilder(name: string, param: Object): void {
+    if (name === 'DetailPage') {
+      DetailPage()
+    } else if (name === 'SettingsPage') {
+      SettingsPage()
+    }
+  }
+}
+
+// 2. 子页面：使用 NavDestination
+@Component
+struct DetailPage {
+  build() {
+    NavDestination() {
+      Column() {
+        Text('详情页内容')
+      }
+    }
+    .title('详情')
+  }
+}
+
+// 3. 常用导航操作
+// navStack.pushPath({ name: 'Page', param: data })  // 跳转
+// navStack.replacePath({ name: 'Page' })             // 替换栈顶
+// navStack.pop()                                     // 返回上一页
+// navStack.clear()                                   // 清空导航栈
+// navStack.popToName('Page')                         // 回退到指定页
+```
+
+> 💡 **Tips**: Navigation 替代 Router 的关键优势——支持嵌套子导航、系统返回手势自动处理、标题栏/工具栏声明式配置。Router 仍可用但新项目请优先 Navigation。
 
 ---
 

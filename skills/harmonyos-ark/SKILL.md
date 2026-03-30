@@ -28,6 +28,11 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 3. 官方 samples/codelabs（实践补充）
 4. 其他社区内容（仅在用户明确要求时）
 
+## 版本假设
+- 未指定版本时，默认按最新稳定版本（HarmonyOS NEXT 6.x / API 13+）回答
+- 如需 HarmonyOS 5 / API 11-12 支持，请明确声明
+- 代码示例中涉及版本差异时会标注最低 API Level
+
 ## 文档链接读取策略
 当需要读取华为开发者文档链接时，按以下优先级尝试：
 
@@ -100,32 +105,32 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 
 | 关键词 | → 文件 | 补充 |
 |--------|--------|------|
-| 下拉刷新、列表、加载更多 | modules/list-page.md | 代码: common-patterns.md §二十四 |
-| 登录、注册、Token | modules/auth-login.md | API: network-data.md |
-| 表单、校验、上传 | modules/form-submit.md | 代码: common-patterns.md §十一 |
-| 权限、相机、文件、媒体 | topics/media-device.md | 模板: modules/media-camera.md |
-| 安全控件、剪贴板、SaveButton | topics/security-components.md | 权限: acl-permissions.md |
-| 深色模式、主题切换 | modules/dark-multi.md | 检查: ux-standards.md |
-| Navigation、路由、传参 | topics/routing-lifecycle.md | 模板: modules/tabbar-navigation.md |
-| 状态管理、@State、@Provide | topics/state-management.md | 高级: state-management-advanced.md |
-| 网络请求、HTTP、下载 | topics/network-data.md | 代码: common-patterns.md §一 |
-| WebSocket、实时、重连 | modules/websocket-realtime.md | 代码: common-patterns.md §三十三 |
-| 数据库、持久化、Preferences | modules/data-persistence.md | 代码: common-patterns.md §二十六 |
-| 通知、推送、角标 | topics/notification-kit.md | 模板: modules/notification-handling.md |
-| 后台任务、Worker | topics/background-tasks-kit.md | 模板: modules/background-tasks.md |
-| 支付、IAP、计费 | modules/payment-billing.md | 审核: incentive-review-2025.md |
+| 下拉刷新、列表、加载更多 | starter-kit/modules/list-page.md | 代码: starter-kit/snippets/common-patterns.md §二十四 |
+| 登录、注册、Token | starter-kit/modules/auth-login.md | API: topics/network-data.md |
+| 表单、校验、上传 | starter-kit/modules/form-submit.md | 代码: starter-kit/snippets/common-patterns.md §十一 |
+| 权限、相机、文件、媒体 | topics/media-device.md | 模板: starter-kit/modules/media-camera.md |
+| 安全控件、剪贴板、SaveButton | topics/security-components.md | 权限: topics/acl-permissions.md |
+| 深色模式、主题切换 | starter-kit/modules/dark-multi.md | 检查: topics/ux-standards.md |
+| Navigation、路由、传参 | topics/routing-lifecycle.md | 模板: starter-kit/modules/tabbar-navigation.md |
+| 状态管理、@State、@Provide | topics/state-management.md | 高级: topics/state-management-advanced.md |
+| 网络请求、HTTP、下载 | topics/network-data.md | 代码: starter-kit/snippets/common-patterns.md §一 |
+| WebSocket、实时、重连 | starter-kit/modules/websocket-realtime.md | 代码: starter-kit/snippets/common-patterns.md §三十三 |
+| 数据库、持久化、Preferences | starter-kit/modules/data-persistence.md | 代码: starter-kit/snippets/common-patterns.md §二十六 |
+| 通知、推送、角标 | topics/notification-kit.md | 模板: starter-kit/modules/notification-handling.md |
+| 后台任务、Worker | topics/background-tasks-kit.md | 模板: starter-kit/modules/background-tasks.md |
+| 支付、IAP、计费 | starter-kit/modules/payment-billing.md | 审核: topics/incentive-review-2025.md |
 | WebView、H5、Bridge | topics/arkweb.md | 混合/同层渲染 |
-| 图片、PixelMap、编解码 | topics/image-kit.md | 缓存: network-data.md |
-| 卡片、Form Kit | topics/form-kit.md | 扫码: scan-kit.md |
-| 指纹、人脸、认证 | topics/user-auth-kit.md | 代码: common-patterns.md §三十二 |
-| 发布、签名、上架 | topics/testing-release.md | 清单: pre-submission-2025.md |
-| 审核、激励、合规 | topics/incentive-review-2025.md | 设计: universal-product-design-suggestions.md |
-| ACL、受限权限 | topics/acl-permissions.md | 审核: incentive-review-2025.md |
+| 图片、PixelMap、编解码 | topics/image-kit.md | 缓存: topics/network-data.md |
+| 卡片、Form Kit | topics/form-kit.md | 扫码: topics/scan-kit.md |
+| 指纹、人脸、认证 | topics/user-auth-kit.md | 代码: starter-kit/snippets/common-patterns.md §三十二 |
+| 发布、签名、上架 | topics/testing-release.md | 清单: checklists/pre-submission-2025.md |
+| 审核、激励、合规 | topics/incentive-review-2025.md | 设计: topics/universal-product-design-suggestions.md |
+| ACL、受限权限 | topics/acl-permissions.md | 审核: topics/incentive-review-2025.md |
 | 编译报错、崩溃 | topics/arkts-error-prevention.md | 守卫: arkts-modernization-guard/ |
-| 6.0 新特性、API 变更 | topics/harmonyos-6-overview.md | API: harmonyos-6-api-*.md |
-| ArkTS 语法、类型、装饰器 | topics/arkts.md | 深入: arkts-lang-basics.md |
-| ArkUI 组件、布局 | topics/arkui.md | 组件: arkui-components.md |
-| UX 设计、验收 | topics/ux-design-specs.md | 标准: ux-standards.md |
+| 6.0 新特性、API 变更 | topics/harmonyos-6-overview.md | API: topics/harmonyos-6-api-*.md |
+| ArkTS 语法、类型、装饰器 | topics/arkts.md | 深入: topics/arkts-lang-basics.md |
+| ArkUI 组件、布局 | topics/arkui.md | 组件: topics/arkui-components.md |
+| UX 设计、验收 | topics/ux-design-specs.md | 标准: topics/ux-standards.md |
 | any 类型、var、解构 | topics/arkts-coding-rules.md | 60+ 条编码约束 |
 
 ---
