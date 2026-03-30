@@ -16,6 +16,7 @@
 | `10605999`：`void & Promise<Preferences>` | 直接 `await preferences.getPreferences()` | 封装 `getPrefsStore()` 方法，先判空 hostContext |
 | `10605999`：`Property 'get' does not exist on type 'never'` | `.then()` 闭包内赋值导致类型收窄为 never | 提取为 `return` 返回值的方法，不用闭包赋值 |
 | `10905210`：`build` 仅允许一个容器根节点 | build 结构被非 DSL 代码干扰 | build() 内只保留 UI DSL，辅助逻辑抽到私有方法 |
+| 连锁报错（5+ 条）：`Property does not exist` + `Cannot find name` | build() 内 UI 组件缺闭合 `}` 致括号错位 | 优先检查 build() 大括号匹配，补齐遗漏的 `}` |
 
 ## P1 — 本次提交前修复
 
@@ -30,6 +31,8 @@
 | `10605008`：`arkts-no-any-unknown` | 使用 `any` / `unknown` | 替换为具体类型 / `interface` / 泛型 `<T>` |
 | `10605099`：spread 触发全量重渲染 | `{ ...state }` / `[...arr]` 创建新引用 | 改用 `slice()` / `concat()` / 显式字段复制 |
 | WARN：`Function may throw exceptions` | 可抛异常函数缺 try-catch | 包裹 try-catch 或 async/await + catch |
+| `10605038`：`arkts-no-untyped-obj-literals` | `Record<>` 泛型初始化对象字面量 | 声明 `interface` 替代 `Record`，字面量与 interface 对应 |
+| `10905209`：`@Builder` 内 `let` 声明 | @Builder 仅允许 UI DSL | 计算提取为 private 方法，@Builder 内联 `this.method()` |
 
 ## P2 — 计划修复
 

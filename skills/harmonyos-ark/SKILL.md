@@ -93,6 +93,13 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - ✅ 复杂子组件设置 `renderGroup(true)`
 - ❌ **禁止在动画中频繁改变 `width`/`height`/`padding`/`margin`**（严重影响性能）
 
+### @Builder 编码规范
+
+- ❌ **禁止在 `@Builder` 方法体内使用 `let` / `var` 声明变量**（触发 `10905209`）
+- ✅ 计算逻辑提取为 `private` 方法，`@Builder` 内用 `this.method()` 内联
+- ❌ **禁止用 `Record<string, Object>` 初始化对象字面量**（触发 `10605038`）
+- ✅ 声明 `interface` 替代 `Record`，对象字面量必须对应已声明的 class/interface
+
 > 📄 完整 60+ 条约束详见 → [topics/arkts-coding-rules.md](topics/arkts-coding-rules.md)
 
 ---

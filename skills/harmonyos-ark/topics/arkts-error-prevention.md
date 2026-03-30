@@ -24,6 +24,9 @@
 | P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称；或使用了系统中不存在的符号资源名（如 `trophy`、`target`、`doc_on_doc`、`book_closed`） | 静态资源字面量；使用前在 DevEco 搜索确认符号名存在；不存在的改为已验证可用名或改用本地图片资源 |
 | P2 | deprecated 告警漂移：`animateTo`、`replaceUrl`、`getContext`、`AlertDialog.show`、`pushUrl`、`showDialog`、`showToast` | SDK 升级导致旧 API 逐步废弃 | 每次升级后先跑 guard 扫描，再按当前 SDK 推荐 API 迁移 |
 | P1 | WARN：`Function may throw exceptions. Special handling is required.` | 调用可能抛异常的函数（如 Preferences 读写、文件 I/O、网络请求）未用 try-catch 包裹 | 所有可能抛异常的调用必须 try-catch 或 async/await + catch；不可忽略此告警，累积后会导致运行时崩溃 |
+| P1 | `10605038`：`arkts-no-untyped-obj-literals` — Record 初始化对象字面量 | `Record<string, Object>` 等泛型工具类型初始化对象字面量，ArkTS 要求字面量必须对应显式声明的 class/interface | 声明 `interface` 替代 `Record<>`；如 `interface CardAction { action: string; params: CardParams }` |
+| P1 | `10905209`：`@Builder` 内写 `let` 声明 | `@Builder` 方法体仅允许 UI DSL 语法，`let` 等命令式语句触发编译错误 | 计算逻辑提取为 `private` 方法，`@Builder` 内用 `this.helperMethod()` 内联调用；`@State` 依赖传参数 |
+| P0 | 连锁报错：build 内 UI 组件缺少闭合 `}` | Row/Column/Stack 等组件遗漏 `}` 后，整个 build 括号树错位，产生 10+ 无关联假报错（属性不存在、作用域丢失等） | 遇到 5+ 看似无关报错时**优先检查 build() 括号匹配**；每个 UI 组件闭合后紧跟属性链 |
 
 ## 固化防回归流程（必做）
 
