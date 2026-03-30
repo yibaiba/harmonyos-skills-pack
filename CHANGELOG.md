@@ -4,6 +4,33 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.9] - 2025-07-22
+
+### Added
+
+- **QUICK_START.md** — 30 秒 Agent 快速上手指南（约束→资源→模板三步走）
+- **@ComponentV2 迁移指南** (`topics/componentv2-migration.md`, 338 行)
+  - V1→V2 决策矩阵（7 场景）、22 项装饰器映射、7 组 Before/After 代码示例
+  - 混用规则（5 条硬约束）、V2 限制清单、12 步迁移检查表
+- **4 个 ArkTS 编译错误防回归模式**
+  - `10605038` Record 对象字面量 → 声明 interface
+  - `10905209` @Builder 内 let 声明 → private helper 方法
+  - `10905209` @Builder ForEach 内联 UI → 独立 @Builder
+  - build() 括号缺失连锁报错 → 优先检查大括号匹配
+- **SKILL.md @Builder 编码规范段** — 6 条硬约束
+- **Skill 选择决策树** (ASCII) — 6 条路径快速路由
+- **error-to-fix-map 内嵌修复代码片段** — Router→Navigation 示例
+
+### Changed
+
+- **Router→Navigation 全量迁移** — 7 个 starter-kit 模块 + common-patterns.md，30+ 处 router 调用替换为 NavPathStack
+- **废弃 API 全面清理** — getContext→getContext(this)、animateTo→UIContext.animateTo()、@system.prompt→@kit.ArkUI
+- **SKILL.md 版本兼容表前置** — 从底部移至顶部（版本假设段后）
+- **关键词速查表增强** — 补充行号/章节提示（登录/Navigation/ComponentV2）
+- **3 个模块 Copy-Paste Ready 标记** — auth-login / list-page / detail-page
+- **孤儿模块接入** — offline-no-login / optional-login-upgrade 加入路由表
+- **审计修复** — 11 条路径纠正、async/await 转换、版本假设段、质量验收工作流
+
 ## [0.1.8] - 2026-03-29
 
 ### Added
