@@ -1,6 +1,6 @@
 # 表单提交模块
 
-> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+> 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
 > 覆盖：字段校验 / 提交加载 / 成功跳转 / 失败重试 / 图片选择上传
 
@@ -81,20 +81,19 @@ export class FormViewModel {
 
 ```typescript
 // pages/FormPage.ets
-import { router } from '@kit.ArkUI'
 import { picker } from '@kit.CoreFileKit'
 import { FormViewModel } from '../viewmodel/FormViewModel'
 
-@Entry
 @Component
 struct FormPage {
+  @Consume('navStack') navStack: NavPathStack
   @State private vm: FormViewModel = new FormViewModel()
 
   build() {
     Column() {
       // ── 导航栏 ─────────────────────────────────────
       Row() {
-        Image($r('app.media.ic_back')).width(24).height(24).onClick(() => router.back())
+        Image($r('app.media.ic_back')).width(24).height(24).onClick(() => this.navStack.pop())
         Text('发布内容').fontSize(18).fontWeight(FontWeight.Medium).layoutWeight(1).textAlign(TextAlign.Center)
         Button('提交')
           .fontSize(14)
@@ -104,7 +103,7 @@ struct FormPage {
             const ok = await this.vm.submit()
             if (ok) {
               promptAction.showToast({ message: '发布成功' })
-              router.back()
+              this.navStack.pop()
             }
           })
       }

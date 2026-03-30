@@ -1,6 +1,6 @@
 # 详情页模块
 
-> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+> 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
 > 覆盖：路由传参 / 详情加载 / 导航返回 / 分享 / 骨架屏
 
@@ -8,9 +8,9 @@
 
 ```typescript
 // 在列表页或任意页面跳转到详情
-router.pushUrl({
-  url: 'pages/DetailPage',
-  params: { id: 'content_001', title: '可选预填标题' }
+this.navStack.pushPath({
+  name: 'DetailPage',
+  param: { id: 'content_001', title: '可选预填标题' } as Record<string, string>
 })
 ```
 
@@ -18,7 +18,6 @@ router.pushUrl({
 
 ```typescript
 // pages/DetailPage.ets
-import { router } from '@kit.ArkUI'
 import { DetailViewModel } from '../viewmodel/DetailViewModel'
 
 interface DetailParams {
@@ -26,24 +25,18 @@ interface DetailParams {
   title?: string
 }
 
-@Entry
 @Component
 struct DetailPage {
+  @Consume('navStack') navStack: NavPathStack
   @State private vm: DetailViewModel = new DetailViewModel()
 
-  aboutToAppear(): void {
-    const params = router.getParams() as DetailParams
-    this.vm.init(params.id, params.title)
-    this.vm.load()
-  }
-
   build() {
-    Column() {
+    NavDestination() {
       // ── 导航栏 ─────────────────────────────────────
       Row() {
         Image($r('app.media.ic_back'))
           .width(24).height(24)
-          .onClick(() => router.back())
+          .onClick(() => this.navStack.pop())
 
         Text(this.vm.pageTitle)
           .fontSize(18).fontWeight(FontWeight.Medium)
@@ -76,6 +69,13 @@ struct DetailPage {
     }
     .width('100%').height('100%')
     .backgroundColor($r('app.color.background'))
+    }
+    .title('详情')
+    .onReady((context: NavDestinationContext) => {
+      const param = context.pathInfo.param as Record<string, string>
+      this.vm.init(param?.id ?? '', param?.title)
+      this.vm.load()
+    })
   }
 
   @Builder
@@ -217,7 +217,7 @@ buildTabbedContent() {
 ```
 
 ## 官方参考
-- router 传参: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-router
+- Navigation 路由: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/navigation-overview
 - Scroll 组件: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-scroll
 - 系统分享: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/share-overview
 

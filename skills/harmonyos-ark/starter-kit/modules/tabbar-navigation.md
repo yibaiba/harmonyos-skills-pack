@@ -1,6 +1,6 @@
 # TabBar 底部导航模板
 
-> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+> 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
 > 覆盖：4 Tab 标准结构 / 图标 + 文字 / 激活态样式 / 深色适配 / 多端响应
 
@@ -8,16 +8,15 @@
 
 ```typescript
 // pages/MainPage.ets
-import { router } from '@kit.ArkUI'
-import { AppStorage, promptAction } from '@kit.ArkUI'
+import { promptAction } from '@kit.ArkUI'
 import { HomePage } from '../tabs/HomePage'
 import { DiscoverPage } from '../tabs/DiscoverPage'
 import { PublishPage } from '../tabs/PublishPage'
 import { ProfilePage } from '../tabs/ProfilePage'
 
-@Entry
 @Component
 struct MainPage {
+  @Consume('navStack') navStack: NavPathStack
   @State private activeTab: number = 0
   @StorageLink('forceLogout') forceLogoutTs: number = 0
   private lastLogout: number = 0
@@ -27,8 +26,8 @@ struct MainPage {
     if (this.forceLogoutTs !== this.lastLogout && this.forceLogoutTs !== 0) {
       this.lastLogout = this.forceLogoutTs
       promptAction.showToast({ message: '登录已过期，请重新登录' })
-      router.clear()
-      router.replaceUrl({ url: 'pages/LoginPage' })
+      this.navStack.clear()
+      this.navStack.pushPath({ name: 'LoginPage' })
     }
   }
 

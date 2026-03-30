@@ -7,6 +7,8 @@
      Navigation 组件/生命周期 → routing-lifecycle.md。
      新项目建议直接用 Navigation，仅迁移旧项目时读本文件。 -->
 
+> ⚠️ **废弃提示**: Router API 自 API 9 起进入维护模式，HarmonyOS NEXT 新项目请使用 **Navigation + NavPathStack**。本文件仅供旧项目迁移参考。新项目路由方案见 `starter-kit/snippets/common-patterns.md` 模式三十四。
+
 ## 页面路由@ohos.router
 
 > 来源: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-routing-V5

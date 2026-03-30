@@ -151,7 +151,7 @@ struct LoginPage {
         .onClick(async () => {
           const ok = await this.vm.login()
           if (ok) {
-            router.replaceUrl({ url: 'pages/HomePage' })
+            this.navStack.replacePath({ name: 'HomePage' })
           }
         })
     }
@@ -165,7 +165,7 @@ struct LoginPage {
 | 禁止                           | 说明                                |
 |-------------------------------|-------------------------------------|
 | UI 层直接 `http.request()`      | 所有网络必须经 Repository            |
-| ViewModel 调用 `router.pushUrl` | 导航必须由 UI 层决定                  |
+| ViewModel 调用 `navStack.pushPath` | 导航必须由 UI 层决定                  |
 | Model 层包含 `@State` 装饰器    | Model 是纯数据结构                    |
 | Repository 引用 UI 组件         | 依赖方向只能向下，不能逆向              |
 

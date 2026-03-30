@@ -1,6 +1,6 @@
 # 登录 / 账号认证模块
 
-> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+> 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
 > 覆盖：手机号+验证码登录 / Token 持久化 / 自动跳转 / 退出登录
 
@@ -33,7 +33,6 @@ export default class EntryAbility extends UIAbility {
 
 ```typescript
 // pages/Index.ets
-import { router } from '@kit.ArkUI'
 import { StorageUtil } from '../utils/StorageUtil'
 
 const TOKEN_KEY = 'user_token'
@@ -41,22 +40,26 @@ const TOKEN_KEY = 'user_token'
 @Entry
 @Component
 struct Index {
+  @Provide('navStack') navStack: NavPathStack = new NavPathStack()
+
   async aboutToAppear(): Promise<void> {
     const token = await StorageUtil.get<string>(TOKEN_KEY)
     if (token) {
-      router.replaceUrl({ url: 'pages/HomePage' })
+      this.navStack.replacePath({ name: 'HomePage' })
     } else {
-      router.replaceUrl({ url: 'pages/LoginPage' })
+      this.navStack.replacePath({ name: 'LoginPage' })
     }
   }
 
   build() {
-    Column() {
-      LoadingProgress().width(48).height(48)
-      Text('加载中...').margin({ top: 12 })
+    Navigation(this.navStack) {
+      Column() {
+        LoadingProgress().width(48).height(48)
+        Text('加载中...').margin({ top: 12 })
+      }
+      .width('100%').height('100%')
+      .justifyContent(FlexAlign.Center)
     }
-    .width('100%').height('100%')
-    .justifyContent(FlexAlign.Center)
   }
 }
 ```
@@ -65,12 +68,11 @@ struct Index {
 
 ```typescript
 // pages/LoginPage.ets
-import { router } from '@kit.ArkUI'
 import { LoginViewModel } from '../viewmodel/LoginViewModel'
 
-@Entry
 @Component
 struct LoginPage {
+  @Consume('navStack') navStack: NavPathStack
   @State private vm: LoginViewModel = new LoginViewModel()
 
   build() {
@@ -116,7 +118,7 @@ struct LoginPage {
         .onClick(async () => {
           const ok = await this.vm.login()
           if (ok) {
-            router.replaceUrl({ url: 'pages/HomePage' })
+            this.navStack.replacePath({ name: 'HomePage' })
           }
         })
 
@@ -232,14 +234,13 @@ export class StorageUtil {
 ## 退出登录（在 HomePage / 我的页中调用）
 
 ```typescript
-// 在任意页面退出登录
+// 在任意页面退出登录（需通过 @Consume 获取 navStack）
 import { StorageUtil } from '../utils/StorageUtil'
-import { router } from '@kit.ArkUI'
 
-async function logout(): Promise<void> {
+async function logout(navStack: NavPathStack): Promise<void> {
   await StorageUtil.remove('user_token')
-  router.clear()
-  router.replaceUrl({ url: 'pages/LoginPage' })
+  navStack.clear()
+  navStack.pushPath({ name: 'LoginPage' })
 }
 ```
 

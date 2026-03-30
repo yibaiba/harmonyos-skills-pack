@@ -1,6 +1,6 @@
 # 列表页模块
 
-> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+> 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
 > 覆盖：网络加载 / 下拉刷新 / 上拉加载更多 / 空态 / 错误态 / Skeleton 占位
 
@@ -100,7 +100,6 @@ export class HomeViewModel {
 
 ```typescript
 // pages/HomePage.ets
-import { router } from '@kit.ArkUI'
 import { HomeViewModel } from '../viewmodel/HomeViewModel'
 import { ContentItem } from '../model/ContentModel'
 import { ContentCard } from '../components/business/ContentCard'
@@ -108,9 +107,9 @@ import { EmptyView } from '../components/common/EmptyView'
 import { ErrorView } from '../components/common/ErrorView'
 import { SkeletonList } from '../components/common/SkeletonList'
 
-@Entry
 @Component
 struct HomePage {
+  @Consume('navStack') navStack: NavPathStack
   @State private vm: HomeViewModel = new HomeViewModel()
 
   aboutToAppear(): void {
@@ -150,9 +149,9 @@ struct HomePage {
             ContentCard({
               item: item,
               onClick: () => {
-                router.pushUrl({
-                  url: 'pages/DetailPage',
-                  params: { id: item.id }
+                this.navStack.pushPath({
+                  name: 'DetailPage',
+                  param: { id: item.id } as Record<string, Object>
                 })
               }
             })

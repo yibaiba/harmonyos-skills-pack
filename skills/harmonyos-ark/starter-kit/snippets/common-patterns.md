@@ -119,28 +119,29 @@ export class HttpUtil {
 
 ---
 
-## 三、Router 常用操作
-
-> ⚠️ Router API 已逐步废弃，新项目推荐使用 **Navigation** 组件（见模式三十四）。以下仅供旧项目维护参考。
+## 三、Navigation 页面路由（推荐）
 
 ```typescript
-import { router } from '@kit.ArkUI'
+// 声明 NavPathStack（在根 @Entry 组件中）
+@Provide('navStack') navStack: NavPathStack = new NavPathStack()
 
-// 跳转（可从历史回退）
-router.pushUrl({ url: 'pages/DetailPage', params: { id: '123' } })
+// 在子组件中获取
+@Consume('navStack') navStack: NavPathStack
 
-// 跳转（替换栈顶，无法回退）
-router.replaceUrl({ url: 'pages/HomePage' })
+// 跳转（压栈，可返回）
+this.navStack.pushPath({ name: 'DetailPage', param: { id: '123' } as Record<string, string> })
 
-// 回退
-router.back()
+// 替换栈顶（无法返回）
+this.navStack.replacePath({ name: 'HomePage' })
 
-// 获取传参
-const params = router.getParams() as { id: string }
+// 返回上一页
+this.navStack.pop()
 
-// 清空路由栈（退出登录后跳登录页）
-router.clear()
-router.replaceUrl({ url: 'pages/LoginPage' })
+// 返回到指定页
+this.navStack.popToName('HomePage')
+
+// 清空导航栈
+this.navStack.clear()
 ```
 
 ---
@@ -387,6 +388,7 @@ private static handleResponse<T>(resp: http.HttpResponse): T {
 @Entry
 @Component
 struct MainPage {
+  @Provide('navStack') navStack: NavPathStack = new NavPathStack()
   @StorageLink('forceLogout') forceLogoutTs: number = 0
   private lastLogout: number = 0
 
@@ -397,8 +399,8 @@ struct MainPage {
     if (this.forceLogoutTs !== this.lastLogout && this.forceLogoutTs !== 0) {
       this.lastLogout = this.forceLogoutTs
       promptAction.showToast({ message: '登录已过期，请重新登录' })
-      router.clear() // ⚠️ 废弃: 新项目用 Navigation，见模式三十四
-      router.replaceUrl({ url: 'pages/LoginPage' }) // ⚠️ 废弃: 新项目用 Navigation，见模式三十四
+      this.navStack.clear()
+      this.navStack.pushPath({ name: 'LoginPage' })
     }
   }
 }

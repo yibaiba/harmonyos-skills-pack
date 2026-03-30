@@ -169,7 +169,7 @@ export async function sendActionNotification(
 
 // 在 EntryAbility.onCreate 中接收参数并路由
 // const targetPage = want?.parameters?.targetPage as string
-// if (targetPage) router.pushUrl({ url: targetPage })
+// if (targetPage) navStack.pushPath({ name: targetPage })
 ```
 
 ## 五、通知渠道管理

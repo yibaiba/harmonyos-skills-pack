@@ -107,7 +107,7 @@ Week 2  Day 10    提审准备 + 上架
 1. 复制 `modules/detail-page.md` 模板
 2. 创建 `viewmodel/DetailViewModel.ets`
 3. 完成 `pages/DetailPage.ets`（含骨架屏）
-4. 在 ContentCard onClick 中加 router.pushUrl 跳转
+4. 在 ContentCard onClick 中加 navStack.pushPath 跳转
 
 **验收：**
 - [ ] 点击列表卡片正确跳到对应详情

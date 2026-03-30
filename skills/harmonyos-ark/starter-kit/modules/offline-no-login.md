@@ -1,6 +1,6 @@
 # 单机离线 / 免登录模块
 
-> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+> 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
 > 覆盖：无账号启动 / 本地数据存储 / 首次引导 / 可选后续登录升级
 
@@ -31,7 +31,6 @@ MainPage（TabBar）
 
 ```typescript
 // pages/Index.ets
-import { router } from '@kit.ArkUI'
 import { StorageUtil } from '../utils/StorageUtil'
 
 const KEY_FIRST_LAUNCH_DONE = 'first_launch_done'
@@ -39,22 +38,26 @@ const KEY_FIRST_LAUNCH_DONE = 'first_launch_done'
 @Entry
 @Component
 struct Index {
+  @Provide('navStack') navStack: NavPathStack = new NavPathStack()
+
   async aboutToAppear(): Promise<void> {
     const firstLaunchDone = await StorageUtil.get<boolean>(KEY_FIRST_LAUNCH_DONE)
     if (firstLaunchDone) {
-      router.replaceUrl({ url: 'pages/HomePage' })
+      this.navStack.replacePath({ name: 'HomePage' })
     } else {
-      router.replaceUrl({ url: 'pages/GuidePage' })
+      this.navStack.replacePath({ name: 'GuidePage' })
     }
   }
 
   build() {
-    Column() {
-      LoadingProgress().width(48).height(48)
-      Text('初始化中...').margin({ top: 12 })
+    Navigation(this.navStack) {
+      Column() {
+        LoadingProgress().width(48).height(48)
+        Text('初始化中...').margin({ top: 12 })
+      }
+      .width('100%').height('100%')
+      .justifyContent(FlexAlign.Center)
     }
-    .width('100%').height('100%')
-    .justifyContent(FlexAlign.Center)
   }
 }
 ```
@@ -63,42 +66,44 @@ struct Index {
 
 ```typescript
 // pages/GuidePage.ets
-import { router } from '@kit.ArkUI'
 import { StorageUtil } from '../utils/StorageUtil'
 
 const KEY_FIRST_LAUNCH_DONE = 'first_launch_done'
 
-@Entry
 @Component
 struct GuidePage {
+  @Consume('navStack') navStack: NavPathStack
+
   build() {
-    Column({ space: 16 }) {
-      Text('欢迎使用')
-        .fontSize(28)
-        .fontWeight(FontWeight.Bold)
+    NavDestination() {
+      Column({ space: 16 }) {
+        Text('欢迎使用')
+          .fontSize(28)
+          .fontWeight(FontWeight.Bold)
 
-      Text('本应用支持离线使用，无需登录即可开始')
-        .fontSize(15)
-        .opacity(0.75)
+        Text('本应用支持离线使用，无需登录即可开始')
+          .fontSize(15)
+          .opacity(0.75)
 
-      Button('立即开始')
-        .width('100%')
-        .onClick(async () => {
-          await StorageUtil.put(KEY_FIRST_LAUNCH_DONE, true)
-          router.replaceUrl({ url: 'pages/HomePage' })
-        })
+        Button('立即开始')
+          .width('100%')
+          .onClick(async () => {
+            await StorageUtil.put(KEY_FIRST_LAUNCH_DONE, true)
+            this.navStack.replacePath({ name: 'HomePage' })
+          })
 
-      Button('登录后同步（可选）')
-        .type(ButtonType.Normal)
-        .width('100%')
-        .onClick(() => {
-          // 后续如接入账号体系，可跳转登录页
-          router.pushUrl({ url: 'pages/LoginPage' })
-        })
+        Button('登录后同步（可选）')
+          .type(ButtonType.Normal)
+          .width('100%')
+          .onClick(() => {
+            this.navStack.pushPath({ name: 'LoginPage' })
+          })
+      }
+      .padding({ left: 24, right: 24 })
+      .width('100%').height('100%')
+      .justifyContent(FlexAlign.Center)
     }
-    .padding({ left: 24, right: 24 })
-    .width('100%').height('100%')
-    .justifyContent(FlexAlign.Center)
+    .title('引导')
   }
 }
 ```
