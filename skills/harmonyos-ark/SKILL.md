@@ -33,6 +33,16 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - 如需 HarmonyOS 5 / API 11-12 支持，请明确声明
 - 代码示例中涉及版本差异时会标注最低 API Level
 
+## API 版本兼容说明
+
+| 文档来源 | 对应版本 | 说明 |
+|----------|---------|------|
+| topics/ 大部分文件 | HarmonyOS 5.0 (API 12) | V5 官方文档离线版，当前最完整 |
+| harmonyos-6-*.md | HarmonyOS 6.0 (API 20-22) | 仅含 API 变更/新增，非完整指南 |
+| starter-kit/ 代码模板 | API 12+ 兼容 | 默认目标 API 12，标注了 V2 替代方案 |
+
+> 若目标平台为 6.0+，先查 `harmonyos-6-overview.md` 确认是否有 breaking change，再参考主题文件。
+
 ## 文档链接读取策略
 当需要读取华为开发者文档链接时，按以下优先级尝试：
 
@@ -99,6 +109,18 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 | 通用产品质量验收（非鸿蒙特定） | **universal-product-quality/SKILL.md** | 功能丰富度 / 深色 / 多端 / 发布前 |
 | 鸿蒙 + 通用质量双验收 | 先 universal → 再 harmonyos-ark | 组合使用，universal 做通用把关 |
 
+### 快速路由决策树
+
+```
+任务类型？
+├─ 查文档/学 API ──────────→ 本文件 (SKILL.md 关键词表)
+├─ 新建项目 ───────────────→ starter-kit/SKILL.md
+├─ 编译报错/废弃 API ──────→ arkts-modernization-guard/SKILL.md
+├─ V1→V2 状态管理迁移 ────→ topics/componentv2-migration.md
+├─ 准备提审/发布 ──────────→ checklists/pre-submission-2025.md
+└─ 质量验收 ───────────────→ 先 universal-product-quality → 再本 Skill
+```
+
 ## 🔍 关键词速查表
 
 > Agent 直接用关键词匹配目标文件，无需遍历路由树。
@@ -106,15 +128,15 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 | 关键词 | → 文件 | 补充 |
 |--------|--------|------|
 | 下拉刷新、列表、加载更多 | starter-kit/modules/list-page.md | 代码: starter-kit/snippets/common-patterns.md §二十四 |
-| 登录、注册、Token | starter-kit/modules/auth-login.md | API: topics/network-data.md |
+| 登录、注册、Token | starter-kit/modules/auth-login.md | API: topics/network-data.md §登录页从 Line 67 开始 |
 | 免登录、离线优先、引导页 | starter-kit/modules/offline-no-login.md | 变体: starter-kit/modules/optional-login-upgrade.md |
 | 表单、校验、上传 | starter-kit/modules/form-submit.md | 代码: starter-kit/snippets/common-patterns.md §十一 |
 | 权限、相机、文件、媒体 | topics/media-device.md | 模板: starter-kit/modules/media-camera.md |
 | 安全控件、剪贴板、SaveButton | topics/security-components.md | 权限: topics/acl-permissions.md |
 | 深色模式、主题切换 | starter-kit/modules/dark-multi.md | 检查: topics/ux-standards.md |
-| Navigation、路由、传参 | topics/routing-lifecycle.md | 模板: starter-kit/modules/tabbar-navigation.md |
+| Navigation、路由、传参 | topics/routing-lifecycle.md | 模板: starter-kit/modules/tabbar-navigation.md; 传参: modules/detail-page.md §跳转调用 |
 | 状态管理、@State、@Provide | topics/state-management.md | 高级: topics/state-management-advanced.md |
-| @ComponentV2、V2 迁移、@Local、@Param | topics/componentv2-migration.md | 决策矩阵+代码示例+混用规则 |
+| @ComponentV2、V2 迁移、@Local、@Param | topics/componentv2-migration.md | §何时迁移 有决策矩阵; §迁移代码示例 有 7 组 Before/After |
 | 网络请求、HTTP、下载 | topics/network-data.md | 代码: starter-kit/snippets/common-patterns.md §一 |
 | WebSocket、实时、重连 | starter-kit/modules/websocket-realtime.md | 代码: starter-kit/snippets/common-patterns.md §三十三 |
 | 数据库、持久化、Preferences | starter-kit/modules/data-persistence.md | 代码: starter-kit/snippets/common-patterns.md §二十六 |
@@ -312,16 +334,6 @@ hvigor :entry:default@CompileArkTS
 | 桌面卡片、服务卡片 | topics/form-kit.md | Stage 模型卡片 |
 | 扫码、二维码、条形码 | topics/scan-kit.md | 图像识码/码图生成 |
 | 指纹、人脸、生物认证 | topics/user-auth-kit.md | 支付认证/凭据感知 |
-
-## API 版本兼容说明
-
-| 文档来源 | 对应版本 | 说明 |
-|----------|---------|------|
-| topics/ 大部分文件 | HarmonyOS 5.0 (API 12) | V5 官方文档离线版，当前最完整 |
-| harmonyos-6-*.md | HarmonyOS 6.0 (API 20-22) | 仅含 API 变更/新增，非完整指南 |
-| starter-kit/ 代码模板 | API 12+ 兼容 | 默认目标 API 12，标注了 V2 替代方案 |
-
-> 若目标平台为 6.0+，先查 `harmonyos-6-overview.md` 确认是否有 breaking change，再参考主题文件。
 
 ## Learning Fast Path
 - 语言规范学习地图: learning/language-spec-learning-map.md

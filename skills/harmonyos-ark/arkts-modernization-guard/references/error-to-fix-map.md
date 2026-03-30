@@ -50,6 +50,21 @@
 | `promptAction.showDialog()` | `UIContext.getPromptAction().showDialog()` | API 12 |
 | `promptAction.showToast()` | `UIContext.getPromptAction().showToast()` | API 12 |
 
+#### 常见修复代码片段
+
+**Router → Navigation:**
+```typescript
+// ❌ 旧写法
+import router from '@ohos.router'
+router.pushUrl({ url: 'pages/Detail', params: { id: '123' } })
+
+// ✅ 新写法（API 12+）
+@Provide('navStack') navStack: NavPathStack = new NavPathStack()
+this.navStack.pushPath({ name: 'DetailPage', param: { id: '123' } as Record<string, string> })
+```
+
+> 完整 Navigation 模式 → `starter-kit/snippets/common-patterns.md` 模式三十四
+
 ---
 
 ## See Also

@@ -2,6 +2,8 @@
 
 > 本模板使用 Navigation (NavPathStack) 路由。需在根组件中 @Provide('navStack') navStack。
 
+> ✅ **Copy-Paste Ready**: 所有 import 已声明、类型已定义、NavPathStack 路由已集成、兼容 API 12+。
+
 > 覆盖：手机号+验证码登录 / Token 持久化 / 自动跳转 / 退出登录
 
 ## EntryAbility — 启动时 Token 检测
