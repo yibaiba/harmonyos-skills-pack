@@ -101,6 +101,10 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - ✅ ForEach 内容提取为独立 `@Builder` 方法，回调中仅调用 `this.buildXxx()`
 - ❌ **禁止用 `Record<string, Object>` 初始化对象字面量**（触发 `10605038`）
 - ✅ 声明 `interface` 替代 `Record`，对象字面量必须对应已声明的 class/interface
+- ❌ **禁止用 `string[]` 赋值 Particle 元组类型**（触发 `10505001`，ParticleTuple 要求固定 2 元素）
+- ✅ 改为 `[color1, color2] as [ResourceColor, ResourceColor]` 元组字面量
+- ❌ **禁止调用 `Window.setWindowColorMode()`**（API 12+ 已移除，触发 `10505001`）
+- ✅ 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)`
 
 > 📄 完整 60+ 条约束详见 → [topics/arkts-coding-rules.md](topics/arkts-coding-rules.md)
 

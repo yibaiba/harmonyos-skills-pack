@@ -34,6 +34,8 @@
 | `10605038`：`arkts-no-untyped-obj-literals` | `Record<>` 泛型初始化对象字面量 | 声明 `interface` 替代 `Record`，字面量与 interface 对应 |
 | `10905209`：`@Builder` 内 `let` 声明 | @Builder 仅允许 UI DSL | 计算提取为 private 方法，@Builder 内联 `this.method()` |
 | `10905209`：`@Builder` 内 ForEach 写内联 UI | Flex/Grid 中 ForEach 回调直接写 Column/Text 等内联组件 | 提取为独立 `@Builder` 方法，ForEach 内仅调用 `this.buildXxx()` |
+| `10505001`：`Target requires 2 element(s)` ParticleTuple | Particle `color.range` 要求 2 元素元组，传入 `string[]` 长度不匹配 | 改为固定元组：`['#FFD700', '#FF6347'] as [ResourceColor, ResourceColor]` |
+| `10505001`：`setWindowColorMode` does not exist | HarmonyOS NEXT API 12+ 已移除 `Window.setWindowColorMode()` 和 `window.ColorMode` | 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)` |
 
 ## P2 — 计划修复
 
@@ -53,6 +55,7 @@
 | `AlertDialog.show()` | `this.getUIContext().showAlertDialog()` | API 12 |
 | `promptAction.showDialog()` | `UIContext.getPromptAction().showDialog()` | API 12 |
 | `promptAction.showToast()` | `UIContext.getPromptAction().showToast()` | API 12 |
+| `Window.setWindowColorMode()` | `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)` | API 12 |
 
 #### 常见修复代码片段
 
@@ -65,6 +68,20 @@ router.pushUrl({ url: 'pages/Detail', params: { id: '123' } })
 // ✅ 新写法（API 12+）
 @Provide('navStack') navStack: NavPathStack = new NavPathStack()
 this.navStack.pushPath({ name: 'DetailPage', param: { id: '123' } as Record<string, string> })
+```
+
+**Window.setWindowColorMode → ConfigurationConstant.setColorMode:**
+```typescript
+// ❌ 旧写法（API 12+ 已移除）
+import window from '@ohos.window'
+let win = await window.getLastWindow(getContext(this))
+win.setWindowColorMode(window.ColorMode.COLOR_MODE_DARK)
+
+// ✅ 新写法（API 12+）
+import { ConfigurationConstant } from '@kit.AbilityKit'
+let ctx = getContext(this)
+ctx.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK)
+// 可选值：COLOR_MODE_LIGHT / COLOR_MODE_DARK / COLOR_MODE_NOT_SET（跟随系统）
 ```
 
 > 完整 Navigation 模式 → `starter-kit/snippets/common-patterns.md` 模式三十四
