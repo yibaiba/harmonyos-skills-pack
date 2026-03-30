@@ -1,5 +1,7 @@
 # 2025 提审前检查清单（按应用类型）
 
+> **前置步骤**：请先完成通用质量检查 `universal-product-quality/checklists/pre-release-universal.md`，再执行本清单。
+
 > 用法：先选你的应用类型，执行“通用必查 + 类型专项 + 风险专项”，最后再提交审核。
 
 ## A. 通用必查（所有应用）

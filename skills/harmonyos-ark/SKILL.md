@@ -82,6 +82,54 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 
 ---
 
+## 🧭 Skill 选择指南
+
+> Agent 首先判断任务类型，选择正确的 Skill 入口：
+
+| 任务类型 | 使用 Skill | 说明 |
+|----------|-----------|------|
+| 鸿蒙开发知识查询 | **本文件** (harmonyos-ark) | 文档路由 + 编码约束 |
+| 从零开始新项目 | **starter-kit/SKILL.md** | 骨架 + 模板 + 10 天执行计划 |
+| 编译报错 / deprecated 清理 | **arkts-modernization-guard/SKILL.md** | 自动扫描 + 修复建议 |
+| 通用产品质量验收（非鸿蒙特定） | **universal-product-quality/SKILL.md** | 功能丰富度 / 深色 / 多端 / 发布前 |
+| 鸿蒙 + 通用质量双验收 | 先 universal → 再 harmonyos-ark | 组合使用，universal 做通用把关 |
+
+## 🔍 关键词速查表
+
+> Agent 直接用关键词匹配目标文件，无需遍历路由树。
+
+| 关键词 | → 文件 | 补充 |
+|--------|--------|------|
+| 下拉刷新、列表、加载更多 | modules/list-page.md | 代码: common-patterns.md §二十四 |
+| 登录、注册、Token | modules/auth-login.md | API: network-data.md |
+| 表单、校验、上传 | modules/form-submit.md | 代码: common-patterns.md §十一 |
+| 权限、相机、文件、媒体 | topics/media-device.md | 模板: modules/media-camera.md |
+| 安全控件、剪贴板、SaveButton | topics/security-components.md | 权限: acl-permissions.md |
+| 深色模式、主题切换 | modules/dark-multi.md | 检查: ux-standards.md |
+| Navigation、路由、传参 | topics/routing-lifecycle.md | 模板: modules/tabbar-navigation.md |
+| 状态管理、@State、@Provide | topics/state-management.md | 高级: state-management-advanced.md |
+| 网络请求、HTTP、下载 | topics/network-data.md | 代码: common-patterns.md §一 |
+| WebSocket、实时、重连 | modules/websocket-realtime.md | 代码: common-patterns.md §三十三 |
+| 数据库、持久化、Preferences | modules/data-persistence.md | 代码: common-patterns.md §二十六 |
+| 通知、推送、角标 | topics/notification-kit.md | 模板: modules/notification-handling.md |
+| 后台任务、Worker | topics/background-tasks-kit.md | 模板: modules/background-tasks.md |
+| 支付、IAP、计费 | modules/payment-billing.md | 审核: incentive-review-2025.md |
+| WebView、H5、Bridge | topics/arkweb.md | 混合/同层渲染 |
+| 图片、PixelMap、编解码 | topics/image-kit.md | 缓存: network-data.md |
+| 卡片、Form Kit | topics/form-kit.md | 扫码: scan-kit.md |
+| 指纹、人脸、认证 | topics/user-auth-kit.md | 代码: common-patterns.md §三十二 |
+| 发布、签名、上架 | topics/testing-release.md | 清单: pre-submission-2025.md |
+| 审核、激励、合规 | topics/incentive-review-2025.md | 设计: universal-product-design-suggestions.md |
+| ACL、受限权限 | topics/acl-permissions.md | 审核: incentive-review-2025.md |
+| 编译报错、崩溃 | topics/arkts-error-prevention.md | 守卫: arkts-modernization-guard/ |
+| 6.0 新特性、API 变更 | topics/harmonyos-6-overview.md | API: harmonyos-6-api-*.md |
+| ArkTS 语法、类型、装饰器 | topics/arkts.md | 深入: arkts-lang-basics.md |
+| ArkUI 组件、布局 | topics/arkui.md | 组件: arkui-components.md |
+| UX 设计、验收 | topics/ux-design-specs.md | 标准: ux-standards.md |
+| any 类型、var、解构 | topics/arkts-coding-rules.md | 60+ 条编码约束 |
+
+---
+
 ## Topic Routing Table
 
 > 按分类快速定位。每组第一行是入口文件，子行是细分方向。
@@ -169,7 +217,10 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 
 1. 写前预检（必跑）
 ```bash
-bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+# 以下路径按实际安装位置选择一个可用的即可
+bash skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh  # 仓库源目录
+# 或 bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+# 或 bash .claude/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
 ```
 
 2. 写中约束（必遵守）
@@ -180,7 +231,7 @@ bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-mo
 
 3. 写后验收（必跑）
 ```bash
-bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh
+bash skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-modernization.sh  # 同上，选可用路径
 hvigor :entry:default@CompileArkTS
 ```
 
@@ -213,6 +264,18 @@ hvigor :entry:default@CompileArkTS
 - 无法确认版本时默认按最新稳定版本回答，并提示用户校验 API 版本
 - 涉及账号资质、上架策略时优先引导到 AppGallery Connect 官方页面
 - 涉及激励政策时需提醒“规则会更新”，优先给官方活动页和审核规范页
+
+## 质量验收工作流（组合使用两个 Skill）
+
+> 发布前建议按以下顺序执行双 Skill 验收：
+
+1. **通用质量把关** → `universal-product-quality/SKILL.md`
+   - 功能丰富度、深色模式、多端适配、发布前风险
+   - 适用任意项目，不依赖鸿蒙特定知识
+2. **鸿蒙平台专项** → 本 Skill (`harmonyos-ark`)
+   - ArkTS 编译合规、系统权限、提审材料、API 兼容
+   - 使用 `checklists/pre-submission-2025.md` 按应用类型逐项验收
+3. **合并结论** → 两份清单的 🔴 Blocker 项全部通过方可发布
 
 ## Quick Prompts
 - 帮我定位 ArkTS 入门和类型系统官方文档

@@ -1,5 +1,7 @@
 # 发布前通用检查清单
 
+> **执行顺序**：本清单为第 1 步（通用质量），完成后请继续执行鸿蒙平台专项清单 `harmonyos-ark/checklists/pre-submission-2025.md`。
+
 > 每项标注严重级别：🔴 Blocker / 🟡 Warning / 🟢 Nice-to-have
 
 ## A. 功能完整性
