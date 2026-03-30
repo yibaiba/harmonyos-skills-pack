@@ -1,5 +1,7 @@
 # 单机离线 / 免登录模块
 
+> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+
 > 覆盖：无账号启动 / 本地数据存储 / 首次引导 / 可选后续登录升级
 
 ## 适用场景

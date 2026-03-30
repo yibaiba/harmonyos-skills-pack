@@ -605,7 +605,7 @@ test123 text
 
 例如下图，播放暂停按钮对应着两种状态，在状态切换时需要实时变化对应的标注信息。
 
-import prompt from '@system.prompt'
+import { promptAction } from '@kit.ArkUI'
 
 
 const RESOURCE_STR_PLAY = $r('app.media.play')
@@ -643,7 +643,7 @@ export struct Rule_2_1_12 {
               .width(50)
               .height(50)
               .onClick(() => {
-                prompt.showToast({
+                promptAction.showToast({
                   message :this.isPlaying ? "Play" : "Pause"
                 })
                 this.isPlaying = !this.isPlaying

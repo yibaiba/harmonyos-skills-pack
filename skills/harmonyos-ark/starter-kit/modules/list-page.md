@@ -1,5 +1,7 @@
 # 列表页模块
 
+> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+
 > 覆盖：网络加载 / 下拉刷新 / 上拉加载更多 / 空态 / 错误态 / Skeleton 占位
 
 ## 数据模型

@@ -1,5 +1,7 @@
 # 登录 / 账号认证模块
 
+> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+
 > 覆盖：手机号+验证码登录 / Token 持久化 / 自动跳转 / 退出登录
 
 ## EntryAbility — 启动时 Token 检测

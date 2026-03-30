@@ -1,5 +1,7 @@
 # 表单提交模块
 
+> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+
 > 覆盖：字段校验 / 提交加载 / 成功跳转 / 失败重试 / 图片选择上传
 
 ## 通用表单 ViewModel

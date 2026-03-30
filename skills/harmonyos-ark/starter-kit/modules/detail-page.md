@@ -1,5 +1,7 @@
 # 详情页模块
 
+> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+
 > 覆盖：路由传参 / 详情加载 / 导航返回 / 分享 / 骨架屏
 
 ## 路由跳转（从列表页）

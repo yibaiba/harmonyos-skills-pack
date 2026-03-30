@@ -200,7 +200,7 @@ export class AppConfig {
 
   static async setTheme(theme: Theme): Promise<void> {
     AppStorage.setOrCreate('theme', theme)
-    const win = await window.getLastWindow(getContext())
+    const win = await window.getLastWindow(getContext(this))
     if (theme === 'dark') {
       await win.setWindowColorMode(window.ColorMode.COLOR_MODE_DARK)
     } else if (theme === 'light') {

@@ -163,7 +163,7 @@ struct HomePage {
 import { window } from '@kit.ArkUI'
 
 async function setDarkMode(isDark: boolean): Promise<void> {
-  const win = await window.getLastWindow(getContext())
+  const win = await window.getLastWindow(getContext(this))
   await win.setWindowColorMode(isDark
     ? window.ColorMode.COLOR_MODE_DARK
     : window.ColorMode.COLOR_MODE_LIGHT)

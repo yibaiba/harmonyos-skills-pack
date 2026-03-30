@@ -1366,7 +1366,7 @@ Image(`data:image/png;base64,${base64Str}`)
 import { http } from '@kit.NetworkKit'
 import { fileIo } from '@kit.CoreFileKit'
 
-const CACHE_DIR = getContext().cacheDir + '/images/'
+const CACHE_DIR = getContext().cacheDir + '/images/' // ⚠️ 在组件内应使用 getContext(this)
 
 async function getCachedImage(url: string): Promise<string> {
   const fileName = CACHE_DIR + url.split('/').pop()

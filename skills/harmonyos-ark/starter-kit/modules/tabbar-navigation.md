@@ -1,5 +1,7 @@
 # TabBar 底部导航模板
 
+> ⚠️ **Router 废弃提醒**: 本模板使用 `router` API，新项目推荐使用 `Navigation` 组件替代（见 `snippets/common-patterns.md` 模式三十四）。
+
 > 覆盖：4 Tab 标准结构 / 图标 + 文字 / 激活态样式 / 深色适配 / 多端响应
 
 ## MainPage.ets — 完整 TabBar 页

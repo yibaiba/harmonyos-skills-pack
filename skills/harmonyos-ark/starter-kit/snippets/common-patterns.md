@@ -346,7 +346,7 @@ import { abilityAccessCtrl, Permissions } from '@kit.AbilityKit'
 
 async function requestPermission(permissions: Permissions[]): Promise<boolean> {
   const atManager = abilityAccessCtrl.createAtManager()
-  const result = await atManager.requestPermissionsFromUser(getContext(), permissions)
+  const result = await atManager.requestPermissionsFromUser(getContext(this), permissions)
   return result.authResults.every(r => r === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED)
 }
 
@@ -397,8 +397,8 @@ struct MainPage {
     if (this.forceLogoutTs !== this.lastLogout && this.forceLogoutTs !== 0) {
       this.lastLogout = this.forceLogoutTs
       promptAction.showToast({ message: '登录已过期，请重新登录' })
-      router.clear()
-      router.replaceUrl({ url: 'pages/LoginPage' })
+      router.clear() // ⚠️ 废弃: 新项目用 Navigation，见模式三十四
+      router.replaceUrl({ url: 'pages/LoginPage' }) // ⚠️ 废弃: 新项目用 Navigation，见模式三十四
     }
   }
 }
@@ -488,7 +488,7 @@ struct FadeInDemo {
   @State opacity: number = 0
 
   aboutToAppear(): void {
-    animateTo({ duration: 300, curve: Curve.EaseOut }, () => {
+    this.getUIContext()?.animateTo({ duration: 300, curve: Curve.EaseOut }, () => {
       this.opacity = 1
     })
   }
