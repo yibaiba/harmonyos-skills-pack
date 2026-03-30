@@ -17,6 +17,7 @@
 | `10605999`：`Property 'get' does not exist on type 'never'` | `.then()` 闭包内赋值导致类型收窄为 never | 提取为 `return` 返回值的方法，不用闭包赋值 |
 | `10905210`：`build` 仅允许一个容器根节点 | build 结构被非 DSL 代码干扰 | build() 内只保留 UI DSL，辅助逻辑抽到私有方法 |
 | 连锁报错（5+ 条）：`Property does not exist` + `Cannot find name` | build() 内 UI 组件缺闭合 `}` 致括号错位 | 优先检查 build() 大括号匹配，补齐遗漏的 `}` |
+| **RollupError: Unexpected token** — 列出所有 .ets 文件无行号 | 某 `.ets` 文件严重语法错误，Rollup 无法解析模块图 | 优先检查最近修改的文件；IDE 逐个排查语法异常；常见：缺闭合 `}`、import 错误、`as` 位置错误 |
 
 ## P1 — 本次提交前修复
 
