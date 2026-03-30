@@ -107,15 +107,37 @@
 - [ ] 🟡 规则时效性已在发布前 24 小时内复核
 
 ### H5. 性能
-- [ ] 🟡 首屏加载时间 ≤ 3 秒
+
+**风险分级阈值表**：
+
+| 指标 | 🟢 合格 | 🟡 警告 | 🔴 阻断 |
+|------|---------|---------|---------|
+| 首屏加载（冷启动） | ≤ 2s | 2-3s | > 3s |
+| 页面切换/交互响应 | ≤ 200ms | 200-500ms | > 500ms |
+| 列表滚动帧率 | ≥ 55fps | 45-55fps | < 45fps |
+| 应用内存占用 | ≤ 300MB | 300-500MB | > 500MB 或持续增长 |
+| 应用启动到可交互 | ≤ 1.5s | 1.5-3s | > 3s |
+| 图片加载（本地） | ≤ 100ms | 100-300ms | > 300ms |
+
+- [ ] 🔴 首屏加载 ≤ 3s（冷启动，弱网 ≤ 5s）
 - [ ] 🟡 页面切换/交互响应 ≤ 300ms
 - [ ] 🟡 列表滚动/动画帧率 ≥ 55fps
-- [ ] 🟢 内存使用无持续增长
+- [ ] 🟢 内存使用无持续增长（连续操作 10 分钟后对比）
 
 ### H6. 无障碍
-- [ ] 🟡 文本对比度 ≥ 4.5:1
-- [ ] 🟡 可交互元素具备 accessibility label
-- [ ] 🟢 关键流程可通过键盘完成
+- [ ] 🟡 文本对比度 ≥ 4.5:1（大文本 ≥ 3:1）
+- [ ] 🟡 可交互元素具备 accessibility label / accessibilityText
+- [ ] 🟡 图片/图标设置 accessibilityDescription 或标记为装饰性
+- [ ] 🟢 关键流程可通过键盘 / 屏幕朗读完成
+- [ ] 🟢 焦点顺序合理，无焦点陷阱
+
+**验证工具**：
+- [Colour Contrast Analyser (CCA)](https://www.tpgi.com/color-contrast-checker/) — 桌面端对比度检测
+- [axe DevTools](https://www.deque.com/axe/devtools/) — Chrome 自动化无障碍扫描
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/) — Google 无障碍审计（内置 Chrome）
+- HarmonyOS：Accessibility Kit → `accessibilityText()` / `accessibilityDescription()`
+- iOS：Accessibility Inspector（Xcode 内置）
+- Android：Accessibility Scanner（Google Play）
 
 ### H7. 安全
 - [ ] 🔴 无硬编码密钥
