@@ -113,6 +113,7 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 | 深色模式、主题切换 | starter-kit/modules/dark-multi.md | 检查: topics/ux-standards.md |
 | Navigation、路由、传参 | topics/routing-lifecycle.md | 模板: starter-kit/modules/tabbar-navigation.md |
 | 状态管理、@State、@Provide | topics/state-management.md | 高级: topics/state-management-advanced.md |
+| @ComponentV2、V2 迁移、@Local、@Param | topics/componentv2-migration.md | 决策矩阵+代码示例+混用规则 |
 | 网络请求、HTTP、下载 | topics/network-data.md | 代码: starter-kit/snippets/common-patterns.md §一 |
 | WebSocket、实时、重连 | starter-kit/modules/websocket-realtime.md | 代码: starter-kit/snippets/common-patterns.md §三十三 |
 | 数据库、持久化、Preferences | starter-kit/modules/data-persistence.md | 代码: starter-kit/snippets/common-patterns.md §二十六 |
@@ -169,6 +170,7 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - Router API、Router→Navigation 迁移 -> topics/routing-lifecycle-router.md
 - 全局状态、数据绑定、状态共享 -> topics/state-management.md
 - 状态管理高级用法、反模式、性能优化 -> topics/state-management-advanced.md
+- **@ComponentV2 迁移指南**（V1→V2 决策、装饰器映射、混用规则） -> topics/componentv2-migration.md
 
 ### 🔗 网络 / 存储 / 设备
 - 网络请求、持久化、数据库 -> topics/network-data.md
