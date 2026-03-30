@@ -138,6 +138,7 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - 应用内更新、QuickFix 热修复 -> topics/testing-release.md § "应用更新"
 - 创作激励、审核、上架卡审、合规材料 -> topics/incentive-review-2025.md
 - **ACL 受限权限申请**、system_basic 权限审批 -> topics/acl-permissions.md
+- **安全控件**（PasteButton 读剪贴板 / SaveButton 写媒体库，点击即许可） -> topics/security-components.md
 
 ### 🎨 设计规范
 - UX 体验标准、交互热区、动效、深色模式、多端适配 -> topics/ux-standards.md
@@ -230,6 +231,7 @@ hvigor :entry:default@CompileArkTS
 | 网络请求、持久化、数据库 | topics/network-data.md | 代码: snippets/common-patterns.md § HttpUtil |
 | 发布、签名、上架 | topics/testing-release.md | 清单: checklists/pre-submission-2025.md |
 | ACL、受限权限、权限审批 | topics/acl-permissions.md | 审核: topics/incentive-review-2025.md |
+| 安全控件、PasteButton、SaveButton | topics/security-components.md | 权限: topics/acl-permissions.md |
 | 激励、审核、合规 | topics/incentive-review-2025.md | 设计建议: checklists/universal-product-design-suggestions.md |
 | 编译报错、崩溃 | topics/arkts-error-prevention.md | 守卫: arkts-modernization-guard/SKILL.md |
 | 6.0 新特性、API 变更 | topics/harmonyos-6-overview.md | API: harmonyos-6-api-*.md |
