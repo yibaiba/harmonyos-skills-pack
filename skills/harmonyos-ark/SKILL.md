@@ -97,6 +97,8 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 
 - ❌ **禁止在 `@Builder` 方法体内使用 `let` / `var` 声明变量**（触发 `10905209`）
 - ✅ 计算逻辑提取为 `private` 方法，`@Builder` 内用 `this.method()` 内联
+- ❌ **禁止在 `@Builder` 的 ForEach 回调中写内联 UI 组件**（Flex/Grid 中尤其高发，触发 `10905209`）
+- ✅ ForEach 内容提取为独立 `@Builder` 方法，回调中仅调用 `this.buildXxx()`
 - ❌ **禁止用 `Record<string, Object>` 初始化对象字面量**（触发 `10605038`）
 - ✅ 声明 `interface` 替代 `Record`，对象字面量必须对应已声明的 class/interface
 

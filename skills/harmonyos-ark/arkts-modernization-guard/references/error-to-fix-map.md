@@ -33,6 +33,7 @@
 | WARN：`Function may throw exceptions` | 可抛异常函数缺 try-catch | 包裹 try-catch 或 async/await + catch |
 | `10605038`：`arkts-no-untyped-obj-literals` | `Record<>` 泛型初始化对象字面量 | 声明 `interface` 替代 `Record`，字面量与 interface 对应 |
 | `10905209`：`@Builder` 内 `let` 声明 | @Builder 仅允许 UI DSL | 计算提取为 private 方法，@Builder 内联 `this.method()` |
+| `10905209`：`@Builder` 内 ForEach 写内联 UI | Flex/Grid 中 ForEach 回调直接写 Column/Text 等内联组件 | 提取为独立 `@Builder` 方法，ForEach 内仅调用 `this.buildXxx()` |
 
 ## P2 — 计划修复
 

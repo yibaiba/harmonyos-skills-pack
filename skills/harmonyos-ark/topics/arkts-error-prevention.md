@@ -26,6 +26,7 @@
 | P1 | WARN：`Function may throw exceptions. Special handling is required.` | 调用可能抛异常的函数（如 Preferences 读写、文件 I/O、网络请求）未用 try-catch 包裹 | 所有可能抛异常的调用必须 try-catch 或 async/await + catch；不可忽略此告警，累积后会导致运行时崩溃 |
 | P1 | `10605038`：`arkts-no-untyped-obj-literals` — Record 初始化对象字面量 | `Record<string, Object>` 等泛型工具类型初始化对象字面量，ArkTS 要求字面量必须对应显式声明的 class/interface | 声明 `interface` 替代 `Record<>`；如 `interface CardAction { action: string; params: CardParams }` |
 | P1 | `10905209`：`@Builder` 内写 `let` 声明 | `@Builder` 方法体仅允许 UI DSL 语法，`let` 等命令式语句触发编译错误 | 计算逻辑提取为 `private` 方法，`@Builder` 内用 `this.helperMethod()` 内联调用；`@State` 依赖传参数 |
+| P1 | `10905209`：`@Builder` 内 ForEach 回调写内联 UI | `@Builder` 中的 `ForEach` 回调内直接写 Column/Text 等内联 UI 组件，编译器报"Only UI component syntax"。外层为 Flex/Grid 时尤其高发 | 将 ForEach 回调中的内联 UI 提取为**独立 `@Builder` 方法**，ForEach 内仅调用 `this.buildXxx()`；同时移除 ForEach 未使用的 `index` 参数 |
 | P0 | 连锁报错：build 内 UI 组件缺少闭合 `}` | Row/Column/Stack 等组件遗漏 `}` 后，整个 build 括号树错位，产生 10+ 无关联假报错（属性不存在、作用域丢失等） | 遇到 5+ 看似无关报错时**优先检查 build() 括号匹配**；每个 UI 组件闭合后紧跟属性链 |
 
 ## 固化防回归流程（必做）
