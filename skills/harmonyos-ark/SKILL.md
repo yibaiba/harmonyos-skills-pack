@@ -154,7 +154,8 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 ### 📋 HarmonyOS 6.0 版本变更（API changelog，按需查阅）
 > 仅在需要确认 6.0 API breaking change 或新增 API 时读取。优先读 overview 获取摘要。
 - 6.0 新特性、版本概览、升级适配 -> topics/harmonyos-6-overview.md
-- 6.0 API 变更 — Ability Kit -> topics/harmonyos-6-api-core.md
+- 6.0 API 变更 — Ability Kit 6.0.0 -> topics/harmonyos-6-api-core.md
+- 6.0 API 变更 — Ability Kit 6.0.2 -> topics/harmonyos-6-api-core-602.md
 - 6.0 API 变更 — ArkTS/ArkData -> topics/harmonyos-6-api-core-arkts.md
 - 6.0 ArkUI API 变更 — 6.0.2 前半 -> topics/harmonyos-6-api-arkui.md
 - 6.0 ArkUI API 变更 — 6.0.2 后半 -> topics/harmonyos-6-api-arkui-part2.md
