@@ -107,6 +107,7 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 |--------|--------|------|
 | 下拉刷新、列表、加载更多 | starter-kit/modules/list-page.md | 代码: starter-kit/snippets/common-patterns.md §二十四 |
 | 登录、注册、Token | starter-kit/modules/auth-login.md | API: topics/network-data.md |
+| 免登录、离线优先、引导页 | starter-kit/modules/offline-no-login.md | 变体: starter-kit/modules/optional-login-upgrade.md |
 | 表单、校验、上传 | starter-kit/modules/form-submit.md | 代码: starter-kit/snippets/common-patterns.md §十一 |
 | 权限、相机、文件、媒体 | topics/media-device.md | 模板: starter-kit/modules/media-camera.md |
 | 安全控件、剪贴板、SaveButton | topics/security-components.md | 权限: topics/acl-permissions.md |
@@ -125,7 +126,7 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 | 卡片、Form Kit | topics/form-kit.md | 扫码: topics/scan-kit.md |
 | 指纹、人脸、认证 | topics/user-auth-kit.md | 代码: starter-kit/snippets/common-patterns.md §三十二 |
 | 发布、签名、上架 | topics/testing-release.md | 清单: checklists/pre-submission-2025.md |
-| 审核、激励、合规 | topics/incentive-review-2025.md | 设计: topics/universal-product-design-suggestions.md |
+| 审核、激励、合规 | topics/incentive-review-2025.md | 设计: checklists/universal-product-design-suggestions.md |
 | ACL、受限权限 | topics/acl-permissions.md | 审核: topics/incentive-review-2025.md |
 | 编译报错、崩溃 | topics/arkts-error-prevention.md | 守卫: arkts-modernization-guard/ |
 | 6.0 新特性、API 变更 | topics/harmonyos-6-overview.md | API: topics/harmonyos-6-api-*.md |
