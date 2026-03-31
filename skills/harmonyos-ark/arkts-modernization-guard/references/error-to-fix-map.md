@@ -37,6 +37,8 @@
 | `10905209`：`@Builder` 内 ForEach 写内联 UI | Flex/Grid 中 ForEach 回调直接写 Column/Text 等内联组件 | 提取为独立 `@Builder` 方法，ForEach 内仅调用 `this.buildXxx()` |
 | `10505001`：`Target requires 2 element(s)` ParticleTuple | Particle `color.range` 要求 2 元素元组，传入 `string[]` 长度不匹配 | 改为固定元组：`['#FFD700', '#FF6347'] as [ResourceColor, ResourceColor]` |
 | `10505001`：`setWindowColorMode` does not exist | HarmonyOS NEXT API 12+ 已移除 `Window.setWindowColorMode()` 和 `window.ColorMode` | 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)` |
+| `10505001`：`accessibilityLabel` does not exist on `XxxAttribute` | ArkUI 无 `.accessibilityLabel()` 链式属性，跨框架误用 | 改用 `.accessibilityText("标签")` / `.accessibilityDescription("描述")` |
+| `10505001`：`LAYOUT_TYPE_TIMER` / `title not in LayoutData` / `number not assignable to LiveView` | LiveView 实况窗 API 枚举+接口猜测错误 | 必须查官方文档确认 `LayoutType` 枚举、`LayoutData` 字段、方法签名 |
 
 ## P2 — 计划修复
 

@@ -105,6 +105,10 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - ✅ 改为 `[color1, color2] as [ResourceColor, ResourceColor]` 元组字面量
 - ❌ **禁止调用 `Window.setWindowColorMode()`**（API 12+ 已移除，触发 `10505001`）
 - ✅ 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)`
+- ❌ **禁止使用 `.accessibilityLabel()`**（ArkUI 无此属性，跨框架误用，触发 `10505001`）
+- ✅ 改用 `.accessibilityText("朗读文本")` / `.accessibilityDescription("描述")`
+- ❌ **禁止猜测 LiveView Kit API**（`LayoutType`/`LayoutData`/`liveViewManager` 易猜错）
+- ✅ 使用前**必须**查官方文档确认枚举成员和接口字段
 
 > 📄 完整 60+ 条约束详见 → [topics/arkts-coding-rules.md](topics/arkts-coding-rules.md)
 

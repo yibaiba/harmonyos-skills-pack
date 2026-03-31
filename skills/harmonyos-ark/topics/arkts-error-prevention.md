@@ -31,6 +31,8 @@
 | P1 | `10505001`：`Type 'X[]' is not assignable to type 'ParticleTuple<A, B>'. Target requires 2 element(s)` | Particle 组件的 `color.range` 要求 `[ResourceColor, ResourceColor]` 固定 2 元素元组，但传入 `string[]` 动态数组，长度不匹配 | 改为固定 2 元素元组字面量：`range: ['#FFD700', '#FF6347'] as [ResourceColor, ResourceColor]`；多色需求用 `updater.config` 的关键帧分段 |
 | P1 | `10505001`：`Property 'setWindowColorMode' does not exist on type 'Window'` + `'ColorMode' does not exist on type 'typeof window'` | HarmonyOS NEXT API 12+ 已移除 `Window.setWindowColorMode()` 和 `window.ColorMode`，API 版本不匹配 | 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK)`；需 `import { ConfigurationConstant } from '@kit.AbilityKit'` |
 | P0 | **RollupError: Unexpected token** — hvigor 构建输出列出所有 .ets 文件但无具体行号 | 某个 `.ets` 文件有严重语法错误（未闭合括号、畸形 import、非法类型标注等），Rollup 解析器无法 tokenize 整个模块图 | **优先检查最近修改的文件**；用 IDE 打开逐个排查语法高亮异常；常见元凶：缺少闭合 `}`、`import` 语法错误、`as` 转换位置错误 |
+| P1 | `10505001`：`Property 'accessibilityLabel' does not exist on type 'XxxAttribute'` — Button/Row/Toggle/Text/TextInput/SymbolGlyph 等均报错 | ArkUI **没有** `.accessibilityLabel()` 链式属性。从 React Native / SwiftUI / Web ARIA 照搬命名，跨框架误用 | 改用 `.accessibilityText("标签文本")` 设置朗读文本；描述性说明用 `.accessibilityDescription()`；分组用 `.accessibilityGroup(true)` |
+| P1 | `10505001`：`Property 'LAYOUT_TYPE_TIMER' does not exist on type 'typeof LayoutType'` + `'title' does not exist in type 'LayoutData'` + `'number' not assignable to 'LiveView'` | LiveView（实况窗）API 枚举成员和接口字段与实际 SDK 不匹配，直接猜测 API 导致多处类型错误 | **使用 LiveView Kit 前必须查官方文档确认** `LayoutType` 可用枚举、`LayoutData` 接口字段、`liveViewManager` 方法签名；不可猜测 API |
 
 ## 固化防回归流程（必做）
 
@@ -96,6 +98,14 @@ hvigor :entry:default@CompileArkTS
 - 先查：是否使用了 HarmonyOS NEXT 已移除的 Window 深色模式 API
 - 处理：改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)`
 
+- 日志含 `accessibilityLabel` does not exist
+- 先查：从 React Native / SwiftUI / Web ARIA 照搬了 `accessibilityLabel`
+- 处理：ArkUI 正确 API 为 `.accessibilityText()` / `.accessibilityDescription()`
+
+- 日志含 `LAYOUT_TYPE_TIMER` 或 `title not in LayoutData` 或 `number not assignable to LiveView`
+- 先查：LiveView 实况窗 API 是否凭猜测调用
+- 处理：必须查官方文档确认 LayoutType 枚举、LayoutData 字段、方法签名
+
 ## 快速诊断流程图
 
 遇到编译/运行时错误时，按以下路径快速定位：
@@ -105,8 +115,10 @@ hvigor :entry:default@CompileArkTS
 ├─ **RollupError: Unexpected token** ?
 │  └─ 严重语法错误 → 检查最近修改的文件，逐个排查
 ├─ 含 "does not exist on type" ?
-│  ├─ 枚举成员 → 查 P1 FontWeight 等枚举范围
+│  ├─ `accessibilityLabel` → ArkUI 无此属性，改 `.accessibilityText()`
 │  ├─ `setWindowColorMode` → API 12 已移除，用 ConfigurationConstant
+│  ├─ `LAYOUT_TYPE_TIMER` 等 Kit API → 查官方文档确认枚举/接口
+│  ├─ 枚举成员 → 查 P1 FontWeight 等枚举范围
 │  └─ 其他属性/方法 → 检查 SDK API 版本是否匹配
 ├─ 含 "Target requires N element(s)" ?
 │  └─ ParticleTuple 等元组类型 → 改固定元素数元组字面量
