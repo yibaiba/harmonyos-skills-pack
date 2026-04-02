@@ -218,6 +218,63 @@ Text('Title')
 
 ---
 
+### AMG-012: throw 任意值 → 只抛 Error / 子类
+
+**错误码**：`10605087` `arkts-limited-throw`
+
+```diff
+- // ❌ 抛 string / number
+- throw 'backup failed';
+- throw 500;
++ // ✅ 统一抛 Error
++ throw new Error('backup failed');
+
+- // ❌ 直接重抛未确认类型的捕获值
+- catch (err) {
+-   throw err;
+- }
++ // ✅ 重抛前归一化为 Error
++ catch (err) {
++   if (err instanceof Error) {
++     throw err;
++   }
++   throw new Error(String(err));
++ }
+```
+
+> 规则要点：ArkTS 只允许 `throw` `Error` 或其子类实例；不要抛 string、number、object，也不要直接重抛未确认类型的任意值。
+
+---
+
+### AMG-013: @StorageLink 绑定 @ObservedV2 class → 拆分存储快照与页面级 ViewModel
+
+**错误码**：`10905348`
+
+```diff
+- @StorageLink('loginVm') loginVm: LoginViewModel = new LoginViewModel();
++ @StorageLink('loginUserId') loginUserId: string = '';
++ @StorageLink('loginNickname') loginNickname: string = '';
++ private loginVm: LoginViewModel = new LoginViewModel();
+```
+
+> 规则要点：`@StorageLink` / `@LocalStorageLink` 只适合存储基础字段、数组或可序列化快照；`@ObservedV2` ViewModel 保持页面级实例，按需从快照字段恢复。
+
+---
+
+### AMG-014: 未验证 ohos_ic_public_* 资源名 → 先验证再落代码
+
+**错误码**：`10903329` `Unknown resource name`
+
+```diff
+- Image($r('sys.media.ohos_ic_public_home'));
++ // ✅ 先在当前 SDK / DevEco 资源面板确认名称；拿不准时改本地图标
++ Image($r('app.media.ic_home'));
+```
+
+> 规则要点：`ohos_ic_public_*` 是否存在取决于当前 SDK 资源表，不要凭名称猜；无法确认时优先使用本地图标资源。
+
+---
+
 ## See Also
 
 - [../references/error-to-fix-map.md](../references/error-to-fix-map.md) — 错误码速查

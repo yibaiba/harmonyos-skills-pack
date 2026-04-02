@@ -1,10 +1,10 @@
 ---
-description: ArkTS 编译现代化守卫 — 自动扫描已知坏模式（@Prop 回调、deprecated API、FontWeight.Black 等），在编译前拦截问题
+description: ArkTS 编译现代化守卫 — 自动扫描已知坏模式（@Prop 回调、any/unknown、throw 非 Error、@StorageLink 绑定 @ObservedV2、ohos_ic_public 资源名等），在编译前拦截问题
 ---
 
 # ArkTS 编译现代化守卫
 
-<!-- Agent 摘要：~120 行。ArkTS 现代化扫描入口，提供自动检测 @Prop 回调、deprecated API、FontWeight.Black 等已知坏模式的脚本与修复映射。搜索: arkts guard scan modernization deprecated。 -->
+<!-- Agent 摘要：~120 行。ArkTS 现代化扫描入口，提供自动检测 @Prop 回调、deprecated API、FontWeight.Black、throw 非 Error、@StorageLink 绑定 @ObservedV2 等已知坏模式的脚本与修复映射。搜索: arkts guard scan modernization deprecated throw StorageLink ObservedV2。 -->
 
 ## 目的
 
@@ -35,6 +35,9 @@ bash .codex/skills/harmonyos-ark/arkts-modernization-guard/scripts/scan-arkts-mo
 | AMG-009 | P2 | 未验证的 sys.symbol.* 资源名 | Unknown resource name 风险 |
 | AMG-010 | P1 | `const { a, b } = obj` 解构声明 | ArkTS 不支持，需逐个赋值 |
 | AMG-011 | P1 | `: any` / `: unknown` 类型注解 | 必须使用具体类型或 interface |
+| AMG-012 | P1 | `throw 'msg'` / `throw 123` / `throw {}` | ArkTS 仅允许抛出 `Error` 或其子类实例 |
+| AMG-013 | P1 | `@StorageLink` / `@LocalStorageLink` 绑定 `@ObservedV2` class | Storage 装饰器只绑定快照字段，不直接绑定 ViewModel |
+| AMG-014 | P2 | `ohos_ic_public_*` 系统图标资源名 | 不同 SDK 可用资源不同，提交前需在 DevEco 验证 |
 
 ## 推荐工作流
 

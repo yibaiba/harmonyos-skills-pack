@@ -20,14 +20,16 @@
 | P1 | `10605038` / `10605040` | 未命名对象类型或对象字面量直接作为类型 | 抽离 `interface/type`，避免内联对象类型声明 |
 | P1 | `10605074`：`arkts-no-destruct-decls` | 解构声明（`const { a, b } = obj`）ArkTS 不支持 | 改为逐个赋值：`const a = obj.a; const b = obj.b;` |
 | P1 | `10605008`：`arkts-no-any-unknown` | 使用了 `any` / `unknown` 类型 | 替换为具体类型或 `interface`；泛型场景用 `<T>` 约束 |
+| P1 | `10605087`：`arkts-limited-throw` | `throw` 了 string / number / object 等任意值，或直接重抛未归一化的捕获值 | 统一抛 `Error` / 子类实例；`catch` 后重抛先 `instanceof Error` 判定，不是 `Error` 时包装成 `new Error(String(err))` |
 | P1 | `10605099` | spread 刷新状态（`{ ...state }`、`[...arr]`） | 改显式字段复制或 `slice()/concat()` |
-| P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称；或使用了系统中不存在的符号资源名（如 `trophy`、`target`、`doc_on_doc`、`book_closed`） | 静态资源字面量；使用前在 DevEco 搜索确认符号名存在；不存在的改为已验证可用名或改用本地图片资源 |
+| P2 | `10903329`：`Unknown resource name 'xxx'` | 动态 `$r(...)`、不兼容 `sys.symbol.*` 名称，或未验证的 `ohos_ic_public_*` 系统图标资源名 | 静态资源字面量；使用前在 DevEco 资源面板 / 当前 SDK 搜索确认资源名存在；不存在时改为已验证资源或本地图标 |
 | P2 | deprecated 告警漂移：`animateTo`、`replaceUrl`、`getContext`、`AlertDialog.show`、`pushUrl`、`showDialog`、`showToast` | SDK 升级导致旧 API 逐步废弃 | 每次升级后先跑 guard 扫描，再按当前 SDK 推荐 API 迁移 |
 | P1 | WARN：`Function may throw exceptions. Special handling is required.` | 调用可能抛异常的函数（如 Preferences 读写、文件 I/O、网络请求）未用 try-catch 包裹 | 所有可能抛异常的调用必须 try-catch 或 async/await + catch；不可忽略此告警，累积后会导致运行时崩溃 |
 | P1 | `10605038`：`arkts-no-untyped-obj-literals` — Record 初始化对象字面量 | `Record<string, Object>` 等泛型工具类型初始化对象字面量，ArkTS 要求字面量必须对应显式声明的 class/interface | 声明 `interface` 替代 `Record<>`；如 `interface CardAction { action: string; params: CardParams }` |
 | P1 | `10905209`：`@Builder` 内写 `let` 声明 | `@Builder` 方法体仅允许 UI DSL 语法，`let` 等命令式语句触发编译错误 | 计算逻辑提取为 `private` 方法，`@Builder` 内用 `this.helperMethod()` 内联调用；`@State` 依赖传参数 |
 | P1 | `10905209`：`@Builder` 内 ForEach 回调写内联 UI | `@Builder` 中的 `ForEach` 回调内直接写 Column/Text 等内联 UI 组件，编译器报"Only UI component syntax"。外层为 Flex/Grid 时尤其高发 | 将 ForEach 回调中的内联 UI 提取为**独立 `@Builder` 方法**，ForEach 内仅调用 `this.buildXxx()`；同时移除 ForEach 未使用的 `index` 参数 |
-| P0 | 连锁报错：build 内 UI 组件缺少闭合 `}` | Row/Column/Stack 等组件遗漏 `}` 后，整个 build 括号树错位，产生 10+ 无关联假报错（属性不存在、作用域丢失等） | 遇到 5+ 看似无关报错时**优先检查 build() 括号匹配**；每个 UI 组件闭合后紧跟属性链 |
+| P0 | `10505001` 连锁语法报错：`;` expected / `Declaration or statement expected` / `Cannot find name 'width'` | `build()` / `@Builder` 中 UI 组件遗漏 `}` / `)`、多余 `;`，或把 `.width()` 等属性链从组件表达式上断开，随后产生 10+ 无关假报错 | 遇到这组组合报错时**优先检查首个报错点前 10-20 行的 DSL 闭合与链式属性**；每个 UI 组件闭合后立刻接属性链，辅助逻辑移到私有方法 |
+| P1 | `10905348`：`The type of the '@StorageLink' property cannot be a class decorated with '@ObservedV2'` | 用 `@StorageLink` / `@LocalStorageLink` 绑定 `@ObservedV2` ViewModel / 类实例 | Storage 装饰器只存基础字段、数组或可序列化快照；`@ObservedV2` ViewModel 保持页面级实例，跨页只同步 `id` / `title` / `count` 等快照字段 |
 | P1 | `10505001`：`Type 'X[]' is not assignable to type 'ParticleTuple<A, B>'. Target requires 2 element(s)` | Particle 组件的 `color.range` 要求 `[ResourceColor, ResourceColor]` 固定 2 元素元组，但传入 `string[]` 动态数组，长度不匹配 | 改为固定 2 元素元组字面量：`range: ['#FFD700', '#FF6347'] as [ResourceColor, ResourceColor]`；多色需求用 `updater.config` 的关键帧分段 |
 | P1 | `10505001`：`Property 'setWindowColorMode' does not exist on type 'Window'` + `'ColorMode' does not exist on type 'typeof window'` | HarmonyOS NEXT API 12+ 已移除 `Window.setWindowColorMode()` 和 `window.ColorMode`，API 版本不匹配 | 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK)`；需 `import { ConfigurationConstant } from '@kit.AbilityKit'` |
 | P0 | **RollupError: Unexpected token** — hvigor 构建输出列出所有 .ets 文件但无具体行号 | 某个 `.ets` 文件有严重语法错误（未闭合括号、畸形 import、非法类型标注等），Rollup 解析器无法 tokenize 整个模块图 | **优先检查最近修改的文件**；用 IDE 打开逐个排查语法高亮异常；常见元凶：缺少闭合 `}`、`import` 语法错误、`as` 转换位置错误 |
@@ -74,6 +76,14 @@ hvigor :entry:default@CompileArkTS
 - 先查：`build()` 内是否混入局部变量声明/非 DSL 语句
 - 处理：抽出辅助方法，保持单容器根节点
 
+- 日志含 `throw statements cannot accept values of arbitrary types`
+- 先查：是否 `throw '...'` / `throw 123` / `throw {}`，或 `catch` 后直接 `throw err`
+- 处理：统一改 `throw new Error(...)`；重抛时先 `if (err instanceof Error) { throw err }`
+
+- 日志含 `';' expected` / `Declaration or statement expected` / `Cannot find name 'width'`
+- 先查：首个报错点前一段组件是否少 `}` / `)`、属性链是否被 `;` 或错误换行打断、是否把临时语句塞进 `build()` / `@Builder`
+- 处理：先修 DSL 结构，再看后续派生报错；`.width()` / `.height()` / `.onClick()` 必须紧跟组件表达式
+
 - 告警含 `Function may throw exceptions`
 - 先查：该行调用的函数是否涉及 Preferences/文件/网络等 I/O 操作
 - 处理：用 `try { ... } catch (err) { ... }` 包裹；async 函数中用 `await + try-catch`
@@ -86,9 +96,13 @@ hvigor :entry:default@CompileArkTS
 - 先查：是否把类型别名当构造函数调用（如 `LengthMetrics.vp(16)`）
 - 处理：改用数值字面量（默认 vp）或 `{ value: 16, unit: LengthUnit.VP }` 结构
 
+- 日志含 `@StorageLink` property cannot be a class decorated with `@ObservedV2`
+- 先查：是否把 `@ObservedV2` ViewModel / class 实例放进了 `@StorageLink` / `@LocalStorageLink`
+- 处理：Storage 仅存快照字段；`@ObservedV2` ViewModel 保持页面级实例，按需从快照恢复
+
 - 日志含 `Unknown resource name`
-- 先查：`$r('sys.symbol.xxx')` 中的符号名是否在当前 SDK 中存在
-- 处理：在 DevEco 搜索确认符号名，不存在的改为已验证可用名或本地图片资源
+- 先查：`$r('sys.symbol.xxx')` 或 `$r('sys.media.ohos_ic_public_xxx')` 中的资源名是否在当前 SDK 中存在
+- 处理：在 DevEco 资源面板 / 当前 SDK 搜索确认资源名；不存在时改为已验证资源或本地图标
 
 - 日志含 `Target requires 2 element(s)` 或 `ParticleTuple`
 - 先查：Particle 的 color.range 是否传了动态数组而非 2 元素元组
@@ -126,8 +140,12 @@ hvigor :entry:default@CompileArkTS
 │  └─ 在 .then() 闭包内？ → P0 闭包类型收窄陷阱
 ├─ 含 "used as a value" ?
 │  └─ 类型当构造器用 → P1 LengthMetrics 等纯类型
+├─ 含 "arkts-limited-throw" / "throw statements cannot accept values of arbitrary types" ?
+│  └─ throw 了非 Error 值 → 改 `throw new Error(...)`
+├─ 含 "@StorageLink" + "@ObservedV2" ?
+│  └─ Storage 装饰器绑定了 ViewModel → 改存快照字段，ViewModel 保持页面级
 ├─ 含 "Unknown resource name" ?
-│  └─ sys.symbol 名不存在 → P2 查 DevEco 符号表
+│  └─ sys.symbol / ohos_ic_public 名不存在 → P2 查 DevEco 资源面板
 ├─ 含 "may throw exceptions" ?
 │  └─ 缺 try-catch → P1 异常函数必须捕获
 └─ 其他

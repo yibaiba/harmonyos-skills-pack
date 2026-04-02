@@ -16,7 +16,7 @@
 | `10605999`：`void & Promise<Preferences>` | 直接 `await preferences.getPreferences()` | 封装 `getPrefsStore()` 方法，先判空 hostContext |
 | `10605999`：`Property 'get' does not exist on type 'never'` | `.then()` 闭包内赋值导致类型收窄为 never | 提取为 `return` 返回值的方法，不用闭包赋值 |
 | `10905210`：`build` 仅允许一个容器根节点 | build 结构被非 DSL 代码干扰 | build() 内只保留 UI DSL，辅助逻辑抽到私有方法 |
-| 连锁报错（5+ 条）：`Property does not exist` + `Cannot find name` | build() 内 UI 组件缺闭合 `}` 致括号错位 | 优先检查 build() 大括号匹配，补齐遗漏的 `}` |
+| `10505001`：连锁语法报错（`;` expected / `Declaration or statement expected` / `Cannot find name 'width'`） | `build()` / `@Builder` 中组件闭合丢失、属性链断裂，或混入命令式语句，导致 `.width()` 等链式属性脱离组件表达式 | 优先回看首个报错点前 10-20 行；补齐缺失 `}` / `)`；确保 `.width()` / `.height()` / `.onClick()` 紧跟组件表达式；辅助逻辑移出 `build()` / `@Builder` |
 | **RollupError: Unexpected token** — 列出所有 .ets 文件无行号 | 某 `.ets` 文件严重语法错误，Rollup 无法解析模块图 | 优先检查最近修改的文件；IDE 逐个排查语法异常；常见：缺闭合 `}`、import 错误、`as` 位置错误 |
 
 ## P1 — 本次提交前修复
@@ -30,11 +30,13 @@
 | `10605038`/`10605040`：未命名对象类型 | 内联对象字面量作为类型 | 抽离为 `interface` / `type` |
 | `10605074`：`arkts-no-destruct-decls` | `const { a, b } = obj` 解构声明 | 逐个赋值：`const a = obj.a; const b = obj.b;` |
 | `10605008`：`arkts-no-any-unknown` | 使用 `any` / `unknown` | 替换为具体类型 / `interface` / 泛型 `<T>` |
+| `10605087`：`arkts-limited-throw` | `throw` 了 string / number / object 等任意值 | 统一改为 `throw new Error(...)` 或抛出 `Error` 子类实例；捕获后重抛时先归一化为 `Error` |
 | `10605099`：spread 触发全量重渲染 | `{ ...state }` / `[...arr]` 创建新引用 | 改用 `slice()` / `concat()` / 显式字段复制 |
 | WARN：`Function may throw exceptions` | 可抛异常函数缺 try-catch | 包裹 try-catch 或 async/await + catch |
 | `10605038`：`arkts-no-untyped-obj-literals` | `Record<>` 泛型初始化对象字面量 | 声明 `interface` 替代 `Record`，字面量与 interface 对应 |
 | `10905209`：`@Builder` 内 `let` 声明 | @Builder 仅允许 UI DSL | 计算提取为 private 方法，@Builder 内联 `this.method()` |
 | `10905209`：`@Builder` 内 ForEach 写内联 UI | Flex/Grid 中 ForEach 回调直接写 Column/Text 等内联组件 | 提取为独立 `@Builder` 方法，ForEach 内仅调用 `this.buildXxx()` |
+| `10905348`：`The type of the '@StorageLink' property cannot be a class decorated with '@ObservedV2'` | 用 `@StorageLink` / `@LocalStorageLink` 绑定 `@ObservedV2` ViewModel / 类实例 | Storage 装饰器仅绑定基础字段、数组或可序列化快照；`@ObservedV2` ViewModel 保持页面级实例，跨页只同步 `id` / `title` / `count` 等快照字段 |
 | `10505001`：`Target requires 2 element(s)` ParticleTuple | Particle `color.range` 要求 2 元素元组，传入 `string[]` 长度不匹配 | 改为固定元组：`['#FFD700', '#FF6347'] as [ResourceColor, ResourceColor]` |
 | `10505001`：`setWindowColorMode` does not exist | HarmonyOS NEXT API 12+ 已移除 `Window.setWindowColorMode()` 和 `window.ColorMode` | 改用 `context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.XXX)` |
 | `10505001`：`accessibilityLabel` does not exist on `XxxAttribute` | ArkUI 无 `.accessibilityLabel()` 链式属性，跨框架误用 | 改用 `.accessibilityText("标签")` / `.accessibilityDescription("描述")` |
@@ -44,7 +46,7 @@
 
 | 错误码/现象 | 根因 | 修复动作 |
 |-------------|------|----------|
-| `10903329`：`Unknown resource name` | 动态 `$r()`，或 sys.symbol 名不存在 | 使用静态字面量；DevEco 搜索确认资源名存在 |
+| `10903329`：`Unknown resource name` | 动态 `$r()`、sys.symbol 名不存在，或未验证的 `ohos_ic_public_*` 系统图标资源名 | 使用静态字面量；在 DevEco 资源面板 / 当前 SDK 搜索确认资源名存在；不确定时改用本地图标资源 |
 | deprecated 告警漂移 | SDK 升级导致旧 API 废弃 | 按 SDK 推荐 API 迁移（见替换模板） |
 
 ## deprecated API 迁移表

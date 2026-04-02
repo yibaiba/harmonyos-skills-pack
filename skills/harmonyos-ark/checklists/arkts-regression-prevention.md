@@ -18,7 +18,9 @@
 - [ ] deprecated API 调用（扫描 `@deprecated` 标记的 import）
 - [ ] `FontWeight.Black`（不存在，仅 Lighter/Normal/Regular/Medium/Bold/Bolder）
 - [ ] `LengthMetrics` 作为值使用（仅可用于类型注解，不可 new 或调用）
-- [ ] 未验证的 `sys.symbol.*` 资源名（编译时 Unknown resource name）
+- [ ] `throw 'msg'` / `throw 123` / `throw {}`（ArkTS 只允许抛 `Error` / 子类实例）
+- [ ] `@StorageLink` / `@LocalStorageLink` 绑定 `@ObservedV2` class（会触发 `10905348`）
+- [ ] 未验证的 `sys.symbol.*` / `sys.media.ohos_ic_public_*` 资源名（编译时 Unknown resource name）
 
 ## 改动中
 
@@ -26,6 +28,7 @@
 - [ ] `build()` 内仅保留 DSL，辅助逻辑抽私有方法
 - [ ] `build()` 内不出现 `console.log`、`await`、赋值语句
 - [ ] 条件渲染使用 `if/else`，不在 DSL 内写三元嵌套超过 1 层
+- [ ] `.width()` / `.height()` / `.onClick()` 等属性链紧跟组件表达式；若出现 `Cannot find name 'width'`，优先回看上一段 DSL 闭合
 
 ### 命名与类型
 - [ ] 组件字段避免与链式 API 冲突（`size`、`onClick`、`width` 等内置属性名）
@@ -35,13 +38,14 @@
 ### 资源与引用
 - [ ] 资源参数使用静态 `Resource` / `$r('xxx.yyy.zzz')` 字面量
 - [ ] 颜色使用系统 token（`$r('sys.color.xxx')`），禁止硬编码 `#FFFFFF`
-- [ ] 图标优先 `SymbolGlyph($r('sys.symbol.xxx'))`，使用前确认名称存在
+- [ ] 图标优先 `SymbolGlyph($r('sys.symbol.xxx'))` 或本地图标资源；`sys.symbol.*` / `sys.media.ohos_ic_public_*` 使用前确认名称存在
 
 ### 异步与错误处理
 - [ ] `hostContext`、`Preferences` 调用均做空值保护
 - [ ] 所有 `async` 函数标注返回类型，避免 `Promise<void>` 遗漏 catch
 - [ ] `.then()` 闭包内不依赖外部类型收窄（ArkTS 不追踪闭包内赋值→类型变 `never`）
 - [ ] 可能抛异常的函数调用已包裹 try-catch（编译器 WARN: Function may throw exceptions）
+- [ ] `throw` 仅抛 `Error` / 子类实例，不抛 string / number / object
 
 ### 列表与滚动
 - [ ] 长列表用 `List` + `LazyForEach`（≥ 50 项禁止 `ForEach`）

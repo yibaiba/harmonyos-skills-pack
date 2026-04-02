@@ -109,7 +109,7 @@ export class HttpUtil {
 @Consume   // 后代组件消费
 
 // ── 跨组件/全局状态 ─────────────────────────────────────
-@StorageLink('key')  // 持久化 AppStorage 双向绑定
+@StorageLink('key')  // 持久化 AppStorage 双向绑定（仅基础/可序列化状态，不绑定 @ObservedV2 class）
 @LocalStorageLink    // LocalStorage 双向绑定（HAP 内）
 
 // ── 新版（API 12+）推荐 ─────────────────────────────────

@@ -57,6 +57,7 @@
 | F6 | 构造函数类型 | 使用 lambda |
 | F7 | 生成器函数 `function*` | 使用 `async` / `await` |
 | F8 | `new.target` | 不支持 |
+| F9 | `throw` string / number / object / 任意值 | 仅允许 `throw new Error(...)` 或抛出 `Error` 子类实例 |
 
 ### 1.4 类与接口约束
 
@@ -121,7 +122,9 @@
 | 权限配置 | 调用 API 前确认是否需要权限，在 `module.json5` 中配置 |
 | 依赖管理 | 使用依赖库前确认存在和版本，在 `oh-package.json5` 中配置 |
 | 组件装饰器 | `@Component` 和 `@ComponentV2` 注意兼容性，与已有工程保持一致 |
+| 状态存储边界 | `@StorageLink` / `@LocalStorageLink` 仅绑定基础字段、数组或可序列化快照，禁止直接绑定 `@ObservedV2` class |
 | 资源引用 | UI 常量定义 `resources` 资源值，使用 `$r` 引用，不直接用字面值 |
+| 系统资源校验 | `sys.symbol.*` / `sys.media.ohos_ic_public_*` 使用前在当前 SDK 资源面板验证，不要凭名称猜测 |
 | 国际化 | 新增字符串时在所有语言下添加值，避免遗漏 |
 | 深色主题 | 新增颜色资源确认是否需要深色主题支持，新工程默认支持 |
 
@@ -149,9 +152,12 @@
 □ 是否有函数表达式？              → 改为箭头函数
 □ 是否有 obj["field"]？           → 改为 obj.field
 □ 是否有 for...in？               → 改为普通 for 循环
+□ 是否有 throw 任意值？            → 改为 throw new Error(...)
 □ import 是否在文件顶部？         → 移到最顶部
+□ 是否把 @ObservedV2 class 绑到 StorageLink？ → 改为存快照字段 + 页面级 ViewModel
 □ API 是否已确认官方文档？        → 搜索确认
 □ 是否需要权限？                  → 检查 module.json5
+□ 系统图标资源名是否已验证？       → 先查当前 SDK / DevEco 资源面板
 □ 动画是否改变了布局属性？        → 改用 transform/opacity
 ```
 

@@ -123,7 +123,7 @@ export class LoginViewModel {
 ### UI 层（Page / Component）
 - 只持有 ViewModel 实例和 UI 纯状态（如输入框 focus）
 - 事件处理直接调用 ViewModel 方法，不写业务逻辑
-- 使用 `@LocalStorageLink` / `@StorageLink` 跨页共享 ViewModel
+- 跨页共享时，用 `@LocalStorageLink` / `@StorageLink` 仅同步基础字段或可序列化快照，不直接共享 `@ObservedV2` ViewModel
 
 ```typescript
 // pages/LoginPage.ets
@@ -159,6 +159,8 @@ struct LoginPage {
   }
 }
 ```
+
+> ⚠️ `@StorageLink` / `@LocalStorageLink` 只适合同步 `token`、`id`、主题、草稿字段等快照，不要直接存 `@ObservedV2` ViewModel，否则会触发 `10905348`。
 
 ## 禁止事项（Hard Rules）
 

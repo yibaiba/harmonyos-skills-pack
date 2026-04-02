@@ -4,6 +4,27 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.10] - 2026-04-02
+
+### Added
+
+- **ArkTS 现代化守卫新增 3 条规则**
+  - `AMG-012`: `arkts-limited-throw`（`throw` 非 `Error`）
+  - `AMG-013`: `@StorageLink` / `@LocalStorageLink` 绑定 `@ObservedV2` class
+  - `AMG-014`: `ohos_ic_public_*` 系统图标资源名校验提醒
+- **4 类 ShieldBox 实战报错防回归条目**
+  - `10605087`：`arkts-limited-throw`
+  - `10505001`：DSL 链式属性断裂 / `Cannot find name 'width'`
+  - `10905348`：StorageLink 绑定 `@ObservedV2`
+  - `10903329`：`ohos_ic_public_*` 资源名缺失
+- **3 个新代码替换模板**（`throw` 归一化、Storage 快照拆分、系统图标回退）
+
+### Changed
+
+- **状态管理文档纠偏** — 明确 `@StorageLink` / `@LocalStorageLink` 只绑定快照字段，不直接绑定 `@ObservedV2` ViewModel
+- **Starter Kit 架构说明修正** — 移除“跨页共享 ViewModel”误导表述，统一为“跨页同步快照字段 + 页面级 ViewModel”
+- **README 发布信息同步** — 版本号、守卫规则数、映射表规模、替换模板数更新为当前发布状态
+
 ## [0.1.9] - 2025-07-22
 
 ### Added

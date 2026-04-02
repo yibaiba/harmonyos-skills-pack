@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/harmonyos-skills-pack.svg)](https://www.npmjs.com/package/harmonyos-skills-pack)
 [![GitHub release](https://img.shields.io/github/v/release/yibaiba/harmonyos-skills-pack)](https://github.com/yibaiba/harmonyos-skills-pack/releases)
 
-Current Version: 0.1.3
+Current Version: 0.1.10
 
 这是一个面向 Claude、GitHub Copilot、Codex 等 Coding Agent 的可安装 Skills 项目。
 
@@ -46,10 +46,10 @@ Current Version: 0.1.3
 
 ArkTS 编译现代化守卫，自动扫描代码中的已知坑：
 
-- 9 条扫描规则（P0/P1/P2 分级）
+- 12 条扫描规则（P0/P1/P2 分级）
 - 自动检测 `@Prop` 函数回调、`FontWeight.Black`、deprecated API 等
-- 15+ 错误码→修复方案映射表
-- 9 个 diff 格式代码替换模板
+- 20+ 错误码→修复方案映射表
+- 12 个 diff 格式代码替换模板
 - bash 扫描脚本，可集成 CI/CD
 
 ### 2. universal-product-quality

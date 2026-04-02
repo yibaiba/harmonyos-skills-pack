@@ -128,7 +128,7 @@ find entry/src -name "*.ets" -exec awk 'END{if(NR>300)print FILENAME": "NR" line
 ## 编译现代化入口
 - 当出现 ArkTS 编译错误（如 `10605xxx` / `10505001` / `10903xxx`）或 deprecated 告警时，优先使用：
 - `../arkts-modernization-guard/SKILL.md`
-- 典型场景：`animateTo`/`replaceUrl`/`getContext`/`AlertDialog.show`、动态 `$r(...)`、spread 刷新、符号资源名兼容问题
+- 典型场景：`animateTo`/`replaceUrl`/`getContext`/`AlertDialog.show`、动态 `$r(...)`、spread 刷新、符号资源名兼容问题、`throw` 非 `Error`、`@StorageLink` 绑定 `@ObservedV2`
 - 配套资产：
 - `../arkts-modernization-guard/scripts/scan-arkts-modernization.sh`
 - `../arkts-modernization-guard/references/error-to-fix-map.md`
@@ -143,6 +143,9 @@ find entry/src -name "*.ets" -exec awk 'END{if(NR>300)print FILENAME": "NR" line
 - `@Prop` 函数回调导致运行时崩溃
 - `void & Promise<Preferences>` 类型交叉
 - `@Entry build` 根节点约束/DSL 解析错位
+- `arkts-limited-throw`：`throw` 非 `Error`
+- `@StorageLink` / `@LocalStorageLink` 绑定 `@ObservedV2`
+- `Unknown resource name`（含 `ohos_ic_public_*`）
 
 ## 默认执行门禁（写代码时）
 只要改动 `entry/src/main/ets/**`，就按以下顺序执行：

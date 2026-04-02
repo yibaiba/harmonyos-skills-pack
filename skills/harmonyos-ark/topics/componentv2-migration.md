@@ -283,12 +283,15 @@ struct UserPageV2 {
 3. ✅ @ComponentV2 子组件可以放在 @Component 父组件内（反之亦然）
 4. ✅ @ObservedV2 + @Trace 的 class 可在 V1 和 V2 组件中共用
 5. ✅ 同一页面可以同时包含 @Component 和 @ComponentV2 组件
+6. ❌ `@StorageLink` / `@LocalStorageLink` **不能**声明为 `@ObservedV2` class 类型（会触发 `10905348`）
+7. ✅ AppStorage / LocalStorage 只保存基础字段、数组或可序列化快照；`@ObservedV2` ViewModel 保持页面级实例
 
 ### 推荐策略
 
 - **新模块 / 新页面**：统一用 V2
 - **旧模块**：保持 V1，不强制迁移
 - **共享数据层**：用 @ObservedV2 + @Trace（两边通用）
+- **跨页共享状态**：AppStorage / LocalStorage 仅保存 `id` / `title` / `count` 等快照字段，不直接保存 `@ObservedV2` ViewModel
 - ⚠️ V1 parent → V2 child 传数据时，V2 child 用 @Param 接收（不能用 @Link）
 - ⚠️ V2 parent → V1 child 传数据时，V1 child 可正常使用 @Prop / @Link
 
@@ -316,6 +319,7 @@ struct UserPageV2 {
 - [ ] 将 @Watch → @Monitor（注意参数类型变为 IMonitor）
 - [ ] 将 `$$` 双向绑定 → `!!`
 - [ ] 将 @CustomDialog → openCustomDialog
+- [ ] 未将 `@ObservedV2` class 绑定到 `@StorageLink` / `@LocalStorageLink`
 - [ ] 验证 animateTo 效果正常
 - [ ] 运行全量编译确认无类型错误
 
