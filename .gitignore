@@ -20,3 +20,4 @@ dist/
 # 发布产物
 releases/*.zip
 releases/*.sha256
+.phase3_chrome/
