@@ -4,6 +4,22 @@ All notable changes to this skills pack are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.11] - 2026-04-03
+
+### Added
+
+- **ArkUI 图标规范**（全局硬约束）
+  - ❌ 禁止在 UI 中直接使用 Emoji 表情符号（渲染依赖设备字体，跨设备不一致）
+  - ✅ 改用 `SymbolGlyph($r('sys.symbol.xxx'))` HarmonyOS 原生矢量图标
+  - `SymbolGlyph` 随深色模式自动适配（`fontColor` / `renderingStrategy`）
+  - `sys.symbol.*` 资源名禁止猜测，必须在 DevEco Studio SDK 资源面板验证
+
+### Changed
+
+- **`arkts-coding-rules.md`** — 新增「4 ArkUI 图标规范」章节，快速检查清单增加 Emoji 检查项，原章节编号顺延
+- **`SKILL.md`** — 「ArkUI 动画规范」后新增「ArkUI 图标规范」子节
+- **`AGENTS.md`** — 全局约束摘要追加图标规范条目
+
 ## [0.1.10] - 2026-04-02
 
 ### Added

@@ -93,6 +93,13 @@ globs: ["**/*.ets", "**/*.ts", "**/module.json5", "**/oh-package.json5"]
 - ✅ 复杂子组件设置 `renderGroup(true)`
 - ❌ **禁止在动画中频繁改变 `width`/`height`/`padding`/`margin`**（严重影响性能）
 
+### ArkUI 图标规范
+
+- ❌ **禁止在 UI 中直接使用 Emoji 表情符号**（渲染依赖设备字体，跨设备不一致）
+- ✅ 使用 `SymbolGlyph($r('sys.symbol.xxx')).fontSize(24).fontColor([Color.Black])` 矢量图标替代
+- ✅ `SymbolGlyph` 支持 `fontColor` / `renderingStrategy`，随深色模式自动适配
+- ❌ `sys.symbol.*` 资源名禁止凭名称猜测 → 在 DevEco Studio SDK 资源面板验证后使用
+
 ### @Builder 编码规范
 
 - ❌ **禁止在 `@Builder` 方法体内使用 `let` / `var` 声明变量**（触发 `10905209`）

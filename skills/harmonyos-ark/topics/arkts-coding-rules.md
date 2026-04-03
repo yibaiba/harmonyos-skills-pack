@@ -141,7 +141,18 @@
 
 ---
 
-## 4 快速检查清单
+## 4 ArkUI 图标规范
+
+| 规则 | 说明 |
+|------|------|
+| ❌ 禁止使用 Emoji 表情 | 不得在 UI 中直接嵌入 Emoji 字符（如 ⭐、❤️、📱），渲染结果因设备字体而异，跨设备不一致 |
+| ✅ 使用 SymbolGlyph | 改用 HarmonyOS 原生矢量图标：`SymbolGlyph($r('sys.symbol.xxx')).fontSize(24).fontColor([Color.Black])` |
+| 深色自动适配 | `SymbolGlyph` 支持 `fontColor`、`renderingStrategy`，随深色模式自动适配，无需手动切换 |
+| 图标名称校验 | `sys.symbol.*` 资源名必须在 DevEco Studio SDK 资源面板验证，**禁止凭名称猜测** |
+
+---
+
+## 5 快速检查清单
 
 编码前逐项确认：
 
@@ -158,6 +169,7 @@
 □ API 是否已确认官方文档？        → 搜索确认
 □ 是否需要权限？                  → 检查 module.json5
 □ 系统图标资源名是否已验证？       → 先查当前 SDK / DevEco 资源面板
+□ UI 中是否直接使用了 Emoji？        → 改用 SymbolGlyph($r('sys.symbol.xxx'))
 □ 动画是否改变了布局属性？        → 改用 transform/opacity
 ```
 

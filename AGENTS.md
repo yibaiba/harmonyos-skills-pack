@@ -37,6 +37,7 @@
 - 核心禁止项: `any`/`unknown`、`var`、解构赋值、函数表达式、`obj["field"]`、`for...in`、嵌套函数、`Function.apply/call/bind`、交叉类型、构造函数中声明字段、声明合并、`#private`、`as const`、`delete`属性、`import`不在顶部
 - API 规范: 不确定的 API 禁止猜测，搜索华为官方文档确认；权限配置 module.json5；资源用 `$r` 引用
 - 动画规范: 禁止在动画中频繁改变 width/height/padding/margin
+- 图标规范: 禁止在 UI 中直接使用 Emoji 表情，改用 `SymbolGlyph($r('sys.symbol.xxx'))` 矢量图标
 
 ## Maintenance Rule
 - 标准目录中的技能内容即执行内容。
